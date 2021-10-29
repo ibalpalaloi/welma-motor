@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Supplier;
 use App\Models\Barang_masuk;
+use App\Models\Stok;
 
 class BarangController extends Controller
 {
@@ -61,5 +62,26 @@ class BarangController extends Controller
         $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(10)->get();
         $view = view('manajemen.barang.data_list_barang_masuk', compact('barang_masuk'))->render();
         return response()->json(['view'=>$view]);
+    }
+
+    public function hapus_barang($id){
+        Barang::where('id', $id)->delete();
+
+        return back();
+    }
+
+    public function ubah_stok(Request $request, $id){
+        $cek_stok = Stok::where('barang_id', $id)->first();
+        if($cek_stok != null){
+            $cek_stok->stok = $request->stok;
+            $cek_stok->save();
+        }else{
+            $cek_stok = new Stok;
+            $cek_stok->barang_id = $request->id_barang;
+            $cek_stok->stok = $request->stok;
+            $cek_stok->save();
+        }
+
+        return response()->json(['stok'=>$cek_stok]);
     }
 }

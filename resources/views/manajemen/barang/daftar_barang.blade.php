@@ -68,30 +68,45 @@
             </div>
             
             <div class="card-body">
-                <table id="" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
+                <table id="" style="font-size: 14px" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>Kode Barang</th>
                             <th>Nama</th>
+                            <th>Stok</th>
                             <th>Tipe</th>
                             <th>Harga</th>
                             <th>Satuan</th>
                             <th>Laba</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($barang as $data)
-                            <tr>
+                            <tr id="trow_barang{{$data->id}}">
                                 <td>{{$data->kode_barang}}</td>
                                 <td>{{$data->nama_barang}}</td>
+                                <td id="tdata_jumlah_barang{{$data->id}}">
+                                    <a href="#" ondblclick="show_ubah_stok('{{$data->id}}')" id="stok{{$data->id}}">
+                                        @if ($data->stok != null)
+                                            {{$data->stok->stok}}
+                                        @else
+                                            0
+                                        @endif
+                                    </a>
+                                </td>
                                 <td>{{$data->tipe_barang}}</td>
                                 <td>{{$data->harga}}</td>
                                 <td>{{$data->satuan}}</td>
                                 <td>{{$data->laba}}</td>
+                                <th>
+                                    <a href="/barang/hapus-barang/{{$data->id}}" class="btn btn-danger btn-sm">.</a>
+                                </th>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                
             </div>
         </div>
     </div>
@@ -102,8 +117,47 @@
 
 @section('footer-scripts')
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     function modal_tambah_barang(){
         $('#modal_tambah_barang').modal('show');
+    }
+
+    function hapus_barang(id){
+        $.ajax({
+            type: "GET",
+            url: "/barang/hapus-barang/"+id,
+            success:function(data){
+                $('#trow_barang'+id).remove();
+            }
+        })
+    }
+
+    function show_ubah_stok(id){
+        var stok = parseInt($('#stok'+id).html());
+        var html = "<input onkeydown='post_stok("+id+")' id='input_stok"+id+"' type='number' value='"+stok+"'>";
+        $('#tdata_jumlah_barang'+id).html(html);
+    }
+
+    function post_stok(id){
+        var stok = $('#input_stok'+id).val();
+        if (event.keyCode === 13){
+            $.ajax({
+                type: "post",
+                url: "/post-stok-barang/"+id,
+                data: {'stok': stok, 'id_barang':id},
+                success:function(data){
+                    console.log(data);
+                    var html = "<a href='#' ondblclick='show_ubah_stok("+id+")' id='stok"+id+"'>"+data.stok['stok']+"</a>";
+                    $('#tdata_jumlah_barang'+id).html(html);
+                }
+            })
+        }
+        
     }
 </script>
 @endsection

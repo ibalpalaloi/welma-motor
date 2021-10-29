@@ -17,6 +17,13 @@
                         <label for="exampleInputEmail1">Nama Pembeli</label>
                         <input type="text" class="form-control" name="nama" id="nama" aria-describedby="emailHelp">
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Status</label>
+                        <select name="status" id="" class="form-control">
+                            <option value="umum">Umum</option>
+                            <option value="dinas">Dinas</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
                 </form>
           </div>
@@ -60,6 +67,9 @@
         <div class="card">
             <div class="card-body">
                 <button type="button" onclick="modal_tambah_nota()" class="btn btn-primary btn-sm">Tambah</button>
+                @isset($nota)
+                    <a href="/checkout-nota/{{$nota->id}}" class="float-right btn btn-danger btn-sm ">Checkout</a>
+                @endisset
                 <div class="row">
                     <div class="col">
                         <div class="form-group row">
@@ -69,9 +79,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Status</label>
+                            <div class="col-sm-10">
+                                <input readonly type="text" class="form-control" id="staticEmail" @isset($nota) value="{{$nota->status}}" @endisset >
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="inputPassword" class="col-sm-2 col-form-label">Total Harga</label>
                             <div class="col-sm-10">
-                                <input id="total_pesanan" type="text" class="form-control" @isset($nota) value="{{$total_pesanan}}" @endisset >
+                                <input readonly id="total_pesanan" type="text" class="form-control" @isset($nota) value="{{$total_pesanan}}" @endisset >
                             </div>
                         </div>
                     </div>
@@ -94,16 +110,21 @@
                                 <th width="15%">Harga</th>
                                 <th width="15%">Jumlah</th>
                                 <th width="15%">Total</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="tbody_daftar_nota">
                             @isset($nota)
                                 @foreach ($nota->pesanan as $pesanan)
-                                    <tr>
+                                    <tr id="row_pesanan{{$pesanan->id}}">
                                         <td>{{$pesanan->barang->nama_barang}}</td>
-                                        <td>{{$pesanan->harga}}</td>
-                                        <td>{{$pesanan->jumlah}}</td>
-                                        <td>{{$pesanan->jumlah * $pesanan->harga}}</td>
+                                        <td id="tdata_harga_satuan{{$pesanan->id}}">{{$pesanan->harga}}</td>
+                                        <td id="tdata_nota{{$pesanan->id}}">
+                                            <a href="#" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')" id="jumlah_pesanan{{$pesanan->id}}">{{$pesanan->jumlah}}</a>
+                                        </td>
+                                        <td id="tdata_total_sub_pesanan{{$pesanan->id}}">{{$pesanan->jumlah * $pesanan->harga}}</td>
+                                        <td><button onclick="hapus_pesanan('{{$pesanan->id}}')">Hapus</button></td>
+                                        
                                     </tr>
                                 @endforeach
                             @endisset

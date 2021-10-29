@@ -8,7 +8,10 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Manajemen\Pengguna\PenggunaController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\GetController;
+use App\Http\Controllers\RiwayatController;
 use App\Models\Barang;
+use App\Models\Riwayat_pesanan;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +49,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/penerimaan-barang/get-daftar-barang', [BarangController::class, 'get_daftar_barang']);
     Route::post('/barang-masuk/post-barang-masuk', [BarangController::class, 'post_barang_masuk']);
     Route::get('/barang-masuk/get_list_barang_masuk', [BarangController::class, 'get_list_barang_masuk']);
+    Route::get('/barang/hapus-barang/{id}', [BarangController::class, 'hapus_barang']);
+    Route::post('/post-stok-barang/{id}', [BarangController::class, 'ubah_stok']);
 
     // supplier
     Route::get('/data-supplier', [SupplierController::class, 'data_supplier']);
@@ -56,5 +61,12 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
     Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
     Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);
+    Route::get('/penjualan/hapus-pesanan/{id}', [PenjualanController::class, 'hapus_pesanan']);
+    Route::post('/penjualan/ubah-jumlah-pesanan', [PenjualanController::class, 'ubah_jumlah_pesanan']);
+    Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);
+    // GETController
+    Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
 
+    // riwayat
+    Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
 });

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Nota extends Model
+class Riwayat_nota extends Model
 {
     use HasFactory;
-    protected $table = "nota";
+    protected $table = "riwayat_nota";
 
-    public function pesanan(){
-        return $this->hasMany(Pesanan::class);
+    public function riwayat_pesanan(){
+        return $this->hasMany(Riwayat_pesanan::class);
     }
 
     public function user(){
