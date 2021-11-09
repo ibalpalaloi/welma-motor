@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Nota;
 use App\Models\Pesanan;
+use App\Models\Barang;
 
 class GetController extends Controller
 {
@@ -18,5 +19,17 @@ class GetController extends Controller
         }
 
         return response()->json(['total_pesanan'=>$total_pesanan]);
+    }
+
+    public function get_barang($id){
+        $barang = Barang::find($id);
+
+        return response()->json(['barang'=>$barang]);
+    }
+
+    public function get_pesanan($id){
+        $pesanan = Pesanan::find($id);
+
+        return response()->json(['pesanan'=>$pesanan]);
     }
 }

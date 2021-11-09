@@ -27,7 +27,8 @@ class BarangController extends Controller
             $barang->tipe_barang = $request->tipe_barang;
             $barang->satuan = $request->satuan;
             $barang->harga = $request->harga;
-            $barang->laba = $request->laba;
+            $barang->harga_beli = $request->laba;
+            $barang->merk = $request->merk;
             $barang->save();
             return back();
         }
@@ -37,6 +38,7 @@ class BarangController extends Controller
     public function penerimaan_barang(){
         $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(10)->get();
         $supplier = Supplier::all();
+        // dd($barang_masuk[0]->barang->nama_barang);
         return view('manajemen.barang.barang_masuk', compact('barang_masuk', 'supplier'));
     }
 
@@ -83,5 +85,19 @@ class BarangController extends Controller
         }
 
         return response()->json(['stok'=>$cek_stok]);
+    }
+
+    public function post_ubah_barang(Request $request){
+        $barang = Barang::find($request->id_barang);
+        $barang->kode_barang = $request->kode_barang;
+        $barang->nama_barang = $request->nama_barang;
+        $barang->tipe_barang = $request->tipe_barang;
+        $barang->satuan = $request->satuan;
+        $barang->harga = $request->harga;
+        $barang->harga_beli = $request->harga_beli;
+        $barang->merk = $request->merk;
+        $barang->save();
+        
+        return back();
     }
 }

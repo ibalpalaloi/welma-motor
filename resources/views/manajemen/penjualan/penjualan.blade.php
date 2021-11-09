@@ -106,26 +106,31 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th width="35%">Barang</th>
-                                <th width="15%">Harga</th>
-                                <th width="15%">Jumlah</th>
-                                <th width="15%">Total</th>
+                                <th width="">Barang</th>
+                                <th>Tipe</th>
+                                <th>Merk</th>
+                                <th >Harga</th>
+                                <th >Jumlah</th>
+                                <th >Total</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody id="tbody_daftar_nota">
                             @isset($nota)
                                 @foreach ($nota->pesanan as $pesanan)
-                                    <tr id="row_pesanan{{$pesanan->id}}">
-                                        <td>{{$pesanan->barang->nama_barang}}</td>
-                                        <td id="tdata_harga_satuan{{$pesanan->id}}">{{$pesanan->harga}}</td>
-                                        <td id="tdata_nota{{$pesanan->id}}">
-                                            <a href="#" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')" id="jumlah_pesanan{{$pesanan->id}}">{{$pesanan->jumlah}}</a>
-                                        </td>
-                                        <td id="tdata_total_sub_pesanan{{$pesanan->id}}">{{$pesanan->jumlah * $pesanan->harga}}</td>
-                                        <td><button onclick="hapus_pesanan('{{$pesanan->id}}')">Hapus</button></td>
-                                        
-                                    </tr>
+                                        <tr id="row_pesanan{{$pesanan->id}}">
+                                            <td>{{$pesanan->barang->nama_barang}}</td>
+                                            <td>{{$pesanan->barang->tipe_barang}}</td>
+                                            <td>{{$pesanan->barang->merk}}</td>
+                                            <td id="tdata_harga_satuan{{$pesanan->id}}" ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')">{{$pesanan->harga}}</td>
+                                            <td id="tdata_nota{{$pesanan->id}}">
+                                                <a href="##" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')" id="jumlah_pesanan{{$pesanan->id}}">{{$pesanan->jumlah}}</a>
+                                            </td>
+                                            <td id="tdata_total_sub_pesanan{{$pesanan->id}}">{{$pesanan->jumlah * $pesanan->harga}}</td>
+                                            <td><button onclick="hapus_pesanan('{{$pesanan->id}}')">Hapus</button></td>
+                                            
+                                        </tr>
+                                    
                                 @endforeach
                             @endisset
                         </tbody>
@@ -138,10 +143,10 @@
         <div class="card">
             <div class="card-body">
                 <table border="1" width="100%">
-                    @foreach ($list_nota as $nota)
+                    @foreach ($list_nota as $data_nota)
                         <tr>
-                            <td><a href="#" onclick="pilih_nama_pembeli('{{$nota->id}}')" style="color: black">{{$nota->nama_pembeli}}</a></td>
-                            <td>{{$nota->tgl_nota}}</td> 
+                            <td><a href="#" onclick="pilih_nama_pembeli('{{$data_nota->id}}')" style="color: black">{{$data_nota->nama_pembeli}}</a></td>
+                            <td>{{$data_nota->tgl_nota}}</td> 
                         </tr>
                         
                     @endforeach

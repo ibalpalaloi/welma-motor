@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
+use App\Models\Nota;
+use App\Models\Pesanan;
 
 class RiwayatController extends Controller
 {
@@ -23,7 +25,41 @@ class RiwayatController extends Controller
                 $total_harga = $riwayat_pesanan->jumlah * $riwayat_pesanan->harga;
             }
             $data_riwayat_nota[$i]['total_harga'] = $total_harga;
+            $i++;
         }
         return view('manajemen.riwayat.riwayat_nota', compact('data_riwayat_nota'));
+    }
+
+    public function nota($id){
+        $riwayat_nota = Riwayat_nota::find($id);
+        return view('manajemen.nota', compact('riwayat_nota'));
+    }
+
+    public function batal_checkout($id){
+        $riwayat_nota = Riwayat_nota::find($id);
+        if($riwayat_nota == null){
+            return back();
+        }
+
+        $nota = new Nota;
+        $nota->nama_pembeli = $riwayat_nota->nama_pembeli;
+        $nota->tgl_nota = $riwayat_nota->tgl_nota;
+        $nota->status = $riwayat_nota->status;
+        $nota->user_id = $riwayat_nota->user_id;
+        $nota->save();
+
+        foreach($riwayat_nota->riwayat_pesanan as $data){
+            $pesanan = new Pesanan;
+            $pesanan->nota_id = $nota->id;
+            $pesanan->barang_id = $data->barang_id;
+            $pesanan->harga = $data->harga;
+            $pesanan->jumlah = $data->jumlah;
+            $pesanan->save();
+        }
+
+        $riwayat_nota->delete();
+        Riwayat_pesanan::where('riwayat_nota_id', $id)->delete();
+
+        return back();
     }
 }

@@ -1,5 +1,6 @@
 <script>
-    var nota = {!! json_encode($nota) !!};
+    @isset($nota) var nota = {!! json_encode($nota) !!}; @endisset
+    
     $(function(){
         $('#datepicker').datepicker();
     });
@@ -84,14 +85,46 @@
         $('#tdata_nota'+id).html(html);
     }
 
+    function show_input_ubah_harga_satuan(id){
+        $.ajax({
+            type: "get",
+            url: "/get-pesanan/"+id,
+            success:function(data){
+                console.log(data);
+                html = "<input style='width:150px' type='number' id='input_harga_satuan"+id+"' onkeydown='post_harga_satuan("+id+")' value='"+data.pesanan['harga']+"'>";
+                $('#tdata_harga_satuan'+id).html(html);
+            }
+        })
+    }
+
     function post_jumlah_pesanan(id){
         var jumlah = $('#input_jumlah_pesanan'+id).val();
         if (event.keyCode === 13) {
-            console.log(jumlah);
+            console.log(nota);
             ajax_post_ubah_jumlah_pesanan(id, jumlah);
             get_total_harga_pesanan(nota['id']);
             total_sub_pesanan(jumlah, id)
         }
+    }
+
+    function post_harga_satuan(id){
+        var harga = $('#input_harga_satuan'+id).val();
+        if(event.keyCode === 13){
+            ajax_ubah_harga_satuan(id, harga);
+            get_total_harga_pesanan(nota['id']);
+        }
+    }
+
+    function ajax_ubah_harga_satuan(id, harga_satuan){
+        $.ajax({
+            type: "post",
+            url: "/penjualan/ubah-harga-satuan",
+            data: {'id': id, 'harga_satuan':harga_satuan, "_token": "{{ csrf_token() }}"},
+            success:function(data){
+                $('#tdata_harga_satuan'+id).html(harga_satuan);
+                total_sub_pesanan(data.pesanan['jumlah'], id);
+            }
+        })
     }
 
     function ajax_post_ubah_jumlah_pesanan(id, jumlah){

@@ -11,6 +11,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\RiwayatController;
 use App\Models\Barang;
+use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
 
 /*
@@ -51,6 +52,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/barang-masuk/get_list_barang_masuk', [BarangController::class, 'get_list_barang_masuk']);
     Route::get('/barang/hapus-barang/{id}', [BarangController::class, 'hapus_barang']);
     Route::post('/post-stok-barang/{id}', [BarangController::class, 'ubah_stok']);
+    Route::post('/post-ubah-barang', [BarangController::class, 'post_ubah_barang']);
 
     // supplier
     Route::get('/data-supplier', [SupplierController::class, 'data_supplier']);
@@ -64,9 +66,15 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/penjualan/hapus-pesanan/{id}', [PenjualanController::class, 'hapus_pesanan']);
     Route::post('/penjualan/ubah-jumlah-pesanan', [PenjualanController::class, 'ubah_jumlah_pesanan']);
     Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);
+    Route::post('/penjualan/ubah-harga-satuan', [PenjualanController::class, 'ubah_harga_satuan']);
+
     // GETController
     Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
+    Route::get('/get-barang/{id}', [GetController::class, 'get_barang']);
+    Route::get('/get-pesanan/{id}', [GetController::class, 'get_pesanan']);
 
     // riwayat
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
+    Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
+    Route::get('/batalkan_checkout/{id}', [RiwayatController::class, 'batal_checkout']);
 });

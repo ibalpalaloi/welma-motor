@@ -16,6 +16,7 @@ class PenjualanController extends Controller
         $list_nota = Nota::all(); 
         if(count($request->all())>0){
             $nota = Nota::find($request->id_nota);
+            $this->cek_nota($request->id_nota);
             $total_pesanan = 0;
             foreach($nota->pesanan as $pesanan){
                 $total_pesanan += $pesanan->jumlah * $pesanan->harga;
@@ -26,10 +27,20 @@ class PenjualanController extends Controller
         return view('manajemen.penjualan.penjualan', compact('list_nota'));
     }
 
+    public function cek_nota($id){
+        $pesanan = Pesanan::where('nota_id', $id)->get();
+        foreach($pesanan as $data){
+            if($data->barang == null){
+                Pesanan::where('id', $data->id)->delete();
+            }
+        }
+    }
+
     public function post_tambah_nota(Request $request){
         $nota = new Nota;
         $nota->nama_pembeli = $request->nama;
         $nota->status = $request->status;
+        $nota->user_id = Auth()->user()->id;
         $nota->save();
 
         return redirect('/penjualan-barang?id_nota='.$nota->id);
@@ -96,6 +107,7 @@ class PenjualanController extends Controller
         $nota = Nota::find($id);
         $riwayat_nota = new Riwayat_nota;
         $riwayat_nota->nama_pembeli = $nota->nama_pembeli;
+        $riwayat_nota->user_id = Auth()->user()->id;
         $riwayat_nota->tgl_nota = $nota->tgl_nota;
         $riwayat_nota->status =$nota->status;
         $riwayat_nota->save();
@@ -114,5 +126,13 @@ class PenjualanController extends Controller
         $nota->delete();
 
         return redirect('/penjualan-barang');
+    }
+
+    public function ubah_harga_satuan(Request $request){
+        $pesanan = Pesanan::find($request->id);
+        $pesanan->harga = $request->harga_satuan;
+        $pesanan->save();
+
+        return response()->json(['pesanan'=>$pesanan]);
     }
 }
