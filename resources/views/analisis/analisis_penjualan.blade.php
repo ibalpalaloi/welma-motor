@@ -1,13 +1,24 @@
 @extends('layouts.admin')
 
+@section('header-scripts')
+ 
+
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            <label>Pilih tanggal</label>
+                            <input type="text" class="datepicker">
+                         </div>
+                    </div>
+                    <br>
                     <table class="table">
                         <thead>
                             <tr>
@@ -33,4 +44,10 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer-script')
+<script type="text/javascript">
+    $('.datepicker').datepicker();
+</script>
 @endsection
