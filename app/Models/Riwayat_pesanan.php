@@ -13,4 +13,8 @@ class Riwayat_pesanan extends Model
     public function riwayat_nota(){
         return $this->belongsTo(Riwayat_nota::class);
     }
+
+    public function barang(){
+        return $this->belongsTo(Barang::class);
+    }
 }

@@ -82,6 +82,12 @@
                     		<li><a href="/riwayat-brang-masuk" >Barang Masuk</a></li>
                     	</ul>
                     </li>
+                    <li class="nav-item pcoded-hasmenu">
+                    	<a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Analisis</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
+                    	<ul class="pcoded-submenu">
+                    		<li><a href="/analisis-penjualan">Penjualan</a>
+                    	</ul>
+                    </li>
                 </ul>
             </div>
         </div>

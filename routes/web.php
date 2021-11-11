@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalsisiController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
@@ -77,4 +78,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
     Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
     Route::get('/batalkan_checkout/{id}', [RiwayatController::class, 'batal_checkout']);
+
+    // Analisi
+    Route::get('/analisis-penjualan', [AnalsisiController::class, 'analisis_penjualan']);
 });

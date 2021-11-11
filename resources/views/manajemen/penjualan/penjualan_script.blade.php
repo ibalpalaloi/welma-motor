@@ -50,6 +50,8 @@
                     var tabel = "";
                     tabel += "<tr>";
                     tabel += "<td>"+barang['nama_barang']+"</td>";
+                    tabel += "<td>"+barang['tipe_barang']+"</td>";
+                    tabel += "<td>"+barang['merk']+"</td>";
                     tabel += "<td>"+barang['harga']+"</td>";
                     tabel += "<td>1</td>";
                     tabel += "<td>"+barang['harga']+"</td>";
