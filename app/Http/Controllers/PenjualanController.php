@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pesanan;
 use App\Models\Nota;
+use App\Models\Stok;
 use App\Models\Barang;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
@@ -51,10 +52,26 @@ class PenjualanController extends Controller
         $kode_barang = $request->kode_barang;
         $barang = Barang::where('kode_barang', $kode_barang)->first();
         if(!empty($barang)){
-            $status = "sukses";
-            $this->tambah_pesanan($barang->id, $id_nota);
-            $total_pesanan = $this->get_total_pesanan($id_nota);
-            return response()->json(['barang'=>$barang, 'status'=>$status, 'total_pesanan'=>$total_pesanan]);
+            if($barang->stok != null){
+                if($barang->stok->stok > 0){
+                    $stok = Stok::where('barang_id', $barang->id)->first();
+                    $stok->stok = $stok->stok - 1;
+                    $stok->save();
+                    $status = "sukses";
+                    $tambah_pesanan = $this->tambah_pesanan($barang->id, $id_nota);
+                    $id_pesanan = $tambah_pesanan->id;
+                    $total_pesanan = $this->get_total_pesanan($id_nota);
+                    return response()->json(['barang'=>$barang, 'status'=>$status, 'total_pesanan'=>$total_pesanan, 'id_pesanan'=>$id_pesanan]);
+                }
+                else{
+                    $status = "stok habis";
+                    return response()->json(['status'=>$status]);
+                }
+            }
+            else{
+                $status = "stok habis";
+                return response()->json(['status'=>$status]);
+            }
         }else{
             $status = "gagal";
             return response()->json(['status'=>$status]);
@@ -69,6 +86,8 @@ class PenjualanController extends Controller
         $pesanan->harga = $barang->harga;
         $pesanan->jumlah = 1;
         $pesanan->save();
+
+        return $pesanan;
     }
 
     public function get_total_pesanan($id_nota){
@@ -94,13 +113,27 @@ class PenjualanController extends Controller
 
     public function ubah_jumlah_pesanan(Request $request){
         $pesanan = Pesanan::find($request->id_pesanan);
-        $pesanan->jumlah = $request->jumlah;
-        $pesanan->save();
-
-        return response()->json([
-            'status'=>'sukses',
-            'jumlah'=>$request->jumlah,
-        ]);
+        $jumlah_lama = $pesanan->jumlah;
+        $jumlah_baru = $request->jumlah;
+        $selisih = $jumlah_lama - $jumlah_baru;
+        $stok = Stok::where('barang_id', $pesanan->barang_id)->first();
+        $jumlah_stok = $stok->stok + $selisih;
+        if($jumlah_stok < 0){
+            return response()->json([
+                'status'=>'stok tidak tesedia',
+                'jumlah'=>$jumlah_lama,
+            ]);
+        }
+        else{
+            $pesanan->jumlah = $request->jumlah;
+            $pesanan->save();
+            $stok->stok = $jumlah_stok;
+            $stok->save();
+            return response()->json([
+                'status'=>'sukses',
+                'jumlah'=>$request->jumlah,
+            ]);
+        }
     }
 
     public function checkout_nota($id){
@@ -134,5 +167,11 @@ class PenjualanController extends Controller
         $pesanan->save();
 
         return response()->json(['pesanan'=>$pesanan]);
+    }
+
+    public function hapus_nota($id){
+        Nota::where('id', $id)->delete();
+        Pesanan::where('nota_id', $id)->delete();
+        return redirect('/penjualan-barang');
     }
 }

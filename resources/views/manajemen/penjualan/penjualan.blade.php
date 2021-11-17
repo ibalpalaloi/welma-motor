@@ -49,6 +49,7 @@
                         <th>Tipe</th>
                         <th>Satuan</th>
                         <th>harga</th>
+                        <th>stok</th>
                     </tr>
                 </thead>
                 <tbody id="tbody_modal_cari_barang">
@@ -146,7 +147,10 @@
                     @foreach ($list_nota as $data_nota)
                         <tr>
                             <td><a href="#" onclick="pilih_nama_pembeli('{{$data_nota->id}}')" style="color: black">{{$data_nota->nama_pembeli}}</a></td>
-                            <td>{{$data_nota->tgl_nota}}</td> 
+                            <td>{{$data_nota->tgl_nota}}</td>
+                            <td>
+                                <a href="/hapus_nota/{{$data_nota->id}}" class="btn btn-danger"><i class="feather mr-2 icon-trash"></i></a>
+                            </td> 
                         </tr>
                         
                     @endforeach

@@ -45,19 +45,26 @@
             success:function(data){
                 console.log(data);
                 if(data.status == "sukses"){
+                    $('#input_kode_barang').val("");
                     var barang = data.barang;
                     console.log(barang);
                     var tabel = "";
-                    tabel += "<tr>";
+                    tabel += "<tr id='row_pesanan"+data.id_pesanan+"'>";
                     tabel += "<td>"+barang['nama_barang']+"</td>";
                     tabel += "<td>"+barang['tipe_barang']+"</td>";
                     tabel += "<td>"+barang['merk']+"</td>";
-                    tabel += "<td>"+barang['harga']+"</td>";
-                    tabel += "<td>1</td>";
-                    tabel += "<td>"+barang['harga']+"</td>";
+                    tabel += "<td id='tdata_harga_satuan"+data.id_pesanan+"' ondblclick='show_input_ubah_harga_satuan("+data.id_pesanan+")'>"+barang['harga']+"</td>";
+                    tabel += "<td id='tdata_nota"+data.id_pesanan+"'><a href='##' ondblclick='show_input_ubah_jumlah_pesanan("+data.id_pesanan+")' id='jumlah_pesanan"+data.id_pesanan+"'>1</a></td>";
+                    tabel += "<td id='tdata_total_sub_pesanan"+data.id_pesanan+"'>"+barang['harga']+"</td>";
+                    tabel += "<td><button onclick='hapus_pesanan("+data.id_pesanan+")'>Hapus</button></td>"
                     $('#tbody_daftar_nota').append(tabel);
                     $('#tidak_ditemukan').html('');
                     $('#total_pesanan').val(data.total_pesanan);
+                }
+                else if(data.status == "stok habis"){
+                    alert('stok habis');
+                    $('#tidak_ditemukan').html('');
+                    $('#input_kode_barang').val("");
                 }
                 else{
                     $('#tidak_ditemukan').html('Barang tidak di temukan');
@@ -105,7 +112,6 @@
             console.log(nota);
             ajax_post_ubah_jumlah_pesanan(id, jumlah);
             get_total_harga_pesanan(nota['id']);
-            total_sub_pesanan(jumlah, id)
         }
     }
 
@@ -136,8 +142,18 @@
             data: {'id_pesanan':id, 'jumlah':jumlah, "_token": "{{ csrf_token() }}"},
             success:function(data){
                 console.log(data);
-                var html = "<a href='#' ondblclick='show_input_ubah_jumlah_pesanan("+id+")' id='jumlah_pesanan"+id+"'>"+data.jumlah+"</a>";
-                $('#tdata_nota'+id).html(html);
+                if(data.status == 'sukses'){
+                    var html = "<a href='#' ondblclick='show_input_ubah_jumlah_pesanan("+id+")' id='jumlah_pesanan"+id+"'>"+data.jumlah+"</a>";
+                    $('#tdata_nota'+id).html(html);
+                    total_sub_pesanan(data.jumlah, id)
+                }
+                else{
+                    var html = "<a href='#' ondblclick='show_input_ubah_jumlah_pesanan("+id+")' id='jumlah_pesanan"+id+"'>"+data.jumlah+"</a>";
+                    $('#tdata_nota'+id).html(html);
+                    total_sub_pesanan(data.jumlah, id)
+                    alert(data.status);
+                }
+                
             }
         })
     }

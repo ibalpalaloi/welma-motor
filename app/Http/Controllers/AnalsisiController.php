@@ -9,10 +9,15 @@ use Illuminate\Http\Request;
 class AnalsisiController extends Controller
 {
     //
-    public function analisis_penjualan(){
+    public function analisis_penjualan(Request $request){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
-        $nota = Riwayat_nota::where('tgl_nota', $date_today)->get();
+        if(!empty($request->all())){
+            $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+        }
+        else{
+            $nota = Riwayat_nota::where('tgl_nota', $date_today)->get();
+        }
         $data_nota = array();
         $i = 0;
         $total_harga = 0;
@@ -29,10 +34,10 @@ class AnalsisiController extends Controller
             } 
             $data_nota[$i]['total_harga'] = $total_harga_pernota;
             $data_nota[$i]['total_keuntungan'] = $total_keuntungan_pernota;
-            $total_harga += $total_keuntungan_pernota;
+            $total_harga += $total_harga_pernota;
             $total_keuntungan += $total_keuntungan_pernota;
             $i++;
         }
-        return view('analisis.analisis_penjualan', compact('data_nota'));
+        return view('analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan'));
     }
 }

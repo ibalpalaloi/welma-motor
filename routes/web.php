@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\Manajemen\Pengguna\PenggunaController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PenjualanController;
@@ -68,6 +69,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::post('/penjualan/ubah-jumlah-pesanan', [PenjualanController::class, 'ubah_jumlah_pesanan']);
     Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);
     Route::post('/penjualan/ubah-harga-satuan', [PenjualanController::class, 'ubah_harga_satuan']);
+    Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
 
     // GETController
     Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
@@ -81,4 +83,7 @@ Route::group(['middleware'=> 'auth'], function() {
 
     // Analisi
     Route::get('/analisis-penjualan', [AnalsisiController::class, 'analisis_penjualan']);
+
+    // barcode
+    Route::get('/barcode/{kode}', [BarcodeController::class, 'barcode']);
 });

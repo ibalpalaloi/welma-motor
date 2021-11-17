@@ -15,8 +15,23 @@
                     <div class="row">
                         <div class='col-sm-6'>
                             <label>Pilih tanggal</label>
-                            <input type="text" class="datepicker">
+                            <input type="date" class="datepicker" id="tgl">
+                            <button onclick="lihat_tanggal()">Lihat</button>
+                            <br><br>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-4 col-form-label">Jumlah Transaksi</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Rp. {{number_format($total_harga,0,',','.')}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-4 col-form-label">Keuntungan</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Rp. {{number_format($total_keuntungan,0,',','.')}}">
+                                </div>
+                            </div>
                          </div>
+                         
                     </div>
                     <br>
                     <table class="table">
@@ -46,8 +61,13 @@
     </div>
 @endsection
 
-@section('footer-script')
-<script type="text/javascript">
-    $('.datepicker').datepicker();
+@section('footer-scripts')
+<script>
+    function lihat_tanggal(){
+        var tgl = $('#tgl').val();
+        if(tgl != ""){
+            window.location.href = "/analisis-penjualan?tgl="+tgl;
+        }
+    }
 </script>
 @endsection

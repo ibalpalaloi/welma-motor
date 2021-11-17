@@ -143,11 +143,11 @@
                     <tbody>
                         @foreach ($barang as $data)
                             <tr id="trow_barang{{$data->id}}">
-                                <td>{{$data->kode_barang}}</td>
+                                <td><a href="/barcode/{{$data->kode_barang}}" target="blank">{{$data->kode_barang}}</a></td>
                                 <td>{{$data->nama_barang}}</td>
                                 <td>{{$data->merk}}</td>
                                 <td id="tdata_jumlah_barang{{$data->id}}">
-                                    <a href="#" ondblclick="show_ubah_stok('{{$data->id}}')" id="stok{{$data->id}}">
+                                    <a href="##" ondblclick="show_ubah_stok('{{$data->id}}')" id="stok{{$data->id}}">
                                         @if ($data->stok != null)
                                             {{$data->stok->stok}}
                                         @else
