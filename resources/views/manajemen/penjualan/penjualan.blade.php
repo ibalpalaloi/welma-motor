@@ -144,6 +144,16 @@
         <div class="card">
             <div class="card-body">
                 <table border="1" width="100%">
+                    @isset($nota)
+                        <tr>
+                            <td><b><a href="#" onclick="pilih_nama_pembeli('{{$nota->id}}')" style="color: black">{{$nota->nama_pembeli}}</a></b></td>
+                            <td><b>{{$nota->tgl_nota}}</b></td>
+                            <td>
+                                <a href="/hapus_nota/{{$nota->id}}" class="btn btn-danger"><i class="feather mr-2 icon-trash"></i></a>
+                            </td> 
+                        </tr>
+                    @endisset
+                    
                     @foreach ($list_nota as $data_nota)
                         <tr>
                             <td><a href="#" onclick="pilih_nama_pembeli('{{$data_nota->id}}')" style="color: black">{{$data_nota->nama_pembeli}}</a></td>

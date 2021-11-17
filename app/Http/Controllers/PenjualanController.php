@@ -16,6 +16,7 @@ class PenjualanController extends Controller
     public function penjualan_barang(Request $request){
         $list_nota = Nota::all(); 
         if(count($request->all())>0){
+            $list_nota = Nota::where('id', '!=', $request->id_nota)->get();
             $nota = Nota::find($request->id_nota);
             $this->cek_nota($request->id_nota);
             $total_pesanan = 0;
