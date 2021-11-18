@@ -46,7 +46,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/manajemen/pengguna', [PenggunaController::class, 'index']);
 
     // barang
-    Route::get('/daftar_barang', [BarangController::class, 'daftar_barang']);
+    Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
     Route::post('/post-tambah-barang', [BarangController::class, 'post_tambah_barang']);
     Route::get('/penerimaan-barang', [BarangController::class, 'penerimaan_barang']);
     Route::get('/penerimaan-barang/get-daftar-barang', [BarangController::class, 'get_daftar_barang']);

@@ -67,7 +67,7 @@
                     	<ul class="pcoded-submenu">
                     		<li class="pcoded-hasmenu"><a href="#!">Barang</a>
                     			<ul class="pcoded-submenu">
-                    				<li><a href="/daftar_barang" >Daftar Barang</a></li>
+                    				<li><a href="{{url('manajemen/barang/daftar-barang')}}" >Daftar Barang</a></li>
                     				<li><a href="/penerimaan-barang" >Penerimaan Barang</a></li>
                     				<li><a href="/penjualan-barang" >Penjualan Barang</a></li>
                     			</ul>
@@ -152,7 +152,7 @@
                 </div>
                 <!-- [ Main Content ] start -->
 
-                    @yield('content')
+                @yield('content')
                 <!-- [ Main Content ] end -->
 
                 @yield('modal-content')

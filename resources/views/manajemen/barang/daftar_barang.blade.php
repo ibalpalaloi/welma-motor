@@ -1,12 +1,121 @@
 @extends('layouts.admin')
 
+
+@section('title')
+    
+Daftar | Barang
+@endsection
+
+@section('header-scripts')
+    
+@endsection
+
+@section('header-breadcumb')
+
+Daftar | Barang
+
+@endsection
+
+@section('list-breadcumb')
+<li class="breadcrumb-item active">Barang</li>
+<li class="breadcrumb-item active">Daftar</li>
+
+@endsection
+
+
+
+
+
+
+@section('content')
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>DAFTAR BARANG</h5>
+                <div class="card-header-right">
+                    <div class="card-option">
+                        <button onclick="modal_tambah_barang()" type="button" class="btn btn-sm btn-primary"><i class="feather icon-plus"></i> Tambah</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_tambah_barang_new"><i class="feather icon-plus"></i> Tambah</button>
+
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <table id="" style="font-size: 14px" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th width="1%">No.</th>
+                            <th>Nama Barang</th>
+                            <th>Merk</th>
+                            <th>Stok</th>
+                            <th>Tipe</th>
+                            <th>Harga</th>
+                            <th>Satuan</th>
+                            <th>Harga beli</th>
+                            <th width="6%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($barang as $data)
+                            <tr id="trow_barang{{$data->id}}">
+                                <td>{{$loop->iteration}}.</td>
+                                <td>
+                                    {{ucwords($data->nama_barang)}}
+                                    <br>
+                                    <small><b>Kode : {{$data->kode_barang}}</b></small>
+
+                                </td>
+                                <td>{{$data->merk}}</td>
+                                <td id="tdata_jumlah_barang{{$data->id}}">
+                                    <a href="##" ondblclick="show_ubah_stok('{{$data->id}}')" id="stok{{$data->id}}">
+                                        @if ($data->stok != null)
+                                            {{$data->stok->stok}}
+                                        @else
+                                            0
+                                        @endif
+                                    </a>
+                                </td>
+                                <td>{{$data->tipe_barang}}</td>
+                                <td>{{$data->harga}}</td>
+                                <td>{{$data->satuan}}</td>
+                                <td>{{$data->harga_beli}}</td>
+                                <td>
+
+                                    <button class="btn btn-sm btn-primary"><i class="feather icon-grid"></i> Detail Barang </button>
+
+                                    <div class="btn-group mr-2">
+                                        <button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lainnya</button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#!" onclick="modal_ubah_barang('{{$data->id}}')"><i class="feather icon-edit"></i> Ubah Barang</a>
+                                            <a class="dropdown-item" href="/barang/hapus-barang/{{$data->id}}"><i class="feather icon-trash"></i> Hapus Barang</a>
+                                            <a class="dropdown-item" href="/barcode/{{$data->kode_barang}}" target="_blank"><i class="feather icon-printer"></i> Cetak Barcode</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@endsection
+
 @section('modal-content')
 {{-- modal tambah barang --}}
 <div class="modal" tabindex="-1" role="dialog" id="modal_tambah_barang">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tambah Barang</h5>
+          <h4 class="modal-title">Tambah Barang</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -105,74 +214,95 @@
       </div>
     </div>
 </div>
-@endsection
 
-
-
-@section('content')
-<div class="row">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
+<div class="modal fade" id="modal_tambah_barang_new" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title text-white">Tambah Barang</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
                 <div class="row">
-                    <div class="col-10">
-                        <h5>DAFTAR BARANG</h5>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <label class="mb-0"><small class="text-danger">* </small>Kode Barang</label>
+                                    <input type="text" class="form-control" name="kode_barang" placeholder="Kode Barang..." required>
+                                </div>
+                            </div>
+                            <div class="col align-self-center">
+                                <button class="btn btn-block btn-sm btn-secondary"><i class="feather icon-loader"></i> Generate Kode</button>
+                            </div>
+
+                        </div>
+                  
                     </div>
-                    <div class="col">
-                        <button onclick="modal_tambah_barang()" type="button" class="btn btn-primary"><i class="feather mr-2 icon-plus"></i>Tambah</button>
+          
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="mb-0"><small class="text-danger">* </small>Nama Barang</label>
+                            <input type="text" class="form-control" name="nama_barang" required placeholder="Nama Barang...">
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="mb-0"><small class="text-danger">* </small>Merk</label>
+                            <input type="text" class="form-control" name="merk" required placeholder="Merk...">
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label class="mb-0" ><small class="text-danger">* </small>Tipe</label>
+                            <input type="text" class="form-control" name="tipe_barang" required placeholder="Tipe...">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+              
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="mb-0" ><small class="text-danger">* </small>Harga Jual</label>
+                            <input type="number" class="form-control" name="harga_jual" required placeholder="Harga Jual...">
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="mb-0" ><small class="text-danger">* </small>Harga Beli</label>
+                            <input type="number" class="form-control" name="harga_beli" required placeholder="Harga Beli...">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label class="mb-0" ><small class="text-danger">* </small>Keterangan Satuan</label>
+                            <input type="text" class="form-control" name="keterangan_satuan" required placeholder="Keterangan Satuan...">
+                        </div>
                     </div>
                 </div>
-                
-            </div>
             
-            <div class="card-body">
-                <table id="" style="font-size: 14px" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Kode Barang</th>
-                            <th>Nama</th>
-                            <th>Merk</th>
-                            <th>Stok</th>
-                            <th>Tipe</th>
-                            <th>Harga</th>
-                            <th>Satuan</th>
-                            <th>Harga beli</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($barang as $data)
-                            <tr id="trow_barang{{$data->id}}">
-                                <td><a href="/barcode/{{$data->kode_barang}}" target="blank">{{$data->kode_barang}}</a></td>
-                                <td>{{$data->nama_barang}}</td>
-                                <td>{{$data->merk}}</td>
-                                <td id="tdata_jumlah_barang{{$data->id}}">
-                                    <a href="##" ondblclick="show_ubah_stok('{{$data->id}}')" id="stok{{$data->id}}">
-                                        @if ($data->stok != null)
-                                            {{$data->stok->stok}}
-                                        @else
-                                            0
-                                        @endif
-                                    </a>
-                                </td>
-                                <td>{{$data->tipe_barang}}</td>
-                                <td>{{$data->harga}}</td>
-                                <td>{{$data->satuan}}</td>
-                                <td>{{$data->harga_beli}}</td>
-                                <th>
-                                    <a href="/barang/hapus-barang/{{$data->id}}" class="btn btn-danger btn-sm">.</a>
-                                    <button onclick="modal_ubah_barang('{{$data->id}}')" class="btn btn-primary btn-sm">ubah</button>
-                                </th>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary"> Save </button>
+                <button class="btn btn-danger"> Clear </button>
             </div>
         </div>
     </div>
 </div>
-
 
 @endsection
 
