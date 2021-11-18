@@ -13,7 +13,7 @@
                 <h3 class="mb-4">barcode "{{$kode}}"</h3>
                 <!-- Get PNG Format Example -->
                 
-                <img width="300px" src="data:image/png;base64,{{DNS1D::getBarcodePNG($kode, 'C39+',1,33,array(0,0,0), true)}}" alt="barcode" /><br/><br/>
+                <img width="300px" src="data:image/png;base64,{{DNS1D::getBarcodePNG('123', 'CODABAR')}}" alt="barcode" />
             </div>
         </div>
     </div>
