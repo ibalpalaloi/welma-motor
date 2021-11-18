@@ -88,7 +88,7 @@ Daftar | Barang
                 
                                 </td>
                                 <td>
-                                    <a href="/barcode/{{$data->kode_barang}}" target="_blank" class="btn btn-sm btn-secondary"><i class="feather icon-printer"></i> Download</a>
+                                    <a href="data:image/png;base64,{{DNS1D::getBarcodePNG($data->kode_barang, 'C128', 1 , 36 , array(0,0,0) , true)}}" download="{{ucwords($data->nama_barang)}}_{{$data->kode_barang}}" target="_blank" class="btn btn-sm btn-secondary"><i class="feather icon-printer"></i> Download</a>
                                 </td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" onclick="modal_detail_barang('{{$data->id}}')"><i class="feather icon-grid"></i> Detail Barang </button>
