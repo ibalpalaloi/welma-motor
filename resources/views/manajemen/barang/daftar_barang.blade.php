@@ -224,82 +224,90 @@ Daftar | Barang
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-10">
-                        <div class="row">
-                            <div class="col-sm-9">
-                                <div class="form-group">
-                                    <label class="mb-0"><small class="text-danger">* </small>Kode Barang</label>
-                                    <input type="text" class="form-control" name="kode_barang" placeholder="Kode Barang..." required>
+
+
+            <form action="" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <label class="mb-0"><small class="text-danger">* </small>Kode Barang</label>
+                                        <input type="text" class="form-control" name="kode_barang" placeholder="Kode Barang..." required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col align-self-center">
-                                <button class="btn btn-block btn-sm btn-secondary"><i class="feather icon-loader"></i> Generate Kode</button>
-                            </div>
-
-                        </div>
-                  
-                    </div>
-          
-                </div>
-                <div class="row">
-                    <div class="col-sm-9">
-                        <div class="form-group">
-                            <label class="mb-0"><small class="text-danger">* </small>Nama Barang</label>
-                            <input type="text" class="form-control" name="nama_barang" required placeholder="Nama Barang...">
-                        </div>
-                    </div>
+                                <div class="col align-self-center">
+                                    <button class="btn btn-block btn-sm btn-secondary"><i class="feather icon-loader"></i> Generate Kode</button>
+                                </div>
     
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="mb-0"><small class="text-danger">* </small>Merk</label>
-                            <input type="text" class="form-control" name="merk" required placeholder="Merk...">
+                            </div>
+                      
                         </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label class="mb-0" ><small class="text-danger">* </small>Tipe</label>
-                            <input type="text" class="form-control" name="tipe_barang" required placeholder="Tipe...">
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="row">
               
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="mb-0" ><small class="text-danger">* </small>Harga Jual</label>
-                            <input type="number" class="form-control" name="harga_jual" required placeholder="Harga Jual...">
-                        </div>
-
                     </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="mb-0" ><small class="text-danger">* </small>Harga Beli</label>
-                            <input type="number" class="form-control" name="harga_beli" required placeholder="Harga Beli...">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Nama Barang</label>
+                                <input type="text" class="form-control" name="nama_barang" required placeholder="Nama Barang...">
+                            </div>
                         </div>
-
+        
                     </div>
-
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Merk</label>
+                                <input type="text" class="form-control" name="merk" required placeholder="Merk...">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label class="mb-0" ><small class="text-danger">* </small>Tipe</label>
+                                <input type="text" class="form-control" name="tipe_barang" required placeholder="Tipe...">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                  
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="mb-0" ><small class="text-danger">* </small>Harga Jual</label>
+                                <input type="number" class="form-control" name="harga_jual" required placeholder="Harga Jual...">
+                            </div>
+    
+                        </div>
+    
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="mb-0" ><small class="text-danger">* </small>Harga Beli</label>
+                                <input type="number" class="form-control" name="harga_beli" required placeholder="Harga Beli...">
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label class="mb-0" ><small class="text-danger">* </small>Keterangan Satuan</label>
+                                <input type="text" class="form-control" name="keterangan_satuan" required placeholder="Keterangan Satuan...">
+                            </div>
+                        </div>
+                    </div>
+                
                 </div>
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label class="mb-0" ><small class="text-danger">* </small>Keterangan Satuan</label>
-                            <input type="text" class="form-control" name="keterangan_satuan" required placeholder="Keterangan Satuan...">
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary"> Save </button>
+                    <button class="btn btn-danger"> Clear </button>
                 </div>
-            
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary"> Save </button>
-                <button class="btn btn-danger"> Clear </button>
-            </div>
+
+            </form>
+
+           
         </div>
     </div>
 </div>

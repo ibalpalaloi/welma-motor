@@ -47,7 +47,7 @@ Route::group(['middleware'=> 'auth'], function() {
 
     // barang
     Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
-    Route::post('/post-tambah-barang', [BarangController::class, 'post_tambah_barang']);
+    Route::post('/manajemen/barang/daftar-barang/post-tambah-barang', [BarangController::class, 'post_tambah_barang']);
     Route::get('/penerimaan-barang', [BarangController::class, 'penerimaan_barang']);
     Route::get('/penerimaan-barang/get-daftar-barang', [BarangController::class, 'get_daftar_barang']);
     Route::post('/barang-masuk/post-barang-masuk', [BarangController::class, 'post_barang_masuk']);
