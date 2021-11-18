@@ -14,7 +14,7 @@
                 <!-- Get PNG Format Example -->
                 
                 <img width="300px" src="data:image/png;base64,{{DNS1D::getBarcodePNG('123', 'CODABAR')}}" alt="barcode" /><br><br>
-                <a href="data:image/png;base64,{{DNS1D::getBarcodePNG('123', 'CODABAR')}}" download>Dowload</a>
+                <a href="data:image/png;base64,{{DNS1D::getBarcodePNG('123', 'CODABAR')}}" download="{{$kode}}">Dowload</a>
             </div>
         </div>
     </div>
