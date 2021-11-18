@@ -12,23 +12,27 @@ class BarangController extends Controller
 {
     //
     public function daftar_barang(){
-        $barang = Barang::all();
+        $barang = Barang::OrderBy('nama_barang','asc')->get();
         return view('manajemen.barang.daftar_barang', compact('barang'));
     }
 
     public function post_tambah_barang(Request $request){
+
+        // dd($request->all());
         
         $cek_barang = Barang::where('kode_barang', $request->kode_barang)->get();
+
+        // dd($cek_barang);
         if(count($cek_barang) == 0){
             // Barang::create($request->all());
             $barang = new Barang;
             $barang->kode_barang = $request->kode_barang;
             $barang->nama_barang = $request->nama_barang;
-            $barang->tipe_barang = $request->tipe_barang;
-            $barang->satuan = $request->satuan;
-            $barang->harga = $request->harga;
-            $barang->harga_beli = $request->laba;
             $barang->merk = $request->merk;
+            $barang->tipe_barang = $request->tipe_barang;
+            $barang->satuan = $request->keterangan_satuan;
+            $barang->harga = $request->harga_jual;
+            $barang->harga_beli = $request->harga_modal;
             $barang->save();
             return back();
         }
@@ -43,9 +47,7 @@ class BarangController extends Controller
     }
 
     public function get_daftar_barang(Request $request){
-
         $keyword = $request->keyword;
-        
         $barang = Barang::where('kode_barang', 'LIKE', '%'.$keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$keyword.'%')->get();
         $view = view('manajemen.barang.tabel_data_barang', compact('barang'))->render();
         return response()->json(['view'=>$view]);
@@ -88,14 +90,15 @@ class BarangController extends Controller
     }
 
     public function post_ubah_barang(Request $request){
+
         $barang = Barang::find($request->id_barang);
         $barang->kode_barang = $request->kode_barang;
         $barang->nama_barang = $request->nama_barang;
-        $barang->tipe_barang = $request->tipe_barang;
-        $barang->satuan = $request->satuan;
-        $barang->harga = $request->harga;
-        $barang->harga_beli = $request->harga_beli;
         $barang->merk = $request->merk;
+        $barang->tipe_barang = $request->tipe_barang;
+        $barang->satuan = $request->keterangan_satuan;
+        $barang->harga = $request->harga_jual;
+        $barang->harga_beli = $request->harga_modal;
         $barang->save();
         
         return back();
