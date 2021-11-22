@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Tgl Masuk</label>
-                <input type="text"  class="form-control" id="tambah_barang_masuk_tgl_masuk" >
+                <input type="date"  class="form-control" id="tambah_barang_masuk_tgl_masuk" >
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Jumlah</label>

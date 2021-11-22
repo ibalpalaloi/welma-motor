@@ -80,6 +80,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
     Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
     Route::get('/batalkan_checkout/{id}', [RiwayatController::class, 'batal_checkout']);
+    Route::get('/riwayat-barang-masuk', [RiwayatController::class, 'riwayat_barang_masuk']);
 
     // Analisi
     Route::get('/analisis-penjualan', [AnalsisiController::class, 'analisis_penjualan']);

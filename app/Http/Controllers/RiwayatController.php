@@ -7,6 +7,7 @@ use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
 use App\Models\Nota;
 use App\Models\Pesanan;
+use App\Models\Barang_masuk;
 
 class RiwayatController extends Controller
 {
@@ -61,5 +62,18 @@ class RiwayatController extends Controller
         Riwayat_pesanan::where('riwayat_nota_id', $id)->delete();
 
         return back();
+    }
+    
+    public function riwayat_barang_masuk(Request $request){
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->paginate(40);
+        $daftar_barang = array();
+        $i=0;
+        foreach($barang_masuk as $data){
+            $daftar_barang[$i]['nama'] = $data->barang->nama_barang;
+            $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
+        }
+        if(!empty($request->all)){
+        }
+        return view('manajemen.riwayat.riwayat_barang_masuk', compact('barang_masuk'));
     }
 }
