@@ -18,22 +18,57 @@ Dashboard
 @endsection
 
 @section('content')
-                    
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <h5>Horizontal layout</h5>
-        </div>
-        <div class="card-body">
-            <p>In Horizontal Layout - Navigation bar is set in a Horizontal way. It also showing/hidden while scrolling up/down.</p>
-            <div class="alert alert-info mb-0" role="alert">
-                <p class="mb-0">It is best suited for those applications where you required your navigation is set to be a Horizontal way.</p>
+<div class="row">
+    <div class="col-md-6 col-lg-4">
+        <div class="card widget-statstic-card">
+            <div class="card-body">
+                <div class="card-header-left mb-3">
+                    <h4 class="mb-2">Pengguna</h4>
+                    <hr>
+                </div>
+                <i class="feather icon-users st-icon bg-c-red txt-lite-color"></i>
+                <div class="text-left">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="{{url('manajemen/pengguna')}}" class="btn btn-danger btn-sm btn-block"><i class="feather icon-arrow-right"></i> Daftar</a>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="col-md-6 col-lg-4">
+        <div class="card widget-statstic-card">
+            <div class="card-body">
+                <div class="card-header-left mb-3">
+                    <h4 class="mb-2">Barang</h4>
+                    <hr>
+                </div>
+                <i class="feather icon-package st-icon bg-c-blue"></i>
+                <div class="text-left">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="{{url('manajemen/barang/daftar-barang')}}" class="btn btn-primary btn-sm btn-block"><i class="feather icon-arrow-right"></i> Daftar</a>
+                        </div>
+                        <div class="col-sm-4">
+
+                            <a href="{{url('manajemen/pengguna')}}" class="btn btn-primary btn-sm btn-block"><i class="feather icon-arrow-right"></i> Penerimaan</a>
+
+                        </div>
+                        <div class="col-sm-4">
+
+                            <a href="{{url('manajemen/pengguna')}}" class="btn btn-primary btn-sm btn-block"><i class="feather icon-arrow-right"></i> Penjualan</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
 @endsection
 
 @section('modal-content')

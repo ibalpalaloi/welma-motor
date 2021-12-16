@@ -12,9 +12,7 @@
             <div class="col-md-12">
                 <h3 class="mb-4">barcode "{{$kode}}"</h3>
                 <!-- Get PNG Format Example -->
-                
-                <img width="300px" src="data:image/png;base64,{{DNS1D::getBarcodePNG('123', 'CODABAR')}}" alt="barcode" /><br><br>
-                <a href="data:image/png;base64,{{DNS1D::getBarcodePNG('123', 'CODABAR')}}" download="{{$kode}}">Dowload</a>
+                <a href="data:image/png;base64,{{DNS1D::getBarcodePNG($kode, 'C128', 1 , 36 , array(0,0,0) , true)}}" download="{{$kode}}">Dowload</a>
             </div>
         </div>
     </div>
