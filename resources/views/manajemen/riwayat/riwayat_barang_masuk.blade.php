@@ -9,19 +9,26 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-8">
-                        <h5>DAFTAR BARANG MASUK</h5>
-                    </div>
-                    <div class="col">
-                        <label for="">Cari Barang</label>
-                        <input onkeydown="cari_produk()" type="text" class="" style="width: 100%" id="keyword">
+                <h5>Daftar Barang Masuk</h5>
+                <div class="card-header-right">
+                    <div class="btn-group card-option">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="feather icon-more-horizontal"></i>
+                        </button>
+                        <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-item" onclick="berdasarkan_nama()"><a href="#"><span><i ></i> Berdasarkan Nama</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                            <li class="dropdown-item" onclick="berdasarkan_tgl()"><a href="#"><span><i ></i> Berdasarakan Tanggal</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                        </ul>
                     </div>
                 </div>
-                
             </div>
             
             <div class="card-body">
+                <div id="div-filter-barang">
+                    
+                    
+                </div>
+                <br><br>
                 <table id="" style="font-size: 14px" class="table" style="width:100%">
                     <thead>
                         <tr>
@@ -57,19 +64,31 @@
 
 @section('footer-scripts')
 <script>
-    function cari_produk(){
-        var keyword = $('#keyword').val();
+    function cari_produk_nama(){
+        var keyword = $('#keyword_nama').val();
         if(event.keyCode === 13){
             if(keyword != ""){
                 $.ajax({
                     type: "GET",
                     url: "/riwayat-barang-masuk?keyword="+keyword,
                     success:function(data){
-                        
+                        console.log(data);
                     }
                 })
             }
         }
+    }
+
+    function berdasarkan_nama(){
+        var html = "<label for='' >Cari Produk</label>";
+        html += "<input type='text' onkeyup='cari_produk_nama()' id='keyword_tgl'>";
+        $('#div-filter-barang').html(html);
+    }
+
+    function berdasarkan_tgl(){
+        var html = "<label for=''>Cari Produk</label>";
+        html += "<input type='date' onkeyup='cari_produk_tgl()' id='keyword'>";
+        $('#div-filter-barang').html(html);
     }
 </script>
 @endsection
