@@ -81,7 +81,7 @@
 
     function berdasarkan_nama(){
         var html = "<label for='' >Cari Produk</label>";
-        html += "<input type='text' onkeyup='cari_produk_nama()' id='keyword_tgl'>";
+        html += "<input type='text' onkeyup='cari_produk_nama()' id='keyword_nama'>";
         $('#div-filter-barang').html(html);
     }
 
