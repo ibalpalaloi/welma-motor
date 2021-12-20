@@ -173,4 +173,10 @@
             }
         })
     }
+
+    function checkout(id){
+        window.open("/checkout-nota/"+id, "_blank");
+        window.location.href = "/penjualan-barang";
+        
+    }
 </script>

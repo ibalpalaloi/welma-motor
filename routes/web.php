@@ -82,6 +82,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
     Route::get('/batalkan_checkout/{id}', [RiwayatController::class, 'batal_checkout']);
     Route::get('/riwayat-barang-masuk', [RiwayatController::class, 'riwayat_barang_masuk']);
+    Route::get('/riwayat-barang-masuk-cari-nama-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_nama_produk']);
+    Route::get('/riwayat-barang-masuk-cari-tgl-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_tgl_produk']);
 
     // Analisi
     Route::get('/analisis-penjualan', [AnalsisiController::class, 'analisis_penjualan']);

@@ -69,7 +69,8 @@
             <div class="card-body">
                 <button type="button" onclick="modal_tambah_nota()" class="btn btn-primary btn-sm">Tambah</button>
                 @isset($nota)
-                    <a href="/checkout-nota/{{$nota->id}}" class="float-right btn btn-danger btn-sm ">Checkout</a>
+                    {{-- <a href="/checkout-nota/{{$nota->id}}" class="float-right btn btn-danger btn-sm ">Checkout</a> --}}
+                    <a onclick="checkout('{{$nota->id}}')" href="#" class="float-right btn btn-danger btn-sm ">Checkout</a>
                 @endisset
                 <div class="row">
                     <div class="col">

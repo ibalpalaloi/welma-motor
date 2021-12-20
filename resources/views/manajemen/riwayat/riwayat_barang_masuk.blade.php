@@ -39,7 +39,7 @@
                             <th>Tgl Masuk</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody_data_barang_masuk">
                         @foreach ($barang_masuk as $data)
                             <tr>
                                 <td>{{$data->barang->nama_barang}}</td>
@@ -70,9 +70,26 @@
             if(keyword != ""){
                 $.ajax({
                     type: "GET",
-                    url: "/riwayat-barang-masuk?keyword="+keyword,
+                    url: "/riwayat-barang-masuk-cari-nama-produk?keyword="+keyword,
                     success:function(data){
                         console.log(data);
+                        $('#tbody_data_barang_masuk').html(data.html);
+                    }
+                })
+            }
+        }
+    }
+
+    function cari_produk_tgl(){
+        var keyword = $('#keyword_tgl').val();
+        if(event.keyCode === 13){
+            if(keyword != ""){
+                $.ajax({
+                    type: "GET",
+                    url: "/riwayat-barang-masuk-cari-tgl-produk?keyword="+keyword,
+                    success:function(data){
+                        console.log(data);
+                        $('#tbody_data_barang_masuk').html(data.html);
                     }
                 })
             }
@@ -87,7 +104,7 @@
 
     function berdasarkan_tgl(){
         var html = "<label for=''>Cari Produk</label>";
-        html += "<input type='date' onkeyup='cari_produk_tgl()' id='keyword'>";
+        html += "<input type='date' onkeyup='cari_produk_tgl()' id='keyword_tgl'>";
         $('#div-filter-barang').html(html);
     }
 </script>
