@@ -84,6 +84,7 @@
             url: "/penjualan/hapus-pesanan/"+id,
             success:function(data){
                 $('#row_pesanan'+id).remove();
+                get_total_harga_pesanan(nota['id']);
             }
         })
     }

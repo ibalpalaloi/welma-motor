@@ -315,7 +315,7 @@ Daftar | Barang
             <form action="{{url()->current()}}/post-ubah-barang" method="post">
                 @method('PUT')
                 @csrf
-                <input type="hidden" name="ubah_id">
+                <input type="hidden" name="id_barang" id="ubah_id">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-10">
@@ -406,6 +406,7 @@ Daftar | Barang
 @endsection
 
 @section('footer-scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $.ajaxSetup({
         headers: {
@@ -415,13 +416,17 @@ Daftar | Barang
 
 
     function hapus_barang(id){
-        $.ajax({
-            type: "GET",
-            url: "{{url()->current()}}/hapus-barang/"+id,
-            success:function(data){
-                $('#trow_barang'+id).remove();
-            }
-        })
+        swal("Click on either the button or outside the modal.")
+        .then((value) => {
+            $.ajax({
+                type: "GET",
+                url: "{{url()->current()}}/hapus-barang/"+id,
+                success:function(data){
+                    $('#trow_barang'+id).remove();
+                }
+            })
+        });
+        
     }
 
     function show_ubah_stok(id){
@@ -455,7 +460,7 @@ Daftar | Barang
             success:function(data){
                 console.log(data)
                 var barang = data.barang;
-                $('#ubah_id').val(barang['id']);
+                $('#ubah_id').val(id);
                 $('#ubah_kode_barang').val(barang['kode_barang']);
                 $('#ubah_nama_barang').val(barang['nama_barang']);
                 $('#ubah_tipe_barang').val(barang['tipe_barang']);

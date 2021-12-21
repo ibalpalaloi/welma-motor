@@ -43,7 +43,10 @@ Route::group(['middleware'=> 'auth'], function() {
 
     Route::get('/sign_out', [AuthController::class, 'sign_out']);
 
+    // pengguna
     Route::get('/manajemen/pengguna', [PenggunaController::class, 'index']);
+    Route::post('/post-pengguna-baru', [PenggunaController::class, 'post_pengguna_baru']);
+    Route::get('/hapus-pengguna/{id}', [PenggunaController::class, 'hapus_pengguna']);
 
     // barang
     Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
@@ -59,6 +62,9 @@ Route::group(['middleware'=> 'auth'], function() {
 
     // supplier
     Route::get('/data-supplier', [SupplierController::class, 'data_supplier']);
+    Route::post('/post-ubah-supplier', [SupplierController::class, 'post_ubah_supplier']);
+    Route::get('/hapus-supplier/{id}', [SupplierController::class, 'hapus_supplier']);
+    Route::post('/post-supplier-baru', [SupplierController::class, 'post_supplier_baru']);
 
     // penjualan
     Route::get('/penjualan-barang', [PenjualanController::class, 'penjualan_barang']);
@@ -76,6 +82,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
     Route::get('/get-barang/{id}', [GetController::class, 'get_barang']);
     Route::get('/get-pesanan/{id}', [GetController::class, 'get_pesanan']);
+    Route::get('/get-supplier/{id}', [GetController::class, 'get_supplier']);
 
     // riwayat
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);

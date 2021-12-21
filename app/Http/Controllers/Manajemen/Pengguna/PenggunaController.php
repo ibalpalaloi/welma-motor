@@ -16,4 +16,21 @@ class PenggunaController extends Controller
 
         return view('manajemen.pengguna.index', compact('daftar'));
     }
+
+    public function post_pengguna_baru(Request $request){
+        $user = new User;
+        $user->username = $request->username;
+        $user->nama = $request->nama;
+        $user->roles = $request->role;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return back();
+    }
+
+    public function hapus_pengguna($id){
+        $user = User::find($id);
+        $user->delete();
+        return back();
+    }
 }

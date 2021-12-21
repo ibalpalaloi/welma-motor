@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Nota;
 use App\Models\Pesanan;
 use App\Models\Barang;
+use App\Models\Supplier;
 
 class GetController extends Controller
 {
@@ -31,5 +32,11 @@ class GetController extends Controller
         $pesanan = Pesanan::find($id);
 
         return response()->json(['pesanan'=>$pesanan]);
+    }
+
+    public function get_supplier($id){
+        $supplier = Supplier::find($id);
+
+        return response()->json(['supplier'=>$supplier]);
     }
 }
