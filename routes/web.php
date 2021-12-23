@@ -55,17 +55,19 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::put('/manajemen/pengguna/post-ubah-pengguna', [PenggunaController::class, 'post_ubah_pengguna']);
     Route::get('/manajemen/pengguna/hapus-pengguna/{id}', [PenggunaController::class, 'hapus_pengguna']);
 
-    // barang
+    // BARANG
+    // DAFTAR BARANG
     Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
     Route::post('/manajemen/barang/daftar-barang/post-tambah-barang', [BarangController::class, 'post_tambah_barang']);
     Route::put('/manajemen/barang/daftar-barang/post-ubah-barang', [BarangController::class, 'post_ubah_barang']);
     Route::get('/manajemen/barang/daftar-barang/hapus-barang/{id}', [BarangController::class, 'hapus_barang']);
     Route::post('/manajemen/barang/daftar-barang/post-stok-barang/{id}', [BarangController::class, 'ubah_stok']);
 
-    Route::get('/penerimaan-barang', [BarangController::class, 'penerimaan_barang']);
-    Route::get('/penerimaan-barang/get-daftar-barang', [BarangController::class, 'get_daftar_barang']);
-    Route::post('/barang-masuk/post-barang-masuk', [BarangController::class, 'post_barang_masuk']);
-    Route::get('/barang-masuk/get_list_barang_masuk', [BarangController::class, 'get_list_barang_masuk']);
+    // PENERIMAAN
+    Route::get('/manajemen/barang/penerimaan-barang', [BarangController::class, 'penerimaan_barang']);
+    Route::get('/manajemen/barang/penerimaan-barang/get-daftar-barang', [BarangController::class, 'get_daftar_barang']);
+    Route::post('/manajemen/barang/penerimaan-barang/post-barang-masuk', [BarangController::class, 'post_barang_masuk']);
+    Route::get('/manajemen/barang/penerimaan-barang/get-list-barang-masuk', [BarangController::class, 'get_list_barang_masuk']);
 
     // supplier
     Route::get('/data-supplier', [SupplierController::class, 'data_supplier']);

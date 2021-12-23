@@ -1,50 +1,57 @@
 @extends('layouts.admin')
 
-@section('header-scripts')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+@section('title')
+    
+Penerimaan Barang | Barang
 @endsection
+
+@section('header-scripts')
+
+<link rel="stylesheet" href="{{asset('assets/css/plugins/select2.min.css')}}">
+
+@endsection
+
+@section('header-breadcumb')
+
+Penerimaan Barang | Barang
+
+@endsection
+
+
+@section('list-breadcumb')
+<li class="breadcrumb-item active">Barang</li>
+<li class="breadcrumb-item active">Penerimaan Barang</li>
+
+@endsection
+
+
+
+@php
+function tgl_indo($tanggal){
+$bulan = array (
+1 => 'Januari',
+'Februari',
+'Maret',
+'April',
+'Mei',
+'Juni',
+'Juli',
+'Agustus',
+'September',
+'Oktober',
+'November',
+'Desember'
+);
+$pecahkan = explode('-', $tanggal);
+return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
+@endphp
+
 
 @section('content')
 
-{{-- modal --}}
-<div class="modal" tabindex="-1" role="dialog" id="modal_tambah_barang_masuk">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Barang Masuk</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <input type="text" id="tambah_barang_masuk_id_barang" hidden>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Nama Barang</label>
-                <input readonly type="text"  class="form-control" id="tambah_barang_masuk_nama_barang">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Supplier</label>
-                <select class="form-control" id="tambah_barang_masuk_nama_supplier">
-                  @foreach ($supplier as $data)
-                      <option value="{{$data->id}}">{{$data->nama_supplier}}</option>
-                  @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Tgl Masuk</label>
-                <input type="date"  class="form-control" id="tambah_barang_masuk_tgl_masuk" >
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Jumlah</label>
-                <input type="number"  class="form-control" id="tambah_barang_masuk_jumlah" >
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="post_barang_masuk()">Simpam</button>
-        </div>
-      </div>
-    </div>
-</div>
+
 
 
 
@@ -52,19 +59,21 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-header">
-                <h4>Barang Masuk</h4>
+                <h5>DAFTAR BARANG</h5>
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Cari Produk</label>
-                    <input type="text" class="form-control" id="cari_produk_input" aria-describedby="emailHelp" placeholder="Kode/Nama Barang">
+                    <label for="exampleInputEmail1"><strong>CARI BARANG : </strong></label>
+                    <input type="text" class="form-control" id="cari_produk_input" placeholder="Kode / Nama Barang">
                 </div>
                 <hr>
-                <table class="table">
+                <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
                     <thead>
                         <tr>
                             <th>Kode</th>
                             <th>Nama</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="tbody_daftar_barang">
@@ -77,13 +86,16 @@
 
     <div class="col-sm-6">
         <div class="card">
+            <div class="card-header">
+                <h5>RIWAYAT BARANG MASUK</h5>
+            </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table-datatables table table-striped table-bordered table-hover dt-responsive nowrap">
                     <thead>
                         <tr>
                             <th>Barang</th>
                             <th>Supplier</th>
-                            <th>Jumlah</th>
+                            <th>Jumlah Masuk</th>
                             <th>Tgl Masuk</th>
                         </tr>
                     </thead>
@@ -99,7 +111,9 @@
                                     @endif
                                     
                                 <td>{{$data->jumlah_barang}}</td>
-                                <td>{{$data->tgl_masuk}}</td>
+                                <td>
+                                    {{ tgl_indo(date('Y-m-d', strtotime($data->tgl_masuk))) }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -111,8 +125,64 @@
 </div>
 @endsection
 
+@section('modal-content')
+
+{{-- modal --}}
+<div class="modal" tabindex="-1" role="dialog" id="modal_tambah_barang_masuk">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h4 class="modal-title text-white">TAMBAH BARANG MASUK</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <input type="text" id="tambah_barang_masuk_id_barang" hidden>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nama Barang</label>
+                <input readonly type="text" class="pl-2 form-control" id="tambah_barang_masuk_nama_barang" required>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="exampleFormControlSelect1">Supplier</label>
+
+                    </div>
+                    <div class="col-sm-12">
+                        <select class="select2 form-control py-2" id="tambah_barang_masuk_nama_supplier" style="width: 100%" required>
+                            @foreach ($supplier as $data)
+                                <option value="{{$data->id}}">{{$data->nama_supplier}}</option>
+                            @endforeach
+                          </select>
+                    </div>
+                </div>
+        
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Tanggal Masuk</label>
+                <input type="date" class="form-control" id="tambah_barang_masuk_tgl_masuk" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Jumlah</label>
+                <input type="number" class="form-control" id="tambah_barang_masuk_jumlah" placeholder="Jumlah Barang..." required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-sm" onclick="post_barang_masuk()">Simpan</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+@endsection
+
 @section('footer-scripts')
+<script src="{{asset('assets/js/plugins/select2.full.min.js')}}"></script>
+
 <script>
+
+
 
     $.ajaxSetup({
         headers: {
@@ -128,7 +198,7 @@
     function get_list_produk(keyword){
         $.ajax({
             type: "get",
-            url: "/penerimaan-barang/get-daftar-barang?keyword="+keyword,
+            url: "{{url()->current()}}/get-daftar-barang?keyword="+keyword,
             success:function(data){
                 $('#tbody_daftar_barang').html(data.view);
             }
@@ -150,7 +220,7 @@
         
         $.ajax({
             type : "POST",
-            url: "/barang-masuk/post-barang-masuk",
+            url: "{{url()->current()}}/post-barang-masuk",
             data: {'id_barang':id_barang, 'id_supplier':id_supplier, 'jumlah':jumlah, 'tgl_masuk':tgl_masuk},
             success:function(data){
                 $('#modal_tambah_barang_masuk').modal('hide');
@@ -164,11 +234,23 @@
     function get_tabel_list_barang_masuk(){
         $.ajax({
             type: "GET",
-            url: "/barang-masuk/get_list_barang_masuk",
+            url: "{{url()->current()}}/get-list-barang-masuk",
             success:function(data){
                 $('#tbody_list_barang_masuk').html(data.view);
             }
         })
     }
+
+    $(document).ready(function() {
+        $('.table-datatables-daftar-barang-masuk').DataTable({
+                responsive: true,
+                searching: false,
+        });
+
+        $(".select2").select2({
+            dropdownParent: $('#modal_tambah_barang_masuk')
+        });
+
+    });
 </script>
 @endsection

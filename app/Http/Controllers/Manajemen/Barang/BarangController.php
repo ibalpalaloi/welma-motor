@@ -50,7 +50,14 @@ class BarangController extends Controller
 
     public function get_daftar_barang(Request $request){
         $keyword = $request->keyword;
-        $barang = Barang::where('kode_barang', 'LIKE', '%'.$keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$keyword.'%')->get();
+        if ($keyword != null) {
+            $barang = Barang::where('kode_barang', 'LIKE', '%'.$keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$keyword.'%')->get();
+        }
+        else{
+
+            $barang = Barang::take(0)->get();
+        }
+
         $view = view('manajemen.barang.tabel_data_barang', compact('barang'))->render();
         return response()->json(['view'=>$view]);
     }
@@ -64,7 +71,7 @@ class BarangController extends Controller
     }
 
     public function get_list_barang_masuk(){
-        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(10)->get();
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(20)->get();
         $view = view('manajemen.barang.data_list_barang_masuk', compact('barang_masuk'))->render();
         return response()->json(['view'=>$view]);
     }
