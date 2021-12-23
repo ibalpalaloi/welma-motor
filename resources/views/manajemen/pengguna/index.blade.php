@@ -54,8 +54,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             </div>
 
             <div class="card-body">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Pengguna</button>
-                <br><br>
+         
                 <table id="" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
