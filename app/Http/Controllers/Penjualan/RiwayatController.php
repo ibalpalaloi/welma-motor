@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Penjualan;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;

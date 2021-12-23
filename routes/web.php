@@ -5,13 +5,19 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\BarcodeController;
+
+use App\Http\Controllers\Manajemen\Barang\BarangController;
+use App\Http\Controllers\Manajemen\Barang\BarcodeController;
 use App\Http\Controllers\Manajemen\Pengguna\PenggunaController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\Manajemen\Supplier\SupplierController;
+
+use App\Http\Controllers\Penjualan\PenjualanController;
+use App\Http\Controllers\Penjualan\RiwayatController;
+use App\Http\Controllers\Penjualan\AnalisisController;
+
+
+
 use App\Http\Controllers\GetController;
-use App\Http\Controllers\RiwayatController;
 use App\Models\Barang;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
@@ -48,11 +54,6 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::post('/manajemen/pengguna/post-tambah-pengguna', [PenggunaController::class, 'post_tambah_pengguna']);
     Route::put('/manajemen/pengguna/post-ubah-pengguna', [PenggunaController::class, 'post_ubah_pengguna']);
     Route::get('/manajemen/pengguna/hapus-pengguna/{id}', [PenggunaController::class, 'hapus_pengguna']);
-
-    // pengguna
-    Route::get('/manajemen/pengguna', [PenggunaController::class, 'index']);
-    Route::post('/post-pengguna-baru', [PenggunaController::class, 'post_pengguna_baru']);
-    Route::get('/hapus-pengguna/{id}', [PenggunaController::class, 'hapus_pengguna']);
 
     // barang
     Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
@@ -100,7 +101,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/riwayat-barang-masuk-cari-tgl-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_tgl_produk']);
 
     // Analisi
-    Route::get('/analisis-penjualan', [AnalsisiController::class, 'analisis_penjualan']);
+    Route::get('/analisis-penjualan', [AnalisisController::class, 'analisis_penjualan']);
 
     // barcode
     Route::get('/barcode/{kode}', [BarcodeController::class, 'barcode']);

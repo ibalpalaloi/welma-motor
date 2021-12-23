@@ -60,6 +60,9 @@
                     	<a href="{{route('home')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
                     <li class="nav-item">
+                    	<a href="{{url('manajemen/pengguna')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Penjualan</span></a>
+                    </li>
+                    <li class="nav-item">
                     	<a href="{{url('manajemen/pengguna')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Pengguna</span></a>
                     </li>
                     <li class="nav-item pcoded-hasmenu">

@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Manajemen\Barang;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Supplier;
 use App\Models\Barang_masuk;
 use App\Models\Stok;
+
 
 class BarangController extends Controller
 {

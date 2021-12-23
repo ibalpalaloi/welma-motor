@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Penjualan;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
-use Illuminate\Http\Request;
 
-class AnalsisiController extends Controller
+class AnalisisController extends Controller
 {
     //
     public function analisis_penjualan(Request $request){
