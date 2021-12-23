@@ -44,7 +44,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-light">
                 <h5>DAFTAR PENGGUNA</h5>
                 <div class="card-header-right">
                     <div class="card-option">
@@ -235,7 +235,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 
                 </div>
                 <div class="modal-footer p-2">
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-danger btn-sm"><i class="feather icon-refresh-ccw"></i> Tutup</button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-danger btn-sm"><i class="feather icon-refresh-ccw"></i> Batal</button>
                     <button type="submit" class="btn btn-primary btn-sm"><i class="feather icon-save"></i>  Simpan</button>
                 </div>
 

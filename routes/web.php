@@ -70,10 +70,10 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/manajemen/barang/penerimaan-barang/get-list-barang-masuk', [BarangController::class, 'get_list_barang_masuk']);
 
     // supplier
-    Route::get('/data-supplier', [SupplierController::class, 'data_supplier']);
-    Route::post('/post-ubah-supplier', [SupplierController::class, 'post_ubah_supplier']);
-    Route::get('/hapus-supplier/{id}', [SupplierController::class, 'hapus_supplier']);
-    Route::post('/post-supplier-baru', [SupplierController::class, 'post_supplier_baru']);
+    Route::get('/manajemen/supplier/data-supplier', [SupplierController::class, 'data_supplier']);
+    Route::post('/manajemen/supplier/post-tambah-supplier', [SupplierController::class, 'post_supplier_baru']);
+    Route::post('/manajemen/supplier/post-ubah-supplier', [SupplierController::class, 'post_ubah_supplier']);
+    Route::get('/manajemen/supplier/hapus-supplier/{id}', [SupplierController::class, 'hapus_supplier']);
 
     // penjualan
     Route::get('/penjualan-barang', [PenjualanController::class, 'penjualan_barang']);

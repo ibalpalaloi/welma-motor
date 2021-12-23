@@ -58,7 +58,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 <div class="row">
     <div class="col-sm-6">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-light">
                 <h5>DAFTAR BARANG</h5>
             </div>
             <div class="card-body">
@@ -86,7 +86,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
     <div class="col-sm-6">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-light">
                 <h5>RIWAYAT BARANG MASUK</h5>
             </div>
             <div class="card-body">

@@ -43,10 +43,11 @@ class SupplierController extends Controller
     }
 
     public function post_supplier_baru(Request $request){
+
         $validator = Validator::make($request->all(),[
-            'nama' => 'required',
-            'kontak' => 'required',
-            'keterangan' => 'required'
+            'nama_supplier' => 'required',
+            'kontak_supplier' => 'required',
+            'keterangan_supplier' => 'required'
         ]);
 
         if($validator->fails()){
@@ -54,9 +55,9 @@ class SupplierController extends Controller
         }
 
         $supplier = new Supplier;
-        $supplier->nama_supplier = $request->nama;
-        $supplier->kontak = $request->kontak;
-        $supplier->keterangan = $request->keterangan;
+        $supplier->nama_supplier = $request->nama_supplier;
+        $supplier->kontak = $request->nama_supplier;
+        $supplier->keterangan = $request->nama_supplier;
         $supplier->save();
 
         return back();

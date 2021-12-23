@@ -1,143 +1,196 @@
 @extends('layouts.admin')
 
+@section('title')
+Supplier
+@endsection
+
+@section('header-scripts')
+    
+@endsection
+
+@section('header-breadcumb')
+Supplier
+@endsection
+
+@section('list-breadcumb')
+<li class="breadcrumb-item active">Supplier</li>
+    
+@endsection
+
+
 @section('content')
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>DAFTAR SUPPLIER</h5>
+                <div class="card-header-right">
+                    <div class="card-option">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_tambah_supplier"><i class="feather icon-plus"></i> Tambah</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Supplier</th>
+                            <th>Kontak (Nomor Telepon/HP)</th>
+                            <th>Keterangan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($supplier as $data)
+                            <tr>
+                                <td>{{$loop->iteration}}.</td>
+                                <td>{{$data->nama_supplier}}</td>
+                                <td>{{$data->kontak}}</td>
+                                <td>{{$data->keterangan}}</td>
+                                <td>
+                                    <button onclick="ubah_supplier('{{$data->id}}', '{{$data->nama_supplier}}', '{{$data->kontak}}', '{{$data->keterangan}}')" type="button" class="btn btn-primary btn-sm"> <i class="feather icon-edit"></i> Ubah Supplier</button>
+                                    <button onclick="hapus_supplier('{{$data->id}}')" type="button" class="btn btn-danger btn-sm"><i class="feather icon-trash"></i> Hapus Supplier</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('modal-content')
 
 <div class="modal fade" id="modal_ubah_supplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ubah Supplier</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-header bg-primary">
+            <h4 class="modal-title text-white">Ubah Supplier</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
-            <form action="{{url('/post-ubah-supplier')}}" method="POST">
+            <form action="{{url()->current()}}/post-ubah-supplier" method="POST">
                 @csrf
-                    <input type="hidden" id="ubah_id" name="id_supplier">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nama</label>
-                        <input name="nama" type="text" class="form-control" id="ubah_nama" aria-describedby="emailHelp">
+                    <input type="hidden" id="id_supplier" name="id_supplier">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Nama Supplier</label>
+                                <input type="text" class="form-control" name="nama_supplier_ubah" id="nama_supplier_ubah"  required placeholder="Nama Supplier...">
+                            </div>
+                      
+                        </div>
+              
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Kontak</label>
-                        <input name="kontak" type="text" class="form-control" id="ubah_kontak" aria-describedby="emailHelp">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Kontak <small>(Nomor Telepon/HP)</small></label>
+                                <input type="text" class="form-control" name="kontak_supplier_ubah" id="kontak_supplier_ubah" required placeholder="Nama Pengguna...">
+                            </div>
+                        </div>
+        
                     </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Keterangan</label>
-                        <textarea name="keterangan" class="form-control" id="ubah_keterangan" rows="3"></textarea>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Keterangan Supplier</label>
+                                <textarea name="keterangan_supplier_ubah" class="form-control" id="keterangan_supplier_ubah" rows="3"></textarea>
+                            </div>
+                        </div>
+        
                     </div>
             
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="feather icon-refresh-ccw"></i> Batal</button>
+                <button type="submit" class="btn btn-primary btn-sm"><i class="feather icon-save"></i>  Simpan</button>
             </div>
         </form>
       </div>
     </div>
 </div>
-
 
 {{-- modal tambah supplier --}}
-<div class="modal fade" id="modal_tambah_supplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah Supplier</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form action="{{url('/post-supplier-baru')}}" method="POST">
+<div class="modal fade" id="modal_tambah_supplier" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title text-white">Tambah Supplier</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{url()->current()}}/post-tambah-supplier" method="post">
                 @csrf
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nama</label>
-                        <input name="nama" type="text" class="form-control" id="ubah_nama" aria-describedby="emailHelp">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Nama Supplier</label>
+                                <input type="text" class="form-control" name="nama_supplier" id="nama_supplier"  required placeholder="Nama Supplier...">
+                            </div>
+                      
+                        </div>
+              
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Kontak</label>
-                        <input name="kontak" type="text" class="form-control" id="ubah_kontak" aria-describedby="emailHelp">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Kontak <small>(Nomor Telepon/HP)</small></label>
+                                <input type="text" class="form-control" name="kontak_supplier" id="kontak_supplier" required placeholder="Nama Pengguna...">
+                            </div>
+                        </div>
+        
                     </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Keterangan</label>
-                        <textarea name="keterangan" class="form-control" id="ubah_keterangan" rows="3"></textarea>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <label class="mb-0"><small class="text-danger">* </small>Keterangan Supplier</label>
+                                <textarea name="keterangan_supplier" class="form-control" id="keterangan_supplier" rows="3"></textarea>
+                            </div>
+                        </div>
+        
                     </div>
-            
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-        </form>
-      </div>
-    </div>
-</div>
-
-
-<div class="col-sm-12">
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-10">
-                    <h5>DAFTAR SUPPLIER</h5>
+                
                 </div>
-                <div class="col">
-                    <button onclick="modal_tambah_supplier()" type="button" class="btn btn-primary"><i class="feather mr-2 icon-plus"></i>Tambah</button>
+                <div class="modal-footer p-2">
+                    <button type="reset" class="btn btn-danger btn-sm"><i class="feather icon-refresh-ccw"></i> Reset</button>
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="feather icon-save"></i>  Simpan</button>
                 </div>
-            </div>
-            
-        </div>
-        <div class="card-body">
-            <table id="" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Supplier</th>
-                        <th>Kontak</th>
-                        <th>Keterangan</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($supplier as $data)
-                        <tr>
-                            <td>{{$data->nama_supplier}}</td>
-                            <td>{{$data->kontak}}</td>
-                            <td>{{$data->keterangan}}</td>
-                            <td>
-                                <button onclick="ubah_supplier('{{$data->id}}', '{{$data->nama_supplier}}', '{{$data->kontak}}', '{{$data->keterangan}}')" type="button" class="btn btn-primary">Ubah</button>
-                                <button onclick="hapus_supplier('{{$data->id}}')" type="button" class="btn btn-danger">Hapus</button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+            </form>
+
+           
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('footer-scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     function ubah_supplier(id, nama, kontak, keterangan){
-        $('#ubah_id').val(id);
-        $('#ubah_nama').val(nama);
-        $('#ubah_kontak').val(kontak);
-        $('#ubah_keterangan').val(keterangan);
+        $('#id_supplier').val(id);
+        $('#nama_supplier_ubah').val(nama);
+        $('#kontak_supplier_ubah').val(kontak);
+        $('#keterangan_supplier_ubah').val(keterangan);
         $('#modal_ubah_supplier').modal('show');
     }
 
     function hapus_supplier(id){
         swal("Yakin Ingin Menghapus ??")
         .then((value) => {
-            window.location.href = "/hapus-supplier/"+id;
+            window.location.href = "{{url()->current()}}/hapus-supplier/"+id;
         });
     }
 
-    function modal_tambah_supplier(){
-        $('#modal_tambah_supplier').modal('show');
-    }
 </script> 
 @endsection
