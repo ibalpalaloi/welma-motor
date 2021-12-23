@@ -89,7 +89,6 @@ class BarangController extends Controller
     }
 
     public function post_ubah_barang(Request $request){
-
         $barang = Barang::find($request->id_barang);
         $barang->kode_barang = $request->kode_barang;
         $barang->nama_barang = $request->nama_barang;

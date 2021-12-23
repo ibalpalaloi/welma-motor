@@ -67,8 +67,8 @@ class PenggunaController extends Controller
 
     public function hapus_pengguna($id){
 
-        User::where('id', $id)->delete();
-
-        return redirect()->back();
+        $user = User::find($id);
+        $user->delete();
+        return back();
     }
 }

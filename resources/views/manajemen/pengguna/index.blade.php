@@ -52,7 +52,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                     </div>
                 </div>
             </div>
+
             <div class="card-body">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Pengguna</button>
+                <br><br>
                 <table id="" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -92,7 +95,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lainnya</button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="javascript:void(0)" onclick="modal_ubah_pengguna('{{$row->id}}')"><i class="feather icon-edit"></i> Ubah Pengguna</a>
-                                        <a class="dropdown-item" hhref="javascript:void(0)" onclick="hapus_barang('{{$row->id}}')" ><i class="feather icon-trash"></i> Hapus Pengguna</a>
+                                        <a class="dropdown-item" hhref="javascript:void(0)" onclick="hapus_pengguna('{{$row->id}}')" ><i class="feather icon-trash"></i> Hapus Pengguna</a>
                                     </div>
                                 </div>
 
@@ -248,6 +251,8 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 @section('footer-scripts')
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>    
+
 <script>
 
 $.ajaxSetup({
@@ -279,16 +284,21 @@ function modal_ubah_pengguna(id){
         })
 }
 
-function hapus_barang(id){
-        $.ajax({
-            type: "GET",
-            url: "{{url()->current()}}/hapus-pengguna/"+id,
-            success:function(data){
-                $('#trow_pengguna_'+id).remove();
-            }
-        })
+function hapus_pengguna(id){
+    swal("Yakin Ingin Hapus Akun Ini")
+        .then((value) => {
+
+            $.ajax({
+                type: "GET",
+                url: "{{url()->current()}}/hapus-pengguna/"+id,
+                success:function(data){
+                    $('#trow_pengguna_'+id).remove();
+                }
+            })
+
+        });
+       
     }
 
 </script>
-    
 @endsection

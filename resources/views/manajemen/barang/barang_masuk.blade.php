@@ -91,7 +91,13 @@
                         @foreach ($barang_masuk as $data)
                             <tr>
                                 <td>{{$data->barang->nama_barang}}</td>
-                                <td>{{$data->supplier->nama_supplier}}</td>
+                                <td>
+                                    @if ($data->supplier)
+                                        {{$data->supplier->nama_supplier}}</td>
+                                    @else
+                                        -
+                                    @endif
+                                    
                                 <td>{{$data->jumlah_barang}}</td>
                                 <td>{{$data->tgl_masuk}}</td>
                             </tr>

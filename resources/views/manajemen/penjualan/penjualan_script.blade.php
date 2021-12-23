@@ -84,6 +84,7 @@
             url: "/penjualan/hapus-pesanan/"+id,
             success:function(data){
                 $('#row_pesanan'+id).remove();
+                get_total_harga_pesanan(nota['id']);
             }
         })
     }
@@ -172,5 +173,11 @@
                 $('#total_pesanan').val(data.total_pesanan);
             }
         })
+    }
+
+    function checkout(id){
+        window.open("/checkout-nota/"+id, "_blank");
+        window.location.href = "/penjualan-barang";
+        
     }
 </script>

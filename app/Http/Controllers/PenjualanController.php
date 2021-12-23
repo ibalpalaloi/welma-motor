@@ -159,7 +159,7 @@ class PenjualanController extends Controller
         Pesanan::where('nota_id', $nota->id)->delete();
         $nota->delete();
 
-        return redirect('/penjualan-barang');
+        return redirect("/nota/".$riwayat_nota->id);
     }
 
     public function ubah_harga_satuan(Request $request){

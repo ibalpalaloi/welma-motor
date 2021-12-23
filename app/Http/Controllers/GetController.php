@@ -7,6 +7,7 @@ use App\Models\Nota;
 use App\Models\Pesanan;
 use App\Models\Barang;
 use App\Models\User;
+use App\Models\Supplier;
 
 class GetController extends Controller
 {
@@ -39,6 +40,11 @@ class GetController extends Controller
         $pengguna = User::find($id);
 
         return response()->json(['pengguna' => $pengguna]);
+    }
         
+    public function get_supplier($id){
+        $supplier = Supplier::find($id);
+
+        return response()->json(['supplier'=>$supplier]);
     }
 }

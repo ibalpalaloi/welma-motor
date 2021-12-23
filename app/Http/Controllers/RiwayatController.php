@@ -23,7 +23,7 @@ class RiwayatController extends Controller
             $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
             $total_harga = 0;
             foreach($data->riwayat_pesanan as $riwayat_pesanan){
-                $total_harga = $riwayat_pesanan->jumlah * $riwayat_pesanan->harga;
+                $total_harga += $riwayat_pesanan->jumlah * $riwayat_pesanan->harga;
             }
             $data_riwayat_nota[$i]['total_harga'] = $total_harga;
             $i++;
@@ -65,15 +65,29 @@ class RiwayatController extends Controller
     }
     
     public function riwayat_barang_masuk(Request $request){
-        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->paginate(40);
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->paginate(50);
         $daftar_barang = array();
         $i=0;
         foreach($barang_masuk as $data){
             $daftar_barang[$i]['nama'] = $data->barang->nama_barang;
             $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
         }
-        if(!empty($request->all)){
-        }
         return view('manajemen.riwayat.riwayat_barang_masuk', compact('barang_masuk'));
+    }
+
+    public function riwayat_barang_masuk_cari_nama_produk(Request $request){
+        $keyword = $request->keyword;
+        $barang_masuk = Barang_masuk::whereHas('barang', function($query) use($keyword){
+            $query->where('nama_barang', 'LIKE', '%'.$keyword.'%');
+        })->get();
+        $view = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('barang_masuk'))->render();
+        return response()->json(['html'=>$view]);
+    }
+
+    public function riwayat_barang_masuk_cari_tgl_produk(Request $request){
+        $keyword = $request->keyword;
+        $barang_masuk = Barang_masuk::where('tgl_masuk', $keyword)->get();
+        $view = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('barang_masuk'))->render();
+        return response()->json(['html'=>$view]);
     }
 }
