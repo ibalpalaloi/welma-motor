@@ -43,7 +43,13 @@ Route::group(['middleware'=> 'auth'], function() {
 
     Route::get('/sign_out', [AuthController::class, 'sign_out']);
 
+    // PENGGUNA
     Route::get('/manajemen/pengguna', [PenggunaController::class, 'index']);
+    Route::post('/manajemen/pengguna/post-tambah-pengguna', [PenggunaController::class, 'post_tambah_pengguna']);
+    Route::put('/manajemen/pengguna/post-ubah-pengguna', [PenggunaController::class, 'post_ubah_pengguna']);
+    Route::get('/manajemen/pengguna/hapus-pengguna/{id}', [PenggunaController::class, 'hapus_pengguna']);
+
+
 
     // barang
     Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
@@ -76,6 +82,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
     Route::get('/get-barang/{id}', [GetController::class, 'get_barang']);
     Route::get('/get-pesanan/{id}', [GetController::class, 'get_pesanan']);
+    Route::get('/get-pengguna/{id}', [GetController::class, 'get_pengguna']);
+
 
     // riwayat
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);

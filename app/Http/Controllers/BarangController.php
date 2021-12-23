@@ -59,7 +59,6 @@ class BarangController extends Controller
         $supplier->supplier_id = $request->id_supplier;
         $supplier->jumlah_barang = $request->jumlah;
         $supplier->save();
-
     }
 
     public function get_list_barang_masuk(){
