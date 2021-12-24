@@ -1,32 +1,240 @@
 @extends('layouts.admin')
 
-@section('header-script')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@section('title')
+    
+Penjualan
+@endsection
+
+@section('header-scripts')
+    
+@endsection
+
+@section('header-breadcumb')
+
+Penjualan
+
+@endsection
+
+@section('list-breadcumb')
+<li class="breadcrumb-item active">Penjualan</li>
+@endsection
+
+@php
+function tgl_indo($tanggal){
+$bulan = array (
+1 => 'Januari',
+'Februari',
+'Maret',
+'April',
+'Mei',
+'Juni',
+'Juli',
+'Agustus',
+'September',
+'Oktober',
+'November',
+'Desember'
+);
+$pecahkan = explode('-', $tanggal);
+return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
+@endphp
+
+
+@section('content')
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>DAFTAR NOTA</h5>
+                <div class="card-header-right">
+                    <div class="card-option">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-tambah-nota"><i class="feather icon-plus"></i> Tambah Nota</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table width="100%" class="table-datatables table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Tanggal Nota</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @isset($nota)
+                        <tr class="font-weight-bold">
+                            <td><b><a href="#" onclick="pilih_nama_pembeli('{{$nota->id}}')" style="color: black">{{$nota->nama_pembeli}}</a></b></td>
+                            <td><b>
+                                {{ tgl_indo(date('Y-m-d', strtotime($nota->tgl_nota))) }}
+                            </b></td>
+                            <td>
+                                <a href="/hapus_nota/{{$nota->id}}" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</a>
+                            </td> 
+                        </trc>
+                    @endisset
+                    
+                    @foreach ($list_nota as $data_nota)
+                        <tr>
+                            <td><a href="#" onclick="" style="color: black">{{$data_nota->nama_pembeli}}</a></td>
+                            <td>{{ tgl_indo(date('Y-m-d', strtotime($data_nota->tgl_nota))) }}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="pilih_nama_pembeli('{{$data_nota->id}}')"><i class="feather icon-check-square mr-2"></i>Pilih</button>
+                                <a href="/hapus_nota/{{$data_nota->id}}" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</a>
+                            </td> 
+                        </tr>
+                        
+                    @endforeach
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+    @isset($nota)
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>DETAIL NOTA</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 class="float-right">Tanggal Nota : {{ tgl_indo(date('Y-m-d', strtotime($nota->tgl_nota))) }}</h5>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control pl-2" readonly @isset($nota) value="{{$nota->nama_pembeli}}" @endisset >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Status</label>
+                            <div class="col-sm-9">
+                                <input readonly type="text" class="form-control pl-2"  @isset($nota) value="{{$nota->status}}" @endisset >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Total Harga</label>
+                            <div class="col-sm-9">
+                                <input readonly id="total_pesanan" type="text" class="form-control pl-2" @isset($nota) value="{{$total_pesanan}}" @endisset >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        @isset($nota)
+                        <a onclick="checkout('{{$nota->id}}')" href="#" class="float-right btn btn-primary btn-sm "><i class="feather icon-printer"></i> Checkout</a>
+                        @endisset
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type="text" id="input_kode_barang" class="form-control" placeholder="Kode Barang..." @empty($nota) readonly @endempty>
+                                        <span style="color: red" id="tidak_ditemukan"></span>
+                                    </div>
+                                    <div class="col-sm-12 mt-2">
+                                        <button class="btn btn-sm btn-primary" onclick="show_modal_cari_barang()"><i class="feather icon-search"></i> Cari Barang</button>
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="">Barang</th>
+                                    <th>Tipe</th>
+                                    <th>Merk</th>
+                                    <th >Harga</th>
+                                    <th >Jumlah</th>
+                                    <th >Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_daftar_nota">
+                                @isset($nota)
+                                    @foreach ($nota->pesanan as $pesanan)
+                                        <tr id="row_pesanan{{$pesanan->id}}">
+                                            <td>{{$pesanan->barang->nama_barang}}</td>
+                                            <td>{{$pesanan->barang->tipe_barang}}</td>
+                                            <td>{{$pesanan->barang->merk}}</td>
+                                            <td id="tdata_harga_satuan{{$pesanan->id}}" ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')">{{$pesanan->harga}}</td>
+                                            <td id="tdata_nota{{$pesanan->id}}">
+                                                <a href="##" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')" id="jumlah_pesanan{{$pesanan->id}}">{{$pesanan->jumlah}}</a>
+                                            </td>
+                                            <td id="tdata_total_sub_pesanan{{$pesanan->id}}">{{$pesanan->jumlah * $pesanan->harga}}</td>
+                                            <td><button onclick="hapus_pesanan('{{$pesanan->id}}')" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</button></td>
+                                            
+                                        </tr>
+                                    @endforeach
+                                @endisset
+                            </tbody>
+                        </table>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+    @endisset
+ 
+</div>
+
 @endsection
 
 @section('modal-content')
 <div class="modal fade bd-example-modal-sm" id="modal-tambah-nota" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog ">
+  
       <div class="modal-content">
-          <div class="modal-body">
-                <form action="/post-tambah-nota" method="post">
-                    @csrf
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title text-white">Tambah Nota</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{url()->current()}}/post-tambah-nota" method="post">
+            @csrf
+                <div class="modal-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nama Pembeli</label>
-                        <input type="text" class="form-control" name="nama" id="nama" aria-describedby="emailHelp">
+                        <label>Pembeli</label>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Pembeli..." required>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Status</label>
-                        <select name="status" id="" class="form-control">
+                        <label>Status</label>
+                        <select name="status" id="" class="form-control" required>
                             <option value="umum">Umum</option>
                             <option value="dinas">Dinas</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
-                </form>
-          </div>
+           
+                </div>
+                <div class="modal-footer p-2">
+                    <button type="reset" data-dismiss="modal" aria-label="Close" class="btn btn-danger btn-sm"><i class="feather icon-refresh-ccw"></i> Reset</button>
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="feather icon-save"></i>  Simpan</button>
+                </div>
+            </form>
+
         
       </div>
     </div>
@@ -36,12 +244,17 @@
 <div class="modal fade bd-example-modal-lg" id="modal-cari-barang" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
+        <div class="modal-header bg-primary">
+            <h4 class="modal-title text-white">Cari Barang</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="modal-body">
             <div class="form-group">
-                <label for="exampleInputEmail1">Cari barang</label>
-                <input type="text" class="form-control" name="nama" id="cari_barang_input" aria-describedby="emailHelp">
+                <input type="text" class="form-control" name="nama" id="cari_barang_input" placeholder="Kode / Nama Barang...">
             </div>
-            <table class="table">
+            <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Kode</th>
@@ -62,121 +275,8 @@
   </div>
 @endsection
 
-@section('content')
-<div class="row">
-    <div class="col-sm-9">
-        <div class="card">
-            <div class="card-body">
-                <button type="button" onclick="modal_tambah_nota()" class="btn btn-primary btn-sm">Tambah</button>
-                @isset($nota)
-                    {{-- <a href="/checkout-nota/{{$nota->id}}" class="float-right btn btn-danger btn-sm ">Checkout</a> --}}
-                    <a onclick="checkout('{{$nota->id}}')" href="#" class="float-right btn btn-danger btn-sm ">Checkout</a>
-                @endisset
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Nama</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="staticEmail" @isset($nota) value="{{$nota->nama_pembeli}}" @endisset >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Status</label>
-                            <div class="col-sm-10">
-                                <input readonly type="text" class="form-control" id="staticEmail" @isset($nota) value="{{$nota->status}}" @endisset >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Total Harga</label>
-                            <div class="col-sm-10">
-                                <input readonly id="total_pesanan" type="text" class="form-control" @isset($nota) value="{{$total_pesanan}}" @endisset >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Kode</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="input_kode_barang" @empty($nota) readonly @endempty>
-                                <i onclick="show_modal_cari_barang()" class="feather icon-search"></i>
-                                <br>
-                                <span style="color: red" id="tidak_ditemukan"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="">Barang</th>
-                                <th>Tipe</th>
-                                <th>Merk</th>
-                                <th >Harga</th>
-                                <th >Jumlah</th>
-                                <th >Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody_daftar_nota">
-                            @isset($nota)
-                                @foreach ($nota->pesanan as $pesanan)
-                                        <tr id="row_pesanan{{$pesanan->id}}">
-                                            <td>{{$pesanan->barang->nama_barang}}</td>
-                                            <td>{{$pesanan->barang->tipe_barang}}</td>
-                                            <td>{{$pesanan->barang->merk}}</td>
-                                            <td id="tdata_harga_satuan{{$pesanan->id}}" ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')">{{$pesanan->harga}}</td>
-                                            <td id="tdata_nota{{$pesanan->id}}">
-                                                <a href="##" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')" id="jumlah_pesanan{{$pesanan->id}}">{{$pesanan->jumlah}}</a>
-                                            </td>
-                                            <td id="tdata_total_sub_pesanan{{$pesanan->id}}">{{$pesanan->jumlah * $pesanan->harga}}</td>
-                                            <td><button onclick="hapus_pesanan('{{$pesanan->id}}')">Hapus</button></td>
-                                            
-                                        </tr>
-                                    
-                                @endforeach
-                            @endisset
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <table border="1" width="100%">
-                    @isset($nota)
-                        <tr>
-                            <td><b><a href="#" onclick="pilih_nama_pembeli('{{$nota->id}}')" style="color: black">{{$nota->nama_pembeli}}</a></b></td>
-                            <td><b>{{$nota->tgl_nota}}</b></td>
-                            <td>
-                                <a href="/hapus_nota/{{$nota->id}}" class="btn btn-danger"><i class="feather mr-2 icon-trash"></i></a>
-                            </td> 
-                        </tr>
-                    @endisset
-                    
-                    @foreach ($list_nota as $data_nota)
-                        <tr>
-                            <td><a href="#" onclick="pilih_nama_pembeli('{{$data_nota->id}}')" style="color: black">{{$data_nota->nama_pembeli}}</a></td>
-                            <td>{{$data_nota->tgl_nota}}</td>
-                            <td>
-                                <a href="/hapus_nota/{{$data_nota->id}}" class="btn btn-danger"><i class="feather mr-2 icon-trash"></i></a>
-                            </td> 
-                        </tr>
-                        
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-@endsection
 
 @section('footer-scripts')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 @include('manajemen.penjualan.penjualan_script')
 @endsection

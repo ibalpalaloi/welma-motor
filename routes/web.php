@@ -77,7 +77,7 @@ Route::group(['middleware'=> 'auth'], function() {
 
     // penjualan
     Route::get('/penjualan-barang', [PenjualanController::class, 'penjualan_barang']);
-    Route::post('/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
+    Route::post('/penjualan-barang/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
     Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
     Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
     Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);

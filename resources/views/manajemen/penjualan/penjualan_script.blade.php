@@ -9,6 +9,13 @@
         $('#modal-tambah-nota.modal').modal('show');
     }
 
+
+    $('#input_kode_barang').on('keypress', function(e) {
+        
+                return false;
+    });
+        
+
     $("#input_kode_barang").on('input', function(){
         var kode_barang = $('#input_kode_barang').val();
         get_barang(kode_barang);

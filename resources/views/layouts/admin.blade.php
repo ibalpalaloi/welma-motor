@@ -72,7 +72,6 @@
                     			<ul class="pcoded-submenu">
                     				<li><a href="{{url('manajemen/barang/daftar-barang')}}" >Daftar Barang</a></li>
                     				<li><a href="{{url('manajemen/barang/penerimaan-barang')}}" >Penerimaan Barang</a></li>
-                    				<li><a href="/penjualan-barang" >Penjualan Barang</a></li>
                     			</ul>
                     		</li>
                     		<li><a href="{{url('/manajemen/supplier/data-supplier')}}" >Supplier</a></li>
