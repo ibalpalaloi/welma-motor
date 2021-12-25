@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Penjualan;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pesanan;
 use App\Models\Nota;
@@ -15,6 +16,8 @@ class PenjualanController extends Controller
     //
     public function penjualan_barang(Request $request){
         $list_nota = Nota::all(); 
+        // dd($request->all());
+
         if(count($request->all())>0){
             $list_nota = Nota::where('id', '!=', $request->id_nota)->get();
             $nota = Nota::find($request->id_nota);

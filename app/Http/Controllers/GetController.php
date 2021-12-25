@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Nota;
 use App\Models\Pesanan;
 use App\Models\Barang;
+use App\Models\User;
 use App\Models\Supplier;
 
 class GetController extends Controller
@@ -34,6 +35,13 @@ class GetController extends Controller
         return response()->json(['pesanan'=>$pesanan]);
     }
 
+    public function get_pengguna($id){
+
+        $pengguna = User::find($id);
+
+        return response()->json(['pengguna' => $pengguna]);
+    }
+        
     public function get_supplier($id){
         $supplier = Supplier::find($id);
 

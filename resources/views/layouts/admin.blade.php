@@ -60,6 +60,9 @@
                     	<a href="{{route('home')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
                     <li class="nav-item">
+                    	<a href="{{url('/penjualan-barang')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Penjualan</span></a>
+                    </li>
+                    <li class="nav-item">
                     	<a href="{{url('manajemen/pengguna')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Pengguna</span></a>
                     </li>
                     <li class="nav-item pcoded-hasmenu">
@@ -68,11 +71,10 @@
                     		<li class="pcoded-hasmenu"><a href="#!">Barang</a>
                     			<ul class="pcoded-submenu">
                     				<li><a href="{{url('manajemen/barang/daftar-barang')}}" >Daftar Barang</a></li>
-                    				<li><a href="/penerimaan-barang" >Penerimaan Barang</a></li>
-                    				<li><a href="/penjualan-barang" >Penjualan Barang</a></li>
+                    				<li><a href="{{url('manajemen/barang/penerimaan-barang')}}" >Penerimaan Barang</a></li>
                     			</ul>
                     		</li>
-                    		<li><a href="/data-supplier" >Supplier</a></li>
+                    		<li><a href="{{url('/manajemen/supplier/data-supplier')}}" >Supplier</a></li>
                     	</ul>
                     </li>
                     <li class="nav-item pcoded-hasmenu">

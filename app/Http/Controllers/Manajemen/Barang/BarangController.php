@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Manajemen\Barang;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Supplier;
 use App\Models\Barang_masuk;
 use App\Models\Stok;
+
 
 class BarangController extends Controller
 {
@@ -48,7 +50,14 @@ class BarangController extends Controller
 
     public function get_daftar_barang(Request $request){
         $keyword = $request->keyword;
-        $barang = Barang::where('kode_barang', 'LIKE', '%'.$keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$keyword.'%')->get();
+        if ($keyword != null) {
+            $barang = Barang::where('kode_barang', 'LIKE', '%'.$keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$keyword.'%')->get();
+        }
+        else{
+
+            $barang = Barang::take(0)->get();
+        }
+
         $view = view('manajemen.barang.tabel_data_barang', compact('barang'))->render();
         return response()->json(['view'=>$view]);
     }
@@ -59,11 +68,10 @@ class BarangController extends Controller
         $supplier->supplier_id = $request->id_supplier;
         $supplier->jumlah_barang = $request->jumlah;
         $supplier->save();
-
     }
 
     public function get_list_barang_masuk(){
-        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(10)->get();
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(20)->get();
         $view = view('manajemen.barang.data_list_barang_masuk', compact('barang_masuk'))->render();
         return response()->json(['view'=>$view]);
     }

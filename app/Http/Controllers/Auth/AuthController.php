@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Auth;
 
 
@@ -27,6 +28,11 @@ class AuthController extends Controller
         $remember_me = $request->has('remember_me') ? true : false;
 
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password], $remember_me)){
+
+    
+            $user = User::where('username', $request->username)->first();
+            $user->last_sign_in = date("Y-m-d H:i:s");
+            $user->save();
 
             return redirect('/');
         }
