@@ -54,7 +54,7 @@
             <div class="card-body">
                 <div id="div-filter-nota">
                     <label for="">Pilih Tanggal</label>
-                    <input type='date' onkeyup='cari_produk_tgl()' id='keyword_tgl'>
+                    <input type='date' onkeyup='cari_nota_tgl()' id='keyword_tgl'>
                 </div>
                 <br><br>
                 <table class="table">
@@ -82,7 +82,10 @@
                         @endforeach
                     </tbody>
                 </table>
-                <button onclick="load_data()" class="plus-button">+</button>
+                <div id="button_load_more" class="row justify-content-center">
+                    <button onclick="load_data()" class="plus-button">+</button>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -106,16 +109,18 @@
         })
     }
 
-    function berdasarkan_nama(){
-        var html = "<label for='' >Cari Produk</label>";
-        html += "<input type='text' onkeyup='cari_produk_nama()' id='keyword_nama'>";
-        $('#div-filter-nota').html(html);
+    function cari_nota_tgl(){
+        var tgl = $('#keyword_tgl').val();
+        $.ajax({
+            type: "GET",
+            url: "riwayat-nota-tgl?tgl="+tgl,
+            success:function(data){
+                $('#tbody_data_nota').empty();
+                $('#tbody_data_nota').html(data.view);
+                $('#button_load_more').empty();
+            }
+        })
     }
 
-    function berdasarkan_tgl(){
-        var html = "<label for=''>Cari Produk</label>";
-        html += "<input type='date' onkeyup='cari_produk_tgl()' id='keyword_tgl'>";
-        $('#div-filter-nota').html(html);
-    }
 </script>  
 @endsection

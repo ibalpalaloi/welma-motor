@@ -41,6 +41,9 @@
                                 <th>Tgl Pembelian</th>
                                 <th>Jumlah Transaksi</th>
                                 <th>Keuntungan</th> 
+                                <th>
+
+                                </th>
                             </tr>
                             
                         </thead>
@@ -51,6 +54,10 @@
                                     <td>{{$nota['tgl_nota']}}</td>
                                     <td>{{$nota['total_harga']}}</td>
                                     <td>{{$nota['total_keuntungan']}}</td>
+                                    <td>
+                                        <a target="blank" href="/nota/{{$nota['id']}}" class="btn btn-primary">Cek Detail</a>
+                                    </td>
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

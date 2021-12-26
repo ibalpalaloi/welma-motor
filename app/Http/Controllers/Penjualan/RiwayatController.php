@@ -71,12 +71,16 @@ class RiwayatController extends Controller
     }
     
     public function riwayat_barang_masuk(Request $request){
-        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->paginate(50);
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->paginate(4);
         $daftar_barang = array();
         $i=0;
         foreach($barang_masuk as $data){
             $daftar_barang[$i]['nama'] = $data->barang->nama_barang;
             $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
+        }
+        if(count($request->all()) > 0){
+            $html = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('barang_masuk'))->render();
+            return response()->json(['html'=>$html]);
         }
         return view('manajemen.riwayat.riwayat_barang_masuk', compact('barang_masuk'));
     }
@@ -119,6 +123,32 @@ class RiwayatController extends Controller
             $i++;
         }
         $view = view('/manajemen.riwayat.data_riwayat_nota', compact('data_riwayat_nota'))->render();
+
+        return response()->json(['view'=>$view]);
+    }
+
+    public function riwayat_nota_tgl(Request $request){
+        $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+        $data_riwayat_nota = array();
+        $i = 0;
+        foreach($nota as $data){
+            $data_riwayat_nota[$i]['id'] = $data->id;
+            $data_riwayat_nota[$i]['nama_pembeli'] = $data->nama_pembeli;
+            if($data->user){
+                $data_riwayat_nota[$i]['nama_admin'] = $data->user->nama;
+            }else{
+                $data_riwayat_nota[$i]['nama_admin'] = '-';
+            }
+            
+            $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
+            $total_harga = 0;
+            foreach($data->riwayat_pesanan as $riwayat_pesanan){
+                $total_harga += $riwayat_pesanan->jumlah * $riwayat_pesanan->harga;
+            }
+            $data_riwayat_nota[$i]['total_harga'] = $total_harga;
+            $i++;
+        }
+        $view = view('manajemen.riwayat.data_riwayat_nota', compact('data_riwayat_nota'))->render();
 
         return response()->json(['view'=>$view]);
     }

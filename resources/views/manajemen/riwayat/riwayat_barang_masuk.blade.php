@@ -1,6 +1,49 @@
 @extends('layouts.admin')
 
-@section('modal-content')
+@section('header-scripts')
+<style>
+    .plus-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid lightgrey;
+        background-color: #fff;
+        font-size: 16px;
+        height: 2.5em;
+        width: 2.5em;
+        border-radius: 999px;
+        position: relative;
+        
+        &:after,
+        &:before {
+            content: "";
+            background-color: grey;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        &:before {
+            height: 1em;
+            width: 0.2em;
+        }
+
+        &:after {
+            height: 0.2em;
+            width: 1em;
+        }
+    }
+
+    .plus-button--small {
+        font-size: 12px;
+    }
+
+    .plus-button--large {
+        font-size: 22px;
+    }
+</style>   
+@endsection
 
 
 
@@ -51,8 +94,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div>
-                    
+                <div id="button_load_more" class="row justify-content-center">
+                    <button onclick="load_data()" class="plus-button">+</button>
                 </div>
             </div>
         </div>
@@ -64,6 +107,18 @@
 
 @section('footer-scripts')
 <script>
+    var page =2;
+    function load_data(){
+        $.ajax({
+            type: "GET",
+            url: "?page="+page,
+            success:function(data){
+                $('#tbody_data_barang_masuk').append(data.html);
+                page++;
+            }
+        })
+    }
+
     function cari_produk_nama(){
         var keyword = $('#keyword_nama').val();
         if(event.keyCode === 13){
@@ -107,5 +162,7 @@
         html += "<input type='date' onkeyup='cari_produk_tgl()' id='keyword_tgl'>";
         $('#div-filter-barang').html(html);
     }
+
+
 </script>
 @endsection

@@ -11,8 +11,7 @@
 
 
     $('#input_kode_barang').on('keypress', function(e) {
-        
-                return false;
+                // return false;
     });
         
 
@@ -52,6 +51,7 @@
             success:function(data){
                 console.log(data);
                 if(data.status == "sukses"){
+                    console.log(data);
                     $('#input_kode_barang').val("");
                     var barang = data.barang;
                     console.log(barang);
