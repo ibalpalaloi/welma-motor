@@ -79,6 +79,7 @@
                             <th>Tipe</th>
                             <th>Merk</th>
                             <th>Jumlah</th>
+                            <th>Supplier</th>
                             <th>Tgl Masuk</th>
                         </tr>
                     </thead>
