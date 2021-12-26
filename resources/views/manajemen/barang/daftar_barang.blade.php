@@ -65,7 +65,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                     <thead>
                         <tr>
                             <th width="1%">No.</th>
-                            <th>Nama Barang</th>
+                            <th>Barang</th>
                             <th>Tipe</th>
                             <th>Harga</th>
                             <th width="8%">Stok</th>

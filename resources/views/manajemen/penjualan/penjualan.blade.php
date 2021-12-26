@@ -115,7 +115,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Status</label>
                             <div class="col-sm-9">
-                                <input readonly type="text" class="form-control pl-2"  @isset($nota) value="{{$nota->status}}" @endisset >
+                                <input readonly type="text" class="form-control pl-2"  @isset($nota) value="{{ucwords($nota->status)}}" @endisset >
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Total Harga</label>
                             <div class="col-sm-9">
-                                <input readonly id="total_pesanan" type="text" class="form-control pl-2" @isset($nota) value="{{$total_pesanan}}" @endisset >
+                                <input readonly id="total_pesanan" type="text" class="form-control pl-2" @isset($nota) value="Rp. {{$total_pesanan}}" @endisset >
                             </div>
                         </div>
                     </div>
@@ -164,10 +164,9 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <tr>
                                     <th width="">Barang</th>
                                     <th>Tipe</th>
-                                    <th>Merk</th>
-                                    <th >Harga</th>
-                                    <th >Jumlah</th>
-                                    <th >Total</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -175,14 +174,24 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 @isset($nota)
                                     @foreach ($nota->pesanan as $pesanan)
                                         <tr id="row_pesanan{{$pesanan->id}}">
-                                            <td>{{$pesanan->barang->nama_barang}}</td>
-                                            <td>{{$pesanan->barang->tipe_barang}}</td>
-                                            <td>{{$pesanan->barang->merk}}</td>
-                                            <td id="tdata_harga_satuan{{$pesanan->id}}" ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')">{{$pesanan->harga}}</td>
-                                            <td id="tdata_nota{{$pesanan->id}}">
-                                                <a href="##" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')" id="jumlah_pesanan{{$pesanan->id}}">{{$pesanan->jumlah}}</a>
+                                            <td>
+                                                {{strtoupper($pesanan->barang->nama_barang)}}
+                                                <br>
+                                                <small><b>Kode : {{$pesanan->barang->kode_barang}}</b></small>
                                             </td>
-                                            <td id="tdata_total_sub_pesanan{{$pesanan->id}}">{{$pesanan->jumlah * $pesanan->harga}}</td>
+                                            <td>{{$pesanan->barang->tipe_barang}}
+                                                <br>
+                                                <small><b>Merk : {{$pesanan->barang->merk}}</b>
+                                            </td>
+                                            <td id="tdata_harga_satuan{{$pesanan->id}}">
+                                                <input class="form-control" type="number" id="pesanan_{{$pesanan->id}}" readonly
+                                                value="{{$pesanan->harga}}" style="cursor: pointer;" ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')">
+                                            </td>
+                                            <td id="tdata_nota{{$pesanan->id}}">
+                                                <input class="form-control" type="number" id="jumlah_pesanan{{$pesanan->id}}" readonly
+                                                value="{{$pesanan->jumlah}}" style="cursor: pointer;" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')">
+                                            </td>
+                                            <td id="tdata_total_sub_pesanan{{$pesanan->id}}">Rp. {{$pesanan->jumlah * $pesanan->harga}}</td>
                                             <td><button onclick="hapus_pesanan('{{$pesanan->id}}')" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</button></td>
                                             
                                         </tr>

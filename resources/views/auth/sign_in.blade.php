@@ -38,7 +38,7 @@
 					<div class="card-body">
                         <form action="{{route('login')}}" method="post">
                             @csrf
-                            <h3>Welma Motor</h3>
+                            <h4>WELMA <br> BENGKEL & SPARE PART </h3>
                             <hr class="h-100">
                             <div class="form-group mb-3">
                                 <label class="floating-label" for="username">Username</label>
@@ -53,7 +53,7 @@
                                 <label class="custom-control-label" for="remember_me">Ingat Saya</label>
                             </div>
                             <button class="btn btn-block btn-primary mb-4">MASUK</button>
-                            <p class="mb-2 text-muted">BENGKEL & SPARE PART &copy; 2021</p>
+                            <p class="mb-2 text-muted">&copy; 2021</p>
 
                         </form>
 			

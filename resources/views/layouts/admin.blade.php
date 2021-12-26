@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>@yield('title') | WELMA MOTOR</title>
+    <title>@yield('title') | WELMA BENGKEL & SPARE PART </title>
     <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 11]>
@@ -60,7 +60,7 @@
                     	<a href="{{route('home')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
                     <li class="nav-item">
-                    	<a href="{{url('/penjualan-barang')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Penjualan</span></a>
+                    	<a href="{{url('/penjualan')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Penjualan</span></a>
                     </li>
                     <li class="nav-item">
                     	<a href="{{url('manajemen/pengguna')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Pengguna</span></a>
@@ -100,9 +100,9 @@
     <header class="navbar pcoded-header navbar-expand-lg header-blue navbar-light">
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-            <a href="#!" class="b-brand">
+            <a href="{{url('')}}" class="b-brand">
                 <!-- ========   change your logo hear   ============ -->
-                <h4 class="pt-2 text-white">WELMA MOTOR</h4>
+                <h5 class="pt-2 text-white">WELMA <br><small>BENGKEL & SPARE PART</small></h5>
 
             </a>
             <a href="#!" class="mob-toggler">
