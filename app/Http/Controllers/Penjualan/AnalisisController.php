@@ -39,6 +39,6 @@ class AnalisisController extends Controller
             $total_keuntungan += $total_keuntungan_pernota;
             $i++;
         }
-        return view('analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan'));
+        return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan'));
     }
 }

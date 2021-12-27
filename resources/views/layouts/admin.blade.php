@@ -78,14 +78,14 @@
                     	</ul>
                     </li>
                     <li class="nav-item pcoded-hasmenu">
-                    	<a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Riwayat</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
+                    	<a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Riwayat</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
                     	<ul class="pcoded-submenu">
                     		<li><a href="/riwayat-pesanan">Pesanan</a>
                     		<li><a href="/riwayat-barang-masuk" >Barang Masuk</a></li>
                     	</ul>
                     </li>
                     <li class="nav-item pcoded-hasmenu">
-                    	<a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Analisis</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
+                    	<a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span><span class="pcoded-mtext">Analisis</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
                     	<ul class="pcoded-submenu">
                     		<li><a href="/analisis-penjualan">Penjualan</a>
                     	</ul>
@@ -122,7 +122,7 @@
                                 <span>{{ucwords(Auth::user()->username)}}</span>
                             </div>
                             <ul class="pro-body">
-                                <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Ubah Password</a></li>
+                                <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modal_ubah_password" class="dropdown-item"><i class="feather icon-lock"></i> Ubah Password</a></li>
                                 <li><a href="{{url('sign_out')}}" class="dropdown-item"><i class="feather icon-log-out"></i> Keluar</a></li>
                             </ul>
                         </div>
@@ -158,6 +158,52 @@
                 <!-- [ Main Content ] end -->
 
                 @yield('modal-content')
+
+
+                {{-- modal ubah password --}}
+                <div class="modal fade" id="modal_ubah_password" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <h4 class="modal-title text-white">Ubah Password</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{url('ubah_password')}}" method="post">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <label class="mb-0" ><small class="text-danger">* </small>Password Baru</label>
+                                                <input type="password" class="form-control" name="password_pengguna_baru" required placeholder="Password...">
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <label class="mb-0" ><small class="text-danger">* </small>Konfirmasi Password</label>
+                                                <input type="password" class="form-control" name="konfirmasi_password_pengguna_baru" required placeholder="Password...">
+                                            </div>
+                                    
+                                        </div>
+                            
+                                    </div>
+                           
+                                
+                                </div>
+                                <div class="modal-footer p-2">
+                                    <button type="reset" class="btn btn-danger btn-sm"><i class="feather icon-refresh-ccw"></i> Reset</button>
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="feather icon-save"></i>  Simpan</button>
+                                </div>
+
+                            </form>
+
+                        
+                        </div>
+                    </div>
+                </div>
       
 
             </div>

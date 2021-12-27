@@ -102,7 +102,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                     <tbody id="tbody_list_barang_masuk">
                         @foreach ($barang_masuk as $data)
                             <tr>
-                                <td>{{$data->barang->nama_barang}}</td>
+                                <td>{{$data->barang->nama_barang}}
+                                    <br>
+                                    <small><b>Kode : {{$data->barang->kode_barang}}</b></small>
+                                </td>
                                 <td>
                                     @if ($data->supplier)
                                         {{$data->supplier->nama_supplier}}</td>

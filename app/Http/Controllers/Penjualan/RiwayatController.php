@@ -27,6 +27,8 @@ class RiwayatController extends Controller
             }
             
             $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
+            $data_riwayat_nota[$i]['status'] = ucwords($data->status);
+
             $total_harga = 0;
             foreach($data->riwayat_pesanan as $riwayat_pesanan){
                 $total_harga += $riwayat_pesanan->jumlah * $riwayat_pesanan->harga;
@@ -113,7 +115,7 @@ class RiwayatController extends Controller
             }else{
                 $data_riwayat_nota[$i]['nama_admin'] = '-';
             }
-            
+            $data_riwayat_nota[$i]['status'] = ucwords($data->status);
             $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
             $total_harga = 0;
             foreach($data->riwayat_pesanan as $riwayat_pesanan){
@@ -139,7 +141,7 @@ class RiwayatController extends Controller
             }else{
                 $data_riwayat_nota[$i]['nama_admin'] = '-';
             }
-            
+            $data_riwayat_nota[$i]['status'] = ucwords($data->status);
             $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
             $total_harga = 0;
             foreach($data->riwayat_pesanan as $riwayat_pesanan){

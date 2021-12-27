@@ -72,7 +72,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             <td>
                                 <a href="/hapus_nota/{{$nota->id}}" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</a>
                             </td> 
-                        </trc>
+                        </tr>
                     @endisset
                     
                     @foreach ($list_nota as $data_nota)

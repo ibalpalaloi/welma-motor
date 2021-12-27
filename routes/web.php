@@ -48,6 +48,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
     Route::get('/sign_out', [AuthController::class, 'sign_out']);
+    Route::post('/ubah_password', [AuthController::class, 'ganti_password']);
+
 
     // PENGGUNA
     Route::get('/manajemen/pengguna', [PenggunaController::class, 'index']);
