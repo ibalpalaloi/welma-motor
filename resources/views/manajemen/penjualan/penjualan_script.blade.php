@@ -1,5 +1,7 @@
 <script>
-    @isset($nota) var nota = {!! json_encode($nota) !!}; @endisset
+    @isset($nota) var nota = {!! json_encode($nota) !!};
+    $("#input_kode_barang").focus();
+    @endisset
 
     function modal_tambah_nota(){
         $('#modal-tambah-nota.modal').modal('show');
@@ -7,7 +9,7 @@
 
 
     $('#input_kode_barang').on('keypress', function(e) {
-                return false;
+        return false;
     });
         
 
@@ -94,6 +96,8 @@
                     $('#tbody_daftar_nota').append(tabel);
                     $('#tidak_ditemukan').html('');
                     $('#total_pesanan').val(data.total_pesanan);
+                    $('#input_kode_barang').val("");
+                    $("#input_kode_barang").focus();
                 }
                 else if(data.status == "stok habis"){
                     alert('stok habis');

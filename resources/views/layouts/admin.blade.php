@@ -16,6 +16,8 @@
     <meta name="description" content="" />
     <meta name="keywords" content="">
     <meta name="author" content="Phoenixcoded" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Favicon icon -->
     <link rel="icon" href="{{asset('assets/images/favicon.ico')}}" type="image/x-icon">
 
@@ -26,13 +28,11 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-    
 
     <!-- vendor css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
 
     @yield('header-scripts')
 
@@ -80,14 +80,14 @@
                     <li class="nav-item pcoded-hasmenu">
                     	<a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Riwayat</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
                     	<ul class="pcoded-submenu">
-                    		<li><a href="/riwayat-pesanan">Pesanan</a>
-                    		<li><a href="/riwayat-barang-masuk" >Barang Masuk</a></li>
+                    		<li><a href="{{url('/')}}/riwayat-pesanan">Pesanan</a>
+                    		<li><a href="{{url('/')}}/riwayat-barang-masuk" >Barang Masuk</a></li>
                     	</ul>
                     </li>
                     <li class="nav-item pcoded-hasmenu">
                     	<a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span><span class="pcoded-mtext">Analisis</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
                     	<ul class="pcoded-submenu">
-                    		<li><a href="/analisis-penjualan">Penjualan</a>
+                    		<li><a href="{{url('/')}}/analisis-penjualan">Penjualan</a>
                     	</ul>
                     </li>
                 </ul>
@@ -269,6 +269,7 @@
     <script src="{{asset('assets/js/plugins/prism.js')}}"></script>
 
     <script src="{{asset('assets/js/horizontal-menu.js')}}"></script>
+    
     <script>
 
         $(document).ready(function() {
@@ -287,13 +288,37 @@
     <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{asset('assets/plugins/toastr/toastr.min.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.table-datatables').DataTable({
                     responsive: true,
             });
         });
+
+        @if(Session::has('alert-type'))
+		var type = "{{ Session::get('alert-type') }}";
+		var title_message = "{{ Session::get('title_message') }}";
+		var message = "{{ Session::get('message') }}";
+		switch (type) {
+			case 'info':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "info");
+				break;
+			case 'warning':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "warning");
+				break;
+
+			case 'success':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "success");
+				break;
+
+			case 'error':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "error");
+				break;
+		}
+	    @endif
 
     </script>
 
