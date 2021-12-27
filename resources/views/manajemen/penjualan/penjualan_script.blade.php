@@ -173,6 +173,8 @@
     }
 
     function ajax_post_ubah_jumlah_pesanan(id, jumlah){
+        console.log(id);
+        console.log(jumlah);
         $.ajax({
             type: "post",
             url: "{{url('/')}}/penjualan/ubah-jumlah-pesanan",

@@ -121,6 +121,7 @@ class PenjualanController extends Controller
         $jumlah_baru = $request->jumlah;
         $selisih = $jumlah_lama - $jumlah_baru;
         $stok = Stok::where('barang_id', $pesanan->barang_id)->first();
+        dd($stok);
         $jumlah_stok = $stok->stok + $selisih;
         if($jumlah_stok < 0){
             return response()->json([
