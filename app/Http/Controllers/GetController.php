@@ -47,4 +47,9 @@ class GetController extends Controller
 
         return response()->json(['supplier'=>$supplier]);
     }
+
+    public function autocode_kode_barang(){
+        $code = "welma".date('dmYhis');
+        return response()->json(['code'=>$code]);
+    }
 }

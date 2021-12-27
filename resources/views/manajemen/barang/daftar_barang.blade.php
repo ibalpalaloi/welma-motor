@@ -245,11 +245,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <div class="col-sm-9">
                                     <div class="form-group">
                                         <label class="mb-0"><small class="text-danger">* </small>Kode Barang</label>
-                                        <input type="text" class="form-control" name="kode_barang" placeholder="Kode Barang..." required>
+                                        <input type="text" id="tambah_barang_kode_barang" class="form-control" name="kode_barang" placeholder="Kode Barang..." required>
                                     </div>
                                 </div>
                                 <div class="col align-self-center">
-                                    <button type="button" class="btn btn-block btn-sm btn-secondary"><i class="feather icon-loader"></i> Generate Kode</button>
+                                    <button onclick="generate_code()" type="button" class="btn btn-block btn-sm btn-secondary"><i class="feather icon-loader"></i> Generate Kode</button>
                                 </div>
     
                             </div>
@@ -434,6 +434,15 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         }
     });
 
+    function generate_code(){
+        $.ajax({
+            type: "get",
+            url: "{{url('/')}}/autocode_kode_barang",
+            success:function(data){
+                $('#tambah_barang_kode_barang').val(data.code);
+            }
+        })
+    }
 
     function hapus_barang(id){
           swal({

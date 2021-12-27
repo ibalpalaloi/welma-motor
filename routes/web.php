@@ -96,6 +96,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/get-pesanan/{id}', [GetController::class, 'get_pesanan']);
     Route::get('/get-pengguna/{id}', [GetController::class, 'get_pengguna']);
     Route::get('/get-supplier/{id}', [GetController::class, 'get_supplier']);
+    Route::get('/autocode_kode_barang', [GetController::class, 'autocode_kode_barang']);
 
     // riwayat
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
