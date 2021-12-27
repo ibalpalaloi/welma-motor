@@ -96,7 +96,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 mb-2">
-                        <label for=""><strong>PILIH TANGGAL : </strong></label>
+                        <label for=""><strong>Pilih Tanggal : </strong></label>
                         <div class="row">
                             <div class="col-sm-5">
                                 <input class="form-control" type="date" id='keyword_tgl'>

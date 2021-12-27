@@ -32,7 +32,7 @@
     function cari_barang(keyword){
         $.ajax({
             type: "get",
-            url: "/penjualan/cari-barang?keyword="+keyword,
+            url: "{{url('/')}}/penjualan/cari-barang?keyword="+keyword,
             success:function(data){
                 $('#tbody_modal_cari_barang').empty();
                 $('#tbody_modal_cari_barang').append(data.view);
@@ -43,7 +43,7 @@
     function get_barang(kode_barang){
         $.ajax({
             type: "get",
-            url: "/get-barang?kode_barang="+kode_barang+"&id_nota="+nota['id'],
+            url: "{{url('/')}}/get-barang?kode_barang="+kode_barang+"&id_nota="+nota['id'],
             success:function(data){
                 console.log(data);
                 if(data.status == "sukses"){
@@ -53,14 +53,18 @@
                     console.log(barang);
                     var tabel = "";
 
-                 
+                    if(barang['merk'] == null){
+                        barang['merk'] = '';
+
+                    }
+        
                     var td_1 = "<td>"+barang['nama_barang'].toUpperCase()+
-                                "<br><small><b>"+
+                                "<br><small><b>Kode : "+
                                 barang['kode_barang']
                                 +"</b></small>"+
                                 "</td>";
                     var td_2 = "<td>"+barang['tipe_barang']+
-                                "<br><small><b>"+
+                                "<br><small><b>Merk : "+
                                 barang['merk']
                                 +"</b></small>"+
                                 "</td>";
@@ -76,7 +80,7 @@
                                 +"</td>";
 
                     var td_6 = "<td>"+
-                                "<button onclick='hapus_pesanan("+data.id_pesanan+")' class='btn btn-danger btn-sm'><i class='feather mr-2 icon-trash'></i>Hapus</button><"
+                                "<button onclick='hapus_pesanan("+data.id_pesanan+")' class='btn btn-danger btn-sm'><i class='feather mr-2 icon-trash'></i>Hapus</button>"
                                +"</td>";
 
                     tabel += "<tr id='row_pesanan"+data.id_pesanan+"'>";
@@ -111,7 +115,7 @@
     function hapus_pesanan(id){
         $.ajax({
             type: "GET",
-            url: "/penjualan/hapus-pesanan/"+id,
+            url: "{{url('/')}}/penjualan/hapus-pesanan/"+id,
             success:function(data){
                 $('#row_pesanan'+id).remove();
                 get_total_harga_pesanan(nota['id']);
@@ -128,7 +132,7 @@
     function show_input_ubah_harga_satuan(id){
         $.ajax({
             type: "get",
-            url: "/get-pesanan/"+id,
+            url: "{{url('/')}}/get-pesanan/"+id,
             success:function(data){
                 console.log(data);
                 html = "<input class='form-control' type='number' id='input_harga_satuan"+id+"' onkeydown='post_harga_satuan("+id+")' value='"+data.pesanan['harga']+"'>";
@@ -157,7 +161,7 @@
     function ajax_ubah_harga_satuan(id, harga_satuan){
         $.ajax({
             type: "post",
-            url: "/penjualan/ubah-harga-satuan",
+            url: "{{url('/')}}/penjualan/ubah-harga-satuan",
             data: {'id': id, 'harga_satuan':harga_satuan, "_token": "{{ csrf_token() }}"},
             success:function(data){
 
@@ -171,7 +175,7 @@
     function ajax_post_ubah_jumlah_pesanan(id, jumlah){
         $.ajax({
             type: "post",
-            url: "/penjualan/ubah-jumlah-pesanan",
+            url: "{{url('/')}}/penjualan/ubah-jumlah-pesanan",
             data: {'id_pesanan':id, 'jumlah':jumlah, "_token": "{{ csrf_token() }}"},
             success:function(data){
                 console.log(data);
@@ -199,7 +203,7 @@
     function get_total_harga_pesanan(id_nota){
         $.ajax({
             type: "get",
-            url: "/get-total-harga-nota/"+id_nota,
+            url: "{{url('/')}}/get-total-harga-nota/"+id_nota,
             success:function(data){
 
                 var total_pesanan = "Rp. " + data.total_pesanan;

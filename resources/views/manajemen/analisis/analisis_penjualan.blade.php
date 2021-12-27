@@ -54,7 +54,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
                     <div class="row">
                         <div class='col-md-12'>
-                            <label>Pilih tanggal</label>
+                            <label><strong>Pilih Tanggal</strong></label>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <input type="date" class="datepicker form-control" id="tgl">
