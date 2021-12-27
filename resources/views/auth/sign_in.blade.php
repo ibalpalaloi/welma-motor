@@ -70,6 +70,34 @@
 <script src="{{asset('assets/js/plugins/bootstrap.min.js')}}"></script>
 <script src="{{asset('assets/js/ripple.js')}}"></script>
 <script src="{{asset('assets/js/pcoded.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+	@if(Session::has('alert-type'))
+		var type = "{{ Session::get('alert-type') }}";
+		var title_message = "{{ Session::get('title_message') }}";
+		var message = "{{ Session::get('message') }}";
+		switch (type) {
+			case 'info':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "info");
+				break;
+			case 'warning':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "warning");
+				break;
+
+			case 'success':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "success");
+				break;
+
+			case 'error':
+				swal("{{ Session::get('title_message') }}", "{{ Session::get('message') }}", "error");
+				break;
+		}
+	 @endif
+
+</script>
 
 </body>
 

@@ -17,7 +17,6 @@ class PenjualanController extends Controller
     public function penjualan_barang(Request $request){
         $list_nota = Nota::all(); 
         // dd($request->all());
-
         if(count($request->all())>0){
             $list_nota = Nota::where('id', '!=', $request->id_nota)->get();
             $nota = Nota::find($request->id_nota);
@@ -48,7 +47,14 @@ class PenjualanController extends Controller
         $nota->user_id = Auth()->user()->id;
         $nota->save();
 
-        return redirect('/penjualan?id_nota='.$nota->id);
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Nota Berhasil Ditambahkan', 
+            'alert-type' => 'success'
+         );   
+
+
+        return redirect('/penjualan?id_nota='.$nota->id)->with($notification);
     }
 
     public function get_barang(Request $request){
@@ -176,6 +182,12 @@ class PenjualanController extends Controller
     public function hapus_nota($id){
         Nota::where('id', $id)->delete();
         Pesanan::where('nota_id', $id)->delete();
-        return redirect('/penjualan');
+
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Nota Berhasil Terhapus', 
+            'alert-type' => 'success'
+         );   
+        return redirect('/penjualan')->with($notification);
     }
 }

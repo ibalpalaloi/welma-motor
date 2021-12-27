@@ -29,16 +29,26 @@ class AuthController extends Controller
 
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password], $remember_me)){
 
-    
             $user = User::where('username', $request->username)->first();
             $user->last_sign_in = date("Y-m-d H:i:s");
             $user->save();
 
-            return redirect('/');
+            $notification = array(
+                'title_message' => 'Berhasil Login',
+                'message' => '', 
+                'alert-type' => 'success'
+             );        
+
+            return redirect('/')->with($notification);
         }
         else{
 
-            return redirect('/sign_in');
+            $notification = array(
+                'title_message' => 'Gagal Login',
+                'message' => 'Username Atau Kata Sandi Yang Anda Masukkan Salah', 
+                'alert-type' => 'error'
+             );         
+            return redirect('/sign_in')->with($notification);
         }
 
 

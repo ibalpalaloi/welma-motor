@@ -436,15 +436,26 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 
     function hapus_barang(id){
-        swal("Click on either the button or outside the modal.")
-        .then((value) => {
-            $.ajax({
-                type: "GET",
-                url: "{{url()->current()}}/hapus-barang/"+id,
-                success:function(data){
-                    $('#trow_barang'+id).remove();
-                }
-            })
+          swal({
+             title: "Yakin Menghapus ?",
+             text: "Data Yang Terhapus Tidak Dapat Dikembalikan !",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+           })
+          .then((willDelete) => {
+               if (willDelete) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{url()->current()}}/hapus-barang/"+id,
+                    success:function(data){
+                        $('#trow_barang'+id).remove();
+                        toastr.success("Data Berhasil Terhapus");
+                    }
+                })
+               } else {
+                    swal("Hapus Data Dibatalkan", "Silahkan Klik Tombol Ok", "info");
+           }
         });
         
     }
