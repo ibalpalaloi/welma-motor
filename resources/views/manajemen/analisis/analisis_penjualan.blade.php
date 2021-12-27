@@ -93,7 +93,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <thead>
                                     <tr>
                                        <th>Nama Pembeli</th>
-                                        <th>Tgl Pembelian</th>
+                                        <th>Tanggal Pemesanan</th>
                                         <th>Jumlah Transaksi</th>
                                         <th>Keuntungan</th> 
                                         <th>
@@ -106,7 +106,9 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     @foreach ($data_nota as $nota)
                                         <tr>
                                             <td>{{$nota['nama_pembeli']}}</td>
-                                            <td>{{$nota['tgl_nota']}}</td>
+                                            <td>
+                                                {{ tgl_indo(date('Y-m-d', strtotime($nota['tgl_nota']))) }}
+                                            </td>
                                             <td>
                                                 Rp. {{number_format($nota['total_harga'],0,',','.')}}
                                             </td>

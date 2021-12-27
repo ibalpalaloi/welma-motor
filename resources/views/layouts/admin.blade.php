@@ -118,7 +118,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
                             <div class="pro-head">
-                                <img src="{{asset('assets/images/user/avatar-1.jpg')}}" class="img-radius" alt="User-Profile-Image">
+                                <img src="{{asset('assets/images/avatar_default.png')}}" class="img-radius" alt="User-Profile-Image">
                                 <span>{{ucwords(Auth::user()->username)}}</span>
                             </div>
                             <ul class="pro-body">
