@@ -152,7 +152,8 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <label class="mb-0"><small class="text-danger">* </small>Level Akses</label>
                                 <select class="form-control" name="level_akses_pengguna" required>
                                     <option value="" disabled>--- Pilih Akses ---</option>
-                                    <option value="kasir">Kasir</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Kasir">Kasir</option>
                                 </select>
                             </div>
                             

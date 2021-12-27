@@ -34,20 +34,43 @@ use App\Models\Riwayat_pesanan;
 */
 
 
-Route::group(['middleware'=> 'guest'], function() {
+Route::get('/sign_in', [AuthController::class, 'sign_in']);
+Route::post('/sign_in', [AuthController::class, 'post_sign_in'])->name('login');
+Route::get('/sign_out', [AuthController::class, 'sign_out']);
 
+// GETController
+Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
+Route::get('/get-barang/{id}', [GetController::class, 'get_barang']);
+Route::get('/get-pesanan/{id}', [GetController::class, 'get_pesanan']);
+Route::get('/get-pengguna/{id}', [GetController::class, 'get_pengguna']);
+Route::get('/get-supplier/{id}', [GetController::class, 'get_supplier']);
+Route::get('/autocode_kode_barang', [GetController::class, 'autocode_kode_barang']);
 
-    Route::get('/sign_in', [AuthController::class, 'sign_in']);
-    Route::post('/sign_in', [AuthController::class, 'post_sign_in'])->name('login');
-
-
-});
-
-Route::group(['middleware'=> 'auth'], function() {
+Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
-    Route::get('/sign_out', [AuthController::class, 'sign_out']);
+    // penjualan
+    Route::get('/penjualan', [PenjualanController::class, 'penjualan_barang']);
+    Route::post('/penjualan/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
+    Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
+    Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
+    Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);
+    Route::post('/pesanan/tambah_pesanan', [PenggunaController::class, 'tambah_pesanan']);
+    Route::get('/penjualan/hapus-pesanan/{id}', [PenjualanController::class, 'hapus_pesanan']);
+    Route::post('/penjualan/ubah-jumlah-pesanan', [PenjualanController::class, 'ubah_jumlah_pesanan']);
+    Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);
+    Route::post('/penjualan/ubah-harga-satuan', [PenjualanController::class, 'ubah_harga_satuan']);
+    Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
+
+    // NOTA
+    Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
+    Route::get('/download_nota/{id}', [RiwayatController::class, 'download_nota']);
+});
+
+Route::group(['middleware'=> ['auth', 'checkRole:Admin']], function() {
+
+    
     Route::post('/ubah_password', [AuthController::class, 'ganti_password']);
 
 
@@ -77,32 +100,24 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::post('/manajemen/supplier/post-ubah-supplier', [SupplierController::class, 'post_ubah_supplier']);
     Route::get('/manajemen/supplier/hapus-supplier/{id}', [SupplierController::class, 'hapus_supplier']);
 
-    // penjualan
-    Route::get('/penjualan', [PenjualanController::class, 'penjualan_barang']);
-    Route::post('/penjualan/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
-    Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
-    Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
-    Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);
-    Route::post('/pesanan/tambah_pesanan', [PenggunaController::class, 'tambah_pesanan']);
-    Route::get('/penjualan/hapus-pesanan/{id}', [PenjualanController::class, 'hapus_pesanan']);
-    Route::post('/penjualan/ubah-jumlah-pesanan', [PenjualanController::class, 'ubah_jumlah_pesanan']);
-    Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);
-    Route::post('/penjualan/ubah-harga-satuan', [PenjualanController::class, 'ubah_harga_satuan']);
-    Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
+    // // penjualan
+    // Route::get('/penjualan', [PenjualanController::class, 'penjualan_barang']);
+    // Route::post('/penjualan/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
+    // Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
+    // Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
+    // Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);
+    // Route::post('/pesanan/tambah_pesanan', [PenggunaController::class, 'tambah_pesanan']);
+    // Route::get('/penjualan/hapus-pesanan/{id}', [PenjualanController::class, 'hapus_pesanan']);
+    // Route::post('/penjualan/ubah-jumlah-pesanan', [PenjualanController::class, 'ubah_jumlah_pesanan']);
+    // Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);
+    // Route::post('/penjualan/ubah-harga-satuan', [PenjualanController::class, 'ubah_harga_satuan']);
+    // Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
 
-    // GETController
-    Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
-    Route::get('/get-barang/{id}', [GetController::class, 'get_barang']);
-    Route::get('/get-pesanan/{id}', [GetController::class, 'get_pesanan']);
-    Route::get('/get-pengguna/{id}', [GetController::class, 'get_pengguna']);
-    Route::get('/get-supplier/{id}', [GetController::class, 'get_supplier']);
-    Route::get('/autocode_kode_barang', [GetController::class, 'autocode_kode_barang']);
+    
 
     // riwayat
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
     Route::get('/load-riwayat-nota', [RiwayatController::class, 'load_riwayat_nota']);
-    Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
-    Route::get('/download_nota/{id}', [RiwayatController::class, 'download_nota']);
     Route::get('/batalkan_checkout/{id}', [RiwayatController::class, 'batal_checkout']);
     Route::get('/riwayat-barang-masuk', [RiwayatController::class, 'riwayat_barang_masuk']);
     Route::get('/riwayat-barang-masuk-cari-nama-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_nama_produk']);
