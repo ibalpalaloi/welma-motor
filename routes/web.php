@@ -48,6 +48,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
     Route::get('/sign_out', [AuthController::class, 'sign_out']);
+    Route::post('/ubah_password', [AuthController::class, 'ganti_password']);
+
 
     // PENGGUNA
     Route::get('/manajemen/pengguna', [PenggunaController::class, 'index']);
@@ -76,8 +78,8 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/manajemen/supplier/hapus-supplier/{id}', [SupplierController::class, 'hapus_supplier']);
 
     // penjualan
-    Route::get('/penjualan-barang', [PenjualanController::class, 'penjualan_barang']);
-    Route::post('/penjualan-barang/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
+    Route::get('/penjualan', [PenjualanController::class, 'penjualan_barang']);
+    Route::post('/penjualan/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
     Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
     Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
     Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);

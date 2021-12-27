@@ -48,7 +48,7 @@ class PenjualanController extends Controller
         $nota->user_id = Auth()->user()->id;
         $nota->save();
 
-        return redirect('/penjualan-barang?id_nota='.$nota->id);
+        return redirect('/penjualan?id_nota='.$nota->id);
     }
 
     public function get_barang(Request $request){
@@ -176,6 +176,6 @@ class PenjualanController extends Controller
     public function hapus_nota($id){
         Nota::where('id', $id)->delete();
         Pesanan::where('nota_id', $id)->delete();
-        return redirect('/penjualan-barang');
+        return redirect('/penjualan');
     }
 }

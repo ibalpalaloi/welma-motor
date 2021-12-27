@@ -38,7 +38,6 @@ class AuthController extends Controller
         }
         else{
 
-
             return redirect('/sign_in');
         }
 
@@ -49,5 +48,18 @@ class AuthController extends Controller
     
         Auth::logout();
         return redirect('/sign_in');
+    }
+
+    public function ganti_password(Request $request){
+        
+        $validation = \Validator::make($request->all(),[
+            'password_pengguna_baru' => 'required',
+        ])->validate();    
+
+        $user = User::find(Auth::user()->id);
+        $user->password = \Hash::make($request->get('password_pengguna_baru'));
+        $user->save();
+
+        return redirect()->back();
     }
 }
