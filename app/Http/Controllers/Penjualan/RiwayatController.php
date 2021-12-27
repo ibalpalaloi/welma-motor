@@ -9,6 +9,7 @@ use App\Models\Riwayat_pesanan;
 use App\Models\Nota;
 use App\Models\Pesanan;
 use App\Models\Barang_masuk;
+use PDF;
 
 class RiwayatController extends Controller
 {
@@ -39,7 +40,16 @@ class RiwayatController extends Controller
 
     public function nota($id){
         $riwayat_nota = Riwayat_nota::find($id);
+        // $pdf = PDF::loadview('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
+        // return $pdf->stream();
+
         return view('manajemen.nota', compact('riwayat_nota'));
+    }
+
+    public function download_nota($id){
+        $riwayat_nota = Riwayat_nota::find($id);
+        $pdf = PDF::loadview('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
+        return $pdf->download($riwayat_nota->nama_pembeli.".pdf");
     }
 
     public function batal_checkout($id){
@@ -71,18 +81,37 @@ class RiwayatController extends Controller
     }
     
     public function riwayat_barang_masuk(Request $request){
-        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->paginate(4);
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->paginate(40);
         $daftar_barang = array();
         $i=0;
         foreach($barang_masuk as $data){
-            $daftar_barang[$i]['nama'] = $data->barang->nama_barang;
-            $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
+            if($data->barang){
+                $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
+                $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
+                $daftar_barang[$i]['merk'] = $data->barang->merk;
+            }
+            else{
+                $daftar_barang[$i]['nama_barang'] = "";
+                $daftar_barang[$i]['tipe'] = "";
+                $daftar_barang[$i]['merk'] = "";
+            }
+            
+            $daftar_barang[$i]['jumlah'] = $data->jumlah_barang;
+
+            if($data->supplier){
+                $daftar_barang[$i]['supplier'] = $data->supplier->nama_supplier;
+            }else{
+                $daftar_barang[$i]['supplier'] = "";
+            }
+            $date = date_create($data->tgl_masuk);
+            $daftar_barang[$i]['tgl_masuk'] = date_format($date, 'd-M-Y');
+            $i++;
         }
         if(count($request->all()) > 0){
             $html = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('barang_masuk'))->render();
             return response()->json(['html'=>$html]);
         }
-        return view('manajemen.riwayat.riwayat_barang_masuk', compact('barang_masuk'));
+        return view('manajemen.riwayat.riwayat_barang_masuk', compact('barang_masuk', 'daftar_barang'));
     }
 
     public function riwayat_barang_masuk_cari_nama_produk(Request $request){
@@ -90,14 +119,64 @@ class RiwayatController extends Controller
         $barang_masuk = Barang_masuk::whereHas('barang', function($query) use($keyword){
             $query->where('nama_barang', 'LIKE', '%'.$keyword.'%');
         })->get();
-        $view = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('barang_masuk'))->render();
+        $daftar_barang = array();
+        $i=0;
+        foreach($barang_masuk as $data){
+            if($data->barang){
+                $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
+                $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
+                $daftar_barang[$i]['merk'] = $data->barang->merk;
+            }
+            else{
+                $daftar_barang[$i]['nama_barang'] = "";
+                $daftar_barang[$i]['tipe'] = "";
+                $daftar_barang[$i]['merk'] = "";
+            }
+            
+            $daftar_barang[$i]['jumlah'] = $data->jumlah_barang;
+
+            if($data->supplier){
+                $daftar_barang[$i]['supplier'] = $data->supplier->nama_supplier;
+            }else{
+                $daftar_barang[$i]['supplier'] = "";
+            }
+            $date = date_create($data->tgl_masuk);
+            $daftar_barang[$i]['tgl_masuk'] = date_format($date, 'd-M-Y');
+            $i++;
+        }
+        $view = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('daftar_barang'))->render();
         return response()->json(['html'=>$view]);
     }
 
     public function riwayat_barang_masuk_cari_tgl_produk(Request $request){
         $keyword = $request->keyword;
         $barang_masuk = Barang_masuk::where('tgl_masuk', $keyword)->get();
-        $view = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('barang_masuk'))->render();
+        $daftar_barang = array();
+        $i=0;
+        foreach($barang_masuk as $data){
+            if($data->barang){
+                $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
+                $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
+                $daftar_barang[$i]['merk'] = $data->barang->merk;
+            }
+            else{
+                $daftar_barang[$i]['nama_barang'] = "";
+                $daftar_barang[$i]['tipe'] = "";
+                $daftar_barang[$i]['merk'] = "";
+            }
+            
+            $daftar_barang[$i]['jumlah'] = $data->jumlah_barang;
+
+            if($data->supplier){
+                $daftar_barang[$i]['supplier'] = $data->supplier->nama_supplier;
+            }else{
+                $daftar_barang[$i]['supplier'] = "";
+            }
+            $date = date_create($data->tgl_masuk);
+            $daftar_barang[$i]['tgl_masuk'] = date_format($date, 'd-M-Y');
+            $i++;
+        }
+        $view = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('daftar_barang'))->render();
         return response()->json(['html'=>$view]);
     }
 

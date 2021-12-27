@@ -98,6 +98,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
     Route::get('/load-riwayat-nota', [RiwayatController::class, 'load_riwayat_nota']);
     Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
+    Route::get('/download_nota/{id}', [RiwayatController::class, 'download_nota']);
     Route::get('/batalkan_checkout/{id}', [RiwayatController::class, 'batal_checkout']);
     Route::get('/riwayat-barang-masuk', [RiwayatController::class, 'riwayat_barang_masuk']);
     Route::get('/riwayat-barang-masuk-cari-nama-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_nama_produk']);

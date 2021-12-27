@@ -77,6 +77,7 @@
                                 <td>
                                     <a target="blank" href="/nota/{{$data['id']}}" class="btn btn-primary">Cek Detail</a>
                                     <a href="/batalkan_checkout/{{$data['id']}}" class="btn btn-danger">Batal Checkout</a>
+                                    <a href="/download_nota/{{$data['id']}}" class="btn btn-success">Download Nota</a>
                                 </td>
                             </tr>
                         @endforeach
