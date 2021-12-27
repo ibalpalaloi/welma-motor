@@ -91,11 +91,13 @@ class RiwayatController extends Controller
                 $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
                 $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
                 $daftar_barang[$i]['merk'] = $data->barang->merk;
+                $daftar_barang[$i]['kode_barang'] = $data->barang->kode_barang;
             }
             else{
                 $daftar_barang[$i]['nama_barang'] = "";
                 $daftar_barang[$i]['tipe'] = "";
                 $daftar_barang[$i]['merk'] = "";
+                $daftar_barang[$i]['kode_barang'] = "";
             }
             
             $daftar_barang[$i]['jumlah'] = $data->jumlah_barang;
@@ -110,7 +112,7 @@ class RiwayatController extends Controller
             $i++;
         }
         if(count($request->all()) > 0){
-            $html = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('barang_masuk'))->render();
+            $html = view('manajemen.riwayat.data_riwayat_barang_masuk', compact('daftar_barang'))->render();
             return response()->json(['html'=>$html]);
         }
         return view('manajemen.riwayat.riwayat_barang_masuk', compact('barang_masuk', 'daftar_barang'));
@@ -128,11 +130,13 @@ class RiwayatController extends Controller
                 $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
                 $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
                 $daftar_barang[$i]['merk'] = $data->barang->merk;
+                $daftar_barang[$i]['kode_barang'] = $data->barang->kode_barang;
             }
             else{
                 $daftar_barang[$i]['nama_barang'] = "";
                 $daftar_barang[$i]['tipe'] = "";
                 $daftar_barang[$i]['merk'] = "";
+                $daftar_barang[$i]['kode_barang'] = "";
             }
             
             $daftar_barang[$i]['jumlah'] = $data->jumlah_barang;
@@ -160,11 +164,13 @@ class RiwayatController extends Controller
                 $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
                 $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
                 $daftar_barang[$i]['merk'] = $data->barang->merk;
+                $daftar_barang[$i]['kode_barang'] = $data->barang->kode_barang;
             }
             else{
                 $daftar_barang[$i]['nama_barang'] = "";
                 $daftar_barang[$i]['tipe'] = "";
                 $daftar_barang[$i]['merk'] = "";
+                $daftar_barang[$i]['kode_barang'] = "";
             }
             
             $daftar_barang[$i]['jumlah'] = $data->jumlah_barang;

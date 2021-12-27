@@ -124,26 +124,22 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 </tr>
                             </thead>
                             <tbody id="tbody_data_barang_masuk">
-                                @foreach ($barang_masuk as $data)
+                                @foreach ($daftar_barang as $data)
                                     <tr>
-                                        <td>{{ucwords($data->barang->nama_barang)}}
+                                        <td>{{ucwords($data['nama_barang'])}}
                                             <br>
-                                            <small><b>Kode : {{$data->barang->kode_barang}}</b></small>
+                                            <small><b>Kode : {{$data['kode_barang']}}</b></small>
                                         </td>
-                                        <td>{{$data->barang->tipe_barang}}
+                                        <td>{{$data['tipe']}}
                                             <br>
-                                            <small><b>Merk : {{$data->barang->merk}}</b></small>
+                                            <small><b>Merk : {{$data['merk']}}</b></small>
                                         </td>
-                                        <td>{{$data->jumlah_barang}}</td>
-                                        <td>  
-                                        @if ($data->supplier)
-                                            {{$data->supplier->nama_supplier}}</td>
-                                        @else
-                                            -
-                                        @endif
+                                        <td>{{$data['jumlah']}}</td>
+                                        <td> 
+                                            {{$data['supplier']}}
                                         </td>
                                         <td>
-                                            {{ tgl_indo(date('Y-m-d', strtotime($data->tgl_masuk))) }}
+                                            {{$data['tgl_masuk']}}
                                         </td>
                                     </tr>
                                 @endforeach
