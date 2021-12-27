@@ -71,7 +71,10 @@ class PenjualanController extends Controller
                     $tambah_pesanan = $this->tambah_pesanan($barang->id, $id_nota);
                     $id_pesanan = $tambah_pesanan->id;
                     $total_pesanan = $this->get_total_pesanan($id_nota);
-                    return response()->json(['barang'=>$barang, 'status'=>$status, 'total_pesanan'=>$total_pesanan, 'id_pesanan'=>$id_pesanan]);
+                    $nota = Nota::find($id_nota);
+                    $html = view('manajemen.penjualan.data_list_penjualan', compact('nota'))->render();
+                    return response()->json(['html'=>$html, 'status'=>$status, 'total_pesanan'=>$total_pesanan]);
+                    // return response()->json(['barang'=>$barang, 'status'=>$status, 'total_pesanan'=>$total_pesanan, 'id_pesanan'=>$id_pesanan]);
                 }
                 else{
                     $status = "stok habis";
@@ -90,13 +93,21 @@ class PenjualanController extends Controller
 
     public function tambah_pesanan($id_barang, $id_nota){
         $barang = Barang::find($id_barang);
-        $pesanan = new Pesanan;
-        $pesanan->nota_id = $id_nota;
-        $pesanan->barang_id = $id_barang;
-        $pesanan->harga = $barang->harga;
-        $pesanan->jumlah = 1;
-        $pesanan->save();
-
+        $pesanan = Pesanan::where([
+                        ['barang_id', $id_barang],
+                        ['nota_id', $id_nota]
+        ])->first();
+        if(!empty($pesanan)){
+            $pesanan->jumlah = $pesanan->jumlah + 1;
+            $pesanan->save();
+        }else{
+            $pesanan = new Pesanan;
+            $pesanan->nota_id = $id_nota;
+            $pesanan->barang_id = $id_barang;
+            $pesanan->harga = $barang->harga;
+            $pesanan->jumlah = 1;
+            $pesanan->save();
+        }
         return $pesanan;
     }
 
@@ -127,7 +138,6 @@ class PenjualanController extends Controller
         $jumlah_baru = $request->jumlah;
         $selisih = $jumlah_lama - $jumlah_baru;
         $stok = Stok::where('barang_id', $pesanan->barang_id)->first();
-        dd($stok);
         $jumlah_stok = $stok->stok + $selisih;
         if($jumlah_stok < 0){
             return response()->json([
@@ -191,4 +201,6 @@ class PenjualanController extends Controller
          );   
         return redirect('/penjualan')->with($notification);
     }
+
+    
 }

@@ -83,6 +83,7 @@ Route::group(['middleware'=> 'auth'], function() {
     Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
     Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
     Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);
+    Route::post('/pesanan/tambah_pesanan', [PenggunaController::class, 'tambah_pesanan']);
     Route::get('/penjualan/hapus-pesanan/{id}', [PenjualanController::class, 'hapus_pesanan']);
     Route::post('/penjualan/ubah-jumlah-pesanan', [PenjualanController::class, 'ubah_jumlah_pesanan']);
     Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);

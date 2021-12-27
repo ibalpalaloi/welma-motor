@@ -51,49 +51,8 @@
                 if(data.status == "sukses"){
                     console.log(data);
                     $('#input_kode_barang').val("");
-                    var barang = data.barang;
-                    console.log(barang);
-                    var tabel = "";
-
-                    if(barang['merk'] == null){
-                        barang['merk'] = '';
-
-                    }
-        
-                    var td_1 = "<td>"+barang['nama_barang'].toUpperCase()+
-                                "<br><small><b>Kode : "+
-                                barang['kode_barang']
-                                +"</b></small>"+
-                                "</td>";
-                    var td_2 = "<td>"+barang['tipe_barang']+
-                                "<br><small><b>Merk : "+
-                                barang['merk']
-                                +"</b></small>"+
-                                "</td>";
-                    var td_3 = "<td id='tdata_harga_satuan"+data.id_pesanan+"'>"+
-                                '<input class="form-control" type="number" id="pesanan_'+data.id_pesanan+'" readonly value="'+barang['harga']+'" style="cursor: pointer;" ondblclick="show_input_ubah_harga_satuan('+data.id_pesanan+')">'
-                                +"</td>";
-                    var td_4 =  "<td id='tdata_nota"+data.id_pesanan+"'>"+
-                                '<input class="form-control" type="number" id="jumlah_pesanan'+data.id_pesanan+'" readonly value="1" style="cursor: pointer;" ondblclick="show_input_ubah_jumlah_pesanan('+data.id_pesanan+')">'
-                                +"</td>";
                     
-                    var td_5 = "<td id='tdata_total_sub_pesanan"+data.id_pesanan+"'>"+
-                               'Rp. '+barang['harga']
-                                +"</td>";
-
-                    var td_6 = "<td>"+
-                                "<button onclick='hapus_pesanan("+data.id_pesanan+")' class='btn btn-danger btn-sm'><i class='feather mr-2 icon-trash'></i>Hapus</button>"
-                               +"</td>";
-
-                    tabel += "<tr id='row_pesanan"+data.id_pesanan+"'>";
-                    tabel += td_1;
-                    tabel += td_2;
-                    tabel += td_3;
-                    tabel += td_4;
-                    tabel += td_5;
-                    tabel += td_6;
-                    tabel += "</tr>";
-                    $('#tbody_daftar_nota').append(tabel);
+                    $('#tbody_daftar_nota').html(data.html);
                     $('#tidak_ditemukan').html('');
                     $('#total_pesanan').val(data.total_pesanan);
                     $('#input_kode_barang').val("");
