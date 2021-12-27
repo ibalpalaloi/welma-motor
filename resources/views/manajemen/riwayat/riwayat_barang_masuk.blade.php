@@ -89,7 +89,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h5>Daftar Barang Masuk</h5>
+                <h5>DAFTAR BARANG MASUK</h5>
              
             </div>
             
