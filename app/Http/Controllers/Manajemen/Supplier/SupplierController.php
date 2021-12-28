@@ -32,7 +32,13 @@ class SupplierController extends Controller
         $supplier->keterangan = $request->keterangan;
         $supplier->save();
 
-        return back();
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Supplier Berhasil Diubah', 
+            'alert-type' => 'success'
+         );   
+
+        return back()->with($notification);
     }
 
     public function hapus_supplier($id){
@@ -60,6 +66,12 @@ class SupplierController extends Controller
         $supplier->keterangan = $request->nama_supplier;
         $supplier->save();
 
-        return back();
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Supplier Berhasil Ditambahkan', 
+            'alert-type' => 'success'
+         );   
+
+        return back()->with($notification);
     }
 }

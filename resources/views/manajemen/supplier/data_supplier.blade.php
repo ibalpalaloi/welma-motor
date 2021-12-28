@@ -75,7 +75,7 @@ Supplier
             </button>
         </div>
         <div class="modal-body">
-            <form action="{{url()->current()}}/post-ubah-supplier" method="POST">
+            <form action="{{url('/manajemen/supplier')}}/post-ubah-supplier" method="POST">
                 @csrf
                     <input type="hidden" id="id_supplier" name="id_supplier">
                     <div class="row">
@@ -127,7 +127,7 @@ Supplier
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{url()->current()}}/post-tambah-supplier" method="post">
+            <form action="{{url('/manajemen/supplier')}}/post-tambah-supplier" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -175,7 +175,6 @@ Supplier
 @endsection
 
 @section('footer-scripts')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     function ubah_supplier(id, nama, kontak, keterangan){
         $('#id_supplier').val(id);
@@ -186,11 +185,24 @@ Supplier
     }
 
     function hapus_supplier(id){
-        swal("Yakin Ingin Menghapus ??")
-        .then((value) => {
-            window.location.href = "{{url()->current()}}/hapus-supplier/"+id;
-        });
-    }
+          swal({
+             title: "Yakin Menghapus ?",
+             text: "Data Yang Terhapus Tidak Dapat Dikembalikan !",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+           })
+          .then((willDelete) => {
+               if (willDelete) {
+                    window.location.href = "{{url('/manajemen/supplier')}}/hapus-supplier/"+id;
 
+                    
+               } 
+               else {
+                    swal("Hapus Data Dibatalkan", "Silahkan Klik Tombol Ok", "info");
+                }
+        });
+        
+    }
 </script> 
 @endsection
