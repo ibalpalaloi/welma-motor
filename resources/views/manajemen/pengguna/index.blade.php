@@ -91,11 +91,8 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             </td>
                             <td>
                                 <div class="btn-group mr-2">
-                                    <button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lainnya</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void(0)" onclick="modal_ubah_pengguna('{{$row->id}}')"><i class="feather icon-edit"></i> Ubah Pengguna</a>
-                                        <a class="dropdown-item" hhref="javascript:void(0)" onclick="hapus_pengguna('{{$row->id}}')" ><i class="feather icon-trash"></i> Hapus Pengguna</a>
-                                    </div>
+                                    <button class="btn btn-success btn-sm mr-2" onclick="modal_ubah_pengguna('{{$row->id}}')"><i class="feather icon-edit"></i> Ubah Pengguna</button>
+                                    <button class="btn btn-danger btn-sm mr-2"  onclick="hapus_pengguna('{{$row->id}}')" ><i class="feather icon-trash"></i> Hapus Pengguna</button>    
                                 </div>
 
                             </td>
@@ -285,20 +282,32 @@ function modal_ubah_pengguna(id){
 }
 
 function hapus_pengguna(id){
-    swal("Yakin Ingin Hapus Akun Ini")
-        .then((value) => {
 
-            $.ajax({
-                type: "GET",
-                url: "{{url()->current()}}/hapus-pengguna/"+id,
-                success:function(data){
-                    $('#trow_pengguna_'+id).remove();
-                }
-            })
-
-        });
+    swal({
+            title: "Yakin Menghapus ?",
+            text: "Data Yang Terhapus Tidak Dapat Dikembalikan !",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{url()->current()}}/hapus-pengguna/"+id,
+                    success:function(data){
+                        $('#trow_pengguna_'+id).remove();
+                        toastr.success('Data Berhasil Terhapus', 'Berhasil', {timeOut: 5000})
+                    }
+                })
+            } 
+            else {
+                swal("Hapus Data Dibatalkan", "Silahkan Klik Tombol Ok", "info");
+            }
+    });
        
-    }
+}
+
 
 </script>
 @endsection

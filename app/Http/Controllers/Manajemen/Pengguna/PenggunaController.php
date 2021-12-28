@@ -37,8 +37,15 @@ class PenggunaController extends Controller
         $user->email = 'tes@gmail.com';
         $user->password =  \Hash::make($request->password_pengguna);
         $user->save();
+
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Pengguna Berhasil Ditambahkan', 
+            'alert-type' => 'success'
+         );   
+
         
-        return redirect()->back();
+        return redirect()->back()->with($notification);
     }
 
     public function post_ubah_pengguna(Request $request){
@@ -62,13 +69,20 @@ class PenggunaController extends Controller
         }
         $user->save();
         
-        return redirect()->back();
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Pengguna Berhasil Diubah', 
+            'alert-type' => 'success'
+         );   
+
+        return redirect()->back()->with($notification);
     }
 
     public function hapus_pengguna($id){
 
         $user = User::find($id);
         $user->delete();
+        
         return back();
     }
 }

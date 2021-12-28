@@ -265,7 +265,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 @section('footer-scripts')
 
 <script>
-      function hapus_nota(id){
+    function hapus_nota(id){
           swal({
              title: "Yakin Menghapus ?",
              text: "Data Yang Terhapus Tidak Dapat Dikembalikan !",
