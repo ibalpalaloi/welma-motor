@@ -130,7 +130,27 @@ class PenjualanController extends Controller
     }
 
     public function hapus_pesanan($id){
+        $pesanan = Pesanan::where('id', $id)->first();
         Pesanan::where('id', $id)->delete();
+    }
+
+    public function tambah_stok($jumlah, $id_barang){
+        $stok = Stok::where('barang_id', $id_barang)->first();
+        if(!empty($stok)){
+            $stok->stok = $stok->stok + $jumlah;
+            $stok->save();
+            $status = "sukses";
+        }
+        else{
+            $stok = new Stok;
+            $stok->barang_id = $id_barang;
+            $stok->stok = $jumlah;
+            $stok->save();
+
+            $status = "sukses";
+        }
+
+        return $status;
     }
 
     public function ubah_jumlah_pesanan(Request $request){
@@ -192,9 +212,9 @@ class PenjualanController extends Controller
     }
 
     public function hapus_nota($id){
+        $pesanan = Pesanan::where('nota_id', $id)->get();
         Nota::where('id', $id)->delete();
         Pesanan::where('nota_id', $id)->delete();
-
         $notification = array(
             'title_message' => 'Berhasil',
             'message' => 'Nota Berhasil Terhapus', 
