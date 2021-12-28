@@ -21,10 +21,21 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 @endphp
 
 @foreach ($barang_masuk as $data)
-    <tr>
-        <td>{{$data->barang->nama_barang}}</td>
-        <td>{{$data->supplier->nama_supplier}}</td>
-        <td>{{$data->jumlah_barang}}</td>
-        <td>{{ tgl_indo(date('Y-m-d', strtotime($data->tgl_masuk))) }}</td>
-    </tr>
+<tr>
+    <td>{{$data->barang->nama_barang}}
+        <br>
+        <small><b>Kode : {{$data->barang->kode_barang}}</b></small>
+    </td>
+    <td>
+        @if ($data->supplier)
+            {{$data->supplier->nama_supplier}}</td>
+        @else
+            -
+        @endif
+        
+    <td>{{$data->jumlah_barang}}</td>
+    <td>
+        {{ tgl_indo(date('Y-m-d', strtotime($data->tgl_masuk))) }}
+    </td>
+</tr>
 @endforeach

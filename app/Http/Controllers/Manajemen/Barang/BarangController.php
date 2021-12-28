@@ -55,7 +55,7 @@ class BarangController extends Controller
     }
 
     public function penerimaan_barang(){
-        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(10)->get();
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->take(10)->get();
         $supplier = Supplier::all();
         // dd($barang_masuk[0]->barang->nama_barang);
         return view('manajemen.barang.barang_masuk', compact('barang_masuk', 'supplier'));
@@ -80,11 +80,18 @@ class BarangController extends Controller
         $supplier->barang_id = $request->id_barang;
         $supplier->supplier_id = $request->id_supplier;
         $supplier->jumlah_barang = $request->jumlah;
+        
+        $stok_barang = Stok::where('barang_id',$request->id_barang)->first();
+        $stok = $stok_barang->stok;
+        $stok_barang->stok = $stok + $request->jumlah;
+        $stok_barang->save();
+        
         $supplier->save();
+
     }
 
     public function get_list_barang_masuk(){
-        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'asc')->take(20)->get();
+        $barang_masuk = Barang_masuk::orderBy('tgl_masuk', 'desc')->take(20)->get();
         $view = view('manajemen.barang.data_list_barang_masuk', compact('barang_masuk'))->render();
         return response()->json(['view'=>$view]);
     }

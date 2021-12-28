@@ -230,6 +230,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 $('#tambah_barang_masuk_jumlah').val("");
                 $('#tambah_barang_masuk_tgl_masuk').val("");
                 get_tabel_list_barang_masuk();
+                $('#cari_produk_input').val('');
+                $('#tbody_daftar_barang').empty();
+                toastr.success('Stok Berhasil Ditambahkan', 'Berhasil', {timeOut: 5000})
+
             }
         })
     }
