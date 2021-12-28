@@ -15,7 +15,7 @@ class SupplierController extends Controller
     }
 
     public function post_ubah_supplier(Request $request){
-        $validator = Validator::make($request->all(),[
+        $validator = \Validator::make($request->all(),[
             'id_supplier' => 'required',
             'nama' => 'required',
             'kontak' => 'required',
@@ -50,7 +50,7 @@ class SupplierController extends Controller
 
     public function post_supplier_baru(Request $request){
 
-        $validator = Validator::make($request->all(),[
+        $validator = \Validator::make($request->all(),[
             'nama_supplier' => 'required',
             'kontak_supplier' => 'required',
             'keterangan_supplier' => 'required'

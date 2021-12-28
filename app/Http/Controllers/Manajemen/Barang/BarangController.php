@@ -82,9 +82,21 @@ class BarangController extends Controller
         $supplier->jumlah_barang = $request->jumlah;
         
         $stok_barang = Stok::where('barang_id',$request->id_barang)->first();
-        $stok = $stok_barang->stok;
-        $stok_barang->stok = $stok + $request->jumlah;
-        $stok_barang->save();
+        
+        if($stok_barang){
+            $stok = $stok_barang->stok;
+            $stok_barang->stok = $stok + $request->jumlah;
+            $stok_barang->save();
+            
+        }
+        else{
+            
+            $stok_barang = new Stok;
+            $stok_barang->barang_id = $request->id_barang;
+            $stok_barang->stok = $request->jumlah;
+            $stok_barang->save();
+        }
+
         
         $supplier->save();
 
