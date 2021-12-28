@@ -31,7 +31,7 @@ class AnalisisController extends Controller
             $total_keuntungan_pernota = 0;
             foreach($data->riwayat_pesanan as $pesanan){
                 $total_harga_pernota += $pesanan->harga;
-                $total_keuntungan_pernota += $pesanan->harga - $pesanan->barang->harga;
+                $total_keuntungan_pernota += $pesanan->harga - $pesanan->barang->harga_beli;
             } 
             $data_nota[$i]['total_harga'] = $total_harga_pernota;
             $data_nota[$i]['total_keuntungan'] = $total_keuntungan_pernota;
