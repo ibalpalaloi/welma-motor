@@ -51,20 +51,22 @@
                 if(data.status == "sukses"){
                     console.log(data);
                     $('#input_kode_barang').val("");
-                    
                     $('#tbody_daftar_nota').html(data.html);
                     $('#tidak_ditemukan').html('');
                     $('#total_pesanan').val(data.total_pesanan);
                     $('#input_kode_barang').val("");
                     $("#input_kode_barang").focus();
+                    toastr.success('Data Berhasil Ditambahkan', 'Berhasil', {timeOut: 5000})
+
                 }
                 else if(data.status == "stok habis"){
-                    alert('stok habis');
+                    toastr.warning('Stok Barang Habis', 'Pemberitahuan', {timeOut: 5000})
                     $('#tidak_ditemukan').html('');
                     $('#input_kode_barang').val("");
                 }
                 else{
-                    $('#tidak_ditemukan').html('Barang tidak di temukan');
+                    toastr.warning('Barang Tidak Ditemukan', 'Pemberitahuan', {timeOut: 5000})
+                    $('#tidak_ditemukan').html('Barang Tidak Ditemukan');
                 }
             }
         })
@@ -76,12 +78,15 @@
     }
 
     function hapus_pesanan(id){
+        
         $.ajax({
             type: "GET",
             url: "{{url('/')}}/penjualan/hapus-pesanan/"+id,
             success:function(data){
                 $('#row_pesanan'+id).remove();
                 get_total_harga_pesanan(nota['id']);
+                toastr.success('Data Berhasil Terhapus', 'Berhasil', {timeOut: 5000})
+
             }
         })
     }
@@ -109,7 +114,7 @@
         if (event.keyCode === 13) {
             console.log(nota);
             ajax_post_ubah_jumlah_pesanan(id, jumlah);
-            get_total_harga_pesanan(nota['id']);
+            get_total_harga_pesanan(nota['id']);            
         }
     }
 
@@ -118,6 +123,8 @@
         if(event.keyCode === 13){
             ajax_ubah_harga_satuan(id, harga);
             get_total_harga_pesanan(nota['id']);
+            toastr.success('Harga Berhasil Diubah', 'Berhasil', {timeOut: 5000})
+
         }
     }
 
@@ -148,11 +155,12 @@
                 if(data.status == 'sukses'){                
                     $('#tdata_nota'+id).html(html);
                     total_sub_pesanan(data.jumlah, id)
+                    toastr.success('Jumlah Pesanan Berhasil Diubah', 'Berhasil', {timeOut: 5000})
                 }
                 else{
                     $('#tdata_nota'+id).html(html);
                     total_sub_pesanan(data.jumlah, id)
-                    alert(data.status);
+                    toastr.info(data.status, 'Pemberitahuan', {timeOut: 5000})
                 }
                 
             }

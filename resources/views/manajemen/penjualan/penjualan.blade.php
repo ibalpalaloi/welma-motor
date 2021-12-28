@@ -70,7 +70,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 {{ tgl_indo(date('Y-m-d', strtotime($nota->tgl_nota))) }}
                             </b></td>
                             <td>
-                                <a href="/hapus_nota/{{$nota->id}}" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</a>
+                                <button class="btn btn-danger btn-sm" onclick="hapus_nota('{{$nota->id}}')"><i class="feather mr-2 icon-trash"></i>Hapus</button>
                             </td> 
                         </tr>
                     @endisset
@@ -81,7 +81,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             <td>{{ tgl_indo(date('Y-m-d', strtotime($data_nota->tgl_nota))) }}</td>
                             <td>
                                 <button class="btn btn-success btn-sm" onclick="pilih_nama_pembeli('{{$data_nota->id}}')"><i class="feather icon-check-square mr-2"></i>Pilih</button>
-                                <a href="/hapus_nota/{{$data_nota->id}}" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</a>
+                                <button class="btn btn-danger btn-sm" onclick="hapus_nota('{{$data_nota->id}}')"><i class="feather mr-2 icon-trash"></i>Hapus</button>
                             </td> 
                         </tr>
                         
@@ -263,6 +263,27 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 
 @section('footer-scripts')
+
+<script>
+      function hapus_nota(id){
+          swal({
+             title: "Yakin Menghapus ?",
+             text: "Data Yang Terhapus Tidak Dapat Dikembalikan !",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+           })
+          .then((willDelete) => {
+               if (willDelete) {
+                    window.location.href = "{{url('/')}}/hapus_nota/"+id;
+               } 
+               else {
+                    swal("Hapus Data Dibatalkan", "Silahkan Klik Tombol Ok", "info");
+                }
+        });
+        
+    }
+</script>
 
 @include('manajemen.penjualan.penjualan_script')
 @endsection
