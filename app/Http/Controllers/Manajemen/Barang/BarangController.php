@@ -23,7 +23,6 @@ class BarangController extends Controller
         // dd($request->all());
         
         $cek_barang = Barang::where('kode_barang', $request->kode_barang)->get();
-
         // dd($cek_barang);
         if(count($cek_barang) == 0){
             // Barang::create($request->all());
@@ -36,9 +35,23 @@ class BarangController extends Controller
             $barang->harga = $request->harga_jual;
             $barang->harga_beli = $request->harga_modal;
             $barang->save();
-            return back();
+
+            $notification = array(
+                'title_message' => 'Berhasil',
+                'message' => 'Barang Berhasil Ditambahkan', 
+                'alert-type' => 'success'
+             );   
+
+            return back()->with($notification);
         }
-        return back();
+
+        $notification = array(
+            'title_message' => 'Pemberitahuan',
+            'message' => 'Barang Telah Dimasukkan', 
+            'alert-type' => 'Info'
+         );   
+         
+        return back()->with($notification);
     }
 
     public function penerimaan_barang(){
@@ -107,7 +120,13 @@ class BarangController extends Controller
         $barang->harga = $request->harga_jual;
         $barang->harga_beli = $request->harga_modal;
         $barang->save();
+
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Barang Berhasil Diubah', 
+            'alert-type' => 'success'
+         );   
         
-        return back();
+        return back()->with($notification);
     }
 }

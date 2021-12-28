@@ -488,6 +488,8 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
                     var html = '<div ondblclick="show_ubah_stok('+id+')"><input class="form-control" type="number" id="stok'+id+'" readonly style="cursor: pointer;" value="'+data.stok['stok']+'"></div>';
                     $('#tdata_jumlah_barang'+id).html(html);
+
+                    toastr.success('Jumlah Pesanan Berhasil Diubah', 'Berhasil', {timeOut: 5000})
                 }
             })
         }
