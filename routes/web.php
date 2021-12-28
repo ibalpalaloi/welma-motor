@@ -38,6 +38,8 @@ Route::get('/sign_in', [AuthController::class, 'sign_in']);
 Route::post('/sign_in', [AuthController::class, 'post_sign_in'])->name('login');
 Route::get('/sign_out', [AuthController::class, 'sign_out']);
 
+
+
 // GETController
 Route::get('/get-total-harga-nota/{id}', [GetController::class, 'get_total_harga_nota']);
 Route::get('/get-barang/{id}', [GetController::class, 'get_barang']);
@@ -49,6 +51,7 @@ Route::get('/autocode_kode_barang', [GetController::class, 'autocode_kode_barang
 Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
+    Route::post('/ubah_password', [AuthController::class, 'ganti_password']);
 
     // penjualan
     Route::get('/penjualan', [PenjualanController::class, 'penjualan_barang']);
@@ -78,9 +81,6 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
 });
 
 Route::group(['middleware'=> ['auth', 'checkRole:Admin']], function() {
-
-    
-    Route::post('/ubah_password', [AuthController::class, 'ganti_password']);
 
 
     // PENGGUNA

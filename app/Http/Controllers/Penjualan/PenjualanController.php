@@ -117,7 +117,8 @@ class PenjualanController extends Controller
         foreach($nota->pesanan as $pesanan){
             $total_pesanan += $pesanan->jumlah * $pesanan->harga;
         }
-
+        
+        $total_pesanan = 'Rp. '.$total_pesanan;
         return $total_pesanan;
     }
 
@@ -161,7 +162,7 @@ class PenjualanController extends Controller
         $jumlah_stok = $stok->stok + $selisih;
         if($jumlah_stok < 0){
             return response()->json([
-                'status'=>'stok tidak tesedia',
+                'status'=>'Stok Tidak Tersedia',
                 'jumlah'=>$jumlah_lama,
             ]);
         }
