@@ -29,16 +29,56 @@ class AnalisisController extends Controller
             $data_nota[$i]['tgl_nota'] = $data->tgl_nota;
             $total_harga_pernota = 0;
             $total_keuntungan_pernota = 0;
+            $total_modal = 0;
             foreach($data->riwayat_pesanan as $pesanan){
                 $total_harga_pernota += $pesanan->harga;
                 $total_keuntungan_pernota += $pesanan->harga - $pesanan->barang->harga_beli;
+                $total_modal += $pesanan->barang->harga_beli;
             } 
             $data_nota[$i]['total_harga'] = $total_harga_pernota;
             $data_nota[$i]['total_keuntungan'] = $total_keuntungan_pernota;
+            $data_nota[$i]['total_modal'] = $total_modal;
             $total_harga += $total_harga_pernota;
             $total_keuntungan += $total_keuntungan_pernota;
             $i++;
         }
         return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan'));
+    }
+
+    public function get_detail_nota($id){
+        $riwayat_pesanan = Riwayat_pesanan::where('riwayat_nota_id', $id)->get();
+        $riwayat_nota = Riwayat_nota::find($id);
+        $data_pesanan = array();
+        $i = 0;
+        $total_harga = 0;
+        $total_modal = 0;
+        $total_keuntungan = 0;
+        foreach($riwayat_pesanan as $pesanan){
+            $data_pesanan[$i]['id'] = $pesanan->id;
+            $data_pesanan[$i]['kode_barang'] = $pesanan->kode_barang;
+            $data_pesanan[$i]['nama_barang'] = $pesanan->nama_barang;
+            $data_pesanan[$i]['jumlah'] = $pesanan->jumlah;
+            $data_pesanan[$i]['harga'] = $pesanan->harga;
+            if($pesanan->barang){
+                $data_pesanan[$i]['harga_beli'] = $pesanan->barang->harga_beli;
+                $data_pesanan[$i]['merk'] = $pesanan->barang->merk;
+                $data_pesanan[$i]['tipe'] = $pesanan->barang->tipe;
+            }else{
+                $data_pesanan[$i]['harga_beli'] = 0;
+                $data_pesanan[$i]['merk'] = '';
+                $data_pesanan[$i]['tipe'] = '';
+            }
+            $data_pesanan[$i]['keuntungan'] = $data_pesanan[$i]['harga'] - $data_pesanan[$i]['harga_beli'];
+            $data_pesanan[$i]['total'] = $data_pesanan[$i]['jumlah'] * $data_pesanan[$i]['harga'];
+            $total_harga += $data_pesanan[$i]['total'];
+            $total_modal += $data_pesanan[$i]['harga_beli'];
+            $total_keuntungan += $data_pesanan[$i]['keuntungan'];
+            $i++;
+        }
+        return response()->json(['data_pesanan'=>$data_pesanan, 
+                                'riwayat_nota'=>$riwayat_nota,
+                                'total_harga'=>$total_harga, 
+                                'total_modal'=>$total_modal, 
+                                'total_keuntungan'=>$total_keuntungan]);
     }
 }

@@ -41,17 +41,27 @@ class PenjualanController extends Controller
     }
 
     public function post_tambah_nota(Request $request){
-        $nota = new Nota;
-        $nota->nama_pembeli = $request->nama;
-        $nota->status = $request->status;
-        $nota->user_id = Auth()->user()->id;
-        $nota->save();
+        $nota = Nota::where('nama_pembeli', $request->nama)->first();
+        if(empty($nota)){
+            $nota = new Nota;
+            $nota->nama_pembeli = $request->nama;
+            $nota->status = $request->status;
+            $nota->user_id = Auth()->user()->id;
+            $nota->save();
 
-        $notification = array(
-            'title_message' => 'Berhasil',
-            'message' => 'Nota Berhasil Ditambahkan', 
-            'alert-type' => 'success'
-         );   
+            $notification = array(
+                'title_message' => 'Berhasil',
+                'message' => 'Nota Berhasil Ditambahkan', 
+                'alert-type' => 'success'
+            );
+        }
+        else{
+            $notification = array(
+                'title_message' => 'Gagal',
+                'message' => 'Nota Telah Tersedia', 
+                'alert-type' => 'error'
+            );
+        }  
 
 
         return redirect('/penjualan?id_nota='.$nota->id)->with($notification);

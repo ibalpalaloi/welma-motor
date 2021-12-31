@@ -34,6 +34,7 @@ class BarangController extends Controller
             $barang->satuan = $request->keterangan_satuan;
             $barang->harga = $request->harga_jual;
             $barang->harga_beli = $request->harga_modal;
+            $barang->jenis = $request->jenis_barang;
             $barang->save();
 
             $notification = array(
@@ -138,6 +139,7 @@ class BarangController extends Controller
         $barang->satuan = $request->keterangan_satuan;
         $barang->harga = $request->harga_jual;
         $barang->harga_beli = $request->harga_modal;
+        $barang->jenis = $request->jenis_barang;
         $barang->save();
 
         $notification = array(

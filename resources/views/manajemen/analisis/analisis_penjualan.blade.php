@@ -44,6 +44,54 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 
 @section('content')
+{{-- modal --}}
+<div class="modal fade bd-example-modal-lg" id="modal_detail_nota" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Detail Nota</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5 id="detail_nama_pembeli">Nama Pembeli : </h5>
+            <table class="table table-bordered">
+                <thead>
+                    <th>Nama Barang</th>
+                    <th>Tipe</th>
+                    <th>Jumlah</th>
+                    <th>Harga</th>
+                    <th>Total Harga</th>
+                    <th>Modal</th>
+                </thead>
+                <tbody id="tbody_detail_riwayat_pesanan">
+                    <tr>
+                        <td>
+                            Nama Barang <br>
+                            <small><b>Kode barang</b></small>
+
+                        </td>
+                        <td>
+                            Nama Barang <br>
+                            <small><b>Kode barang</b></small>
+
+                        </td>
+                        <td>3</td>
+                        <td>89999</td>
+                        <td>
+                            Nama Barang <br>
+                            <small><b>Kode barang</b></small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+</div>
+{{-- end modal --}}
+
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
@@ -95,6 +143,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                        <th>Nama Pembeli</th>
                                         <th>Tanggal Pemesanan</th>
                                         <th>Jumlah Transaksi</th>
+                                        <th>Modal</th>
                                         <th>Keuntungan</th> 
                                         <th>
                                             Aksi
@@ -113,11 +162,16 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                                 Rp. {{number_format($nota['total_harga'],0,',','.')}}
                                             </td>
                                             <td>
+                                                Rp. {{number_format($nota['total_modal'],0,',','.')}}
+                                            </td>
+                                            <td>
                                                 Rp. {{number_format($nota['total_keuntungan'],0,',','.')}}
                                             
                                             </td>
+
                                             <td>
                                                 <a target="blank" href="{{url('/')}}/nota/{{$nota['id']}}" class="btn btn-primary btn-sm"><i class="feather icon-bookmark"></i> Lihat Nota</a>
+                                                <a href="##" onclick="lihat_detail_nota('{{$nota['id']}}')" class="btn btn-success btn-sm"><i class="feather icon-bookmark"></i> Lihat Detail</a>
                                             </td>
                                             
                                         </tr>
@@ -139,6 +193,36 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         if(tgl != ""){
             window.location.href = "{{url('/')}}/analisis-penjualan?tgl="+tgl;
         }
+    }
+
+    function lihat_detail_nota(id){
+        $.ajax({
+            type: "GET",
+            url: "{{url('/')}}/analisis-get-detail-nota/"+id,
+            success:function(data){
+                var data_pesanan = data.data_pesanan;
+                var table = "";
+                for(let i = 0; i < data_pesanan.length; i++){
+                    table += "<tr>";
+                    table += "<td>"+data_pesanan[i]['nama_barang']+"<br><small><b>Kode :"+data_pesanan[i]['kode_barang']+"</b></small></td>";
+                    table += "<td>"+data_pesanan[i]['tipe']+"<br><small><b>Kode :"+data_pesanan[i]['merk']+"</b></small></td>";
+                    table += "<td>"+data_pesanan[i]['jumlah']+"</td>";
+                    table += "<td>"+data_pesanan[i]['harga']+"</td>";
+                    table += "<td>"+data_pesanan[i]['harga']+"</td>";
+                    table += "<td>"+data_pesanan[i]['harga_beli']+"<br><small><b>Keuntungan :"+data_pesanan[i]['keuntungan']+"</b></small></td>";
+                    table += "</tr>";
+                }
+                table += "<tr>"
+                table += "<td colspan='4'><b>Total</b></td>"
+                table += "<td><b>"+data.total_harga+"</b></td>"
+                table += "<td><b>"+data.total_modal+"</b><br><small><b>Keuntungan :"+data.total_keuntungan+"</b></small></td>";
+                table += "</tr>"
+                $('#tbody_detail_riwayat_pesanan').html(table);
+                $('#detail_nama_pembeli').html("Nama Pembeli : "+data.riwayat_nota['nama_pembeli']+" ("+data.riwayat_nota['status']+")")
+
+                $('#modal_detail_nota').modal('show');
+            }
+        })
     }
 </script>
 @endsection

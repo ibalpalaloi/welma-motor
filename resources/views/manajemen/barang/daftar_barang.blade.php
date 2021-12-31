@@ -307,7 +307,17 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <input type="text" class="form-control" name="keterangan_satuan" required placeholder="Keterangan Satuan...">
                             </div>
                         </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label for="" class="mb-0">Jenis</label>
+                                <select name="jenis_barang" id="" class="form-control">
+                                    <option value="barang">Barang</option>
+                                    <option value="jasa">Jasa</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
+                    
                 
                 </div>
                 <div class="modal-footer p-2">
@@ -403,6 +413,15 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             <div class="form-group">
                                 <label class="mb-0" ><small class="text-danger">* </small>Keterangan Satuan</label>
                                 <input type="text" class="form-control" name="keterangan_satuan" id="ubah_keterangan_satuan" required placeholder="Keterangan Satuan...">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label for="" class="mb-0">Jenis</label>
+                                <select name="jenis_barang" id="option_jenis_barang" class="form-control">
+                                    <option value="barang">Barang</option>
+                                    <option value="jasa">Jasa</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -503,6 +522,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             success:function(data){
                 console.log(data)
                 var barang = data.barang;
+                var option = "";
                 $('#ubah_id').val(id);
                 $('#ubah_kode_barang').val(barang['kode_barang']);
                 $('#ubah_nama_barang').val(barang['nama_barang']);
@@ -511,6 +531,19 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 $('#ubah_harga_jual').val(barang['harga']);
                 $('#ubah_harga_modal').val(barang['harga_beli']);
                 $('#ubah_merk').val(barang['merk']);
+                option += "<option value='barang'";
+                if(barang['jenis'] == 'barang'){
+                    option += "selected";
+                }
+                option += ">"+"barang"+"</option>"
+
+                option += "<option value='jasa'";
+                if(barang['jenis'] == 'jasa'){
+                    option += "selected";
+                }
+                option += ">"+"jasa"+"</option>";
+
+                $('#option_jenis_barang').html(option);
                 $('#modal_ubah_barang').modal('show');
             }
         })

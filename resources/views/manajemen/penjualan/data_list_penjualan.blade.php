@@ -11,11 +11,19 @@
         </td>
         <td id="tdata_harga_satuan{{$pesanan->id}}">
             <input class="form-control" type="number" id="pesanan_{{$pesanan->id}}" readonly
-            value="{{$pesanan->harga}}" style="cursor: pointer;" ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')">
+            value="{{$pesanan->harga}}" style="cursor: pointer;" @if ($pesanan->barang->jenis == 'jasa')
+                ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')"
+            @elseif(Auth()->user()->roles == "Admin") 
+                ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')" 
+            @endif  >
         </td>
         <td id="tdata_nota{{$pesanan->id}}">
             <input class="form-control" type="number" id="jumlah_pesanan{{$pesanan->id}}" readonly
-            value="{{$pesanan->jumlah}}" style="cursor: pointer;" ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')">
+            value="{{$pesanan->jumlah}}" style="cursor: pointer;" @if ($pesanan->barang->jenis == 'jasa')
+                ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')"
+            @elseif(Auth()->user()->roles == "Admin")
+                ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')"
+            @endif >
         </td>
         <td id="tdata_total_sub_pesanan{{$pesanan->id}}">Rp. {{$pesanan->jumlah * $pesanan->harga}}</td>
         <td><button onclick="hapus_pesanan('{{$pesanan->id}}')" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</button></td>
