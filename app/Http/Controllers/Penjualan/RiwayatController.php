@@ -215,7 +215,18 @@ class RiwayatController extends Controller
     }
 
     public function riwayat_nota_tgl(Request $request){
-        $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+        if($request->status == "umum"){
+            $nota = Riwayat_nota::where([
+                ['tgl_nota', $request->tgl], ['status', 'umum']
+            ])->get();
+        }elseif($request->status == "dinas"){
+            $nota = Riwayat_nota::where([
+                ['tgl_nota', $request->tgl], ['status', 'dinas']
+            ])->get();
+        }else{
+            $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+        }
+        
         $data_riwayat_nota = array();
         $i = 0;
         foreach($nota as $data){

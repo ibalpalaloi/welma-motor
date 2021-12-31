@@ -95,13 +95,27 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4 mb-2">
-                        <label for=""><strong>Pilih Tanggal : </strong></label>
+                    <div class="col-md-12 mb-2">
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
+                                <label for=""><strong>Pilih Tanggal : </strong></label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for=""><strong>Status Nota : </strong></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
                                 <input class="form-control" type="date" id='keyword_tgl'>
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-4">
+                                <select name="" id="select_status_nota" class="form-control">
+                                    <option value="semua">Semua</option>
+                                    <option value="umum">Umum</option>
+                                    <option value="dinas">Dinas</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
                                 <button class="btn btn-success p-2" onclick="cari_nota_tgl()"><i class="feather icon-calendar"></i> Cari</button>
                             </div>
                         </div>
@@ -173,9 +187,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
     function cari_nota_tgl(){
         var tgl = $('#keyword_tgl').val();
+        var status_nota = $('#select_status_nota').val();
         $.ajax({
             type: "GET",
-            url: "{{url('/')}}/riwayat-nota-tgl?tgl="+tgl,
+            url: "{{url('/')}}/riwayat-nota-tgl?tgl="+tgl+"&status="+status_nota,
             success:function(data){
                 $('#tbody_data_nota').empty();
                 $('#tbody_data_nota').html(data.view);
