@@ -8,19 +8,34 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>NOTA PEMESANAN</title>
   </head>
   <body>
     <div class="container">
-        <div class="text-center">
-            <h2>Welma Motor</h2>
-        </div>
-        <br>
         <div class="row">
-            <div class="col">Nama Pembeli: {{$riwayat_nota->nama_pembeli}}</div>
-            <div class="col"></div>
+            <div class="col-sm-6">
+               <div class="">WELMA</div>
+               <div class="">Bengkel dan Variasi</div>
+               <div class="">Jl. Hangtuah No. 73 Telp 0451 428402. 081341114556</div>
+               <div class="">Palu 94118</div> 
+               <hr>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div class="">Nota Penjualan</div>
+                <div class="">{{$riwayat_nota->id}}</div>
+            </div>
         </div>
-        <br><br>
+        <div class="row">
+            <div class="col-sm-6">
+              <div class="">Tanggal : </div> 
+              <div class="">Halaman</div> 
+            </div>
+            <div class="col-sm-6">
+                <div class="">Kepada YTH</div>
+                <div class="">{{$riwayat_nota->nama_pembeli}}</div>
+            </div>
+        </div>
+ 
         <table class="table table-bordered">
             <thead>
                 <tr>
