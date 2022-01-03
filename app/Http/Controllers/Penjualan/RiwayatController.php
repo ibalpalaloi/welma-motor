@@ -29,6 +29,7 @@ class RiwayatController extends Controller
             
             $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
             $data_riwayat_nota[$i]['status'] = ucwords($data->status);
+            $data_riwayat_nota[$i]['montir'] = $data->montir;
 
             $total_harga = 0;
             foreach($data->riwayat_pesanan as $riwayat_pesanan){

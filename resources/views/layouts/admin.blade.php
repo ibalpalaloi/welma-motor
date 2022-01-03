@@ -62,6 +62,9 @@
                     <li class="nav-item">
                     	<a href="{{url('/penjualan')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Penjualan</span></a>
                     </li>
+                    <li class="nav-item">
+                    	<a href="{{url('/daftar-montir')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Montir</span></a>
+                    </li>
                     @if (Auth()->user()->roles == "Admin")
                         <li class="nav-item">
                             <a href="{{url('manajemen/pengguna')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Pengguna</span></a>

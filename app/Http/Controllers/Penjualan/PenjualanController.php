@@ -8,6 +8,7 @@ use App\Models\Pesanan;
 use App\Models\Nota;
 use App\Models\Stok;
 use App\Models\Barang;
+use App\Models\Montir;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
 
@@ -15,6 +16,7 @@ class PenjualanController extends Controller
 {
     //
     public function penjualan_barang(Request $request){
+        $montir = Montir::all();
         $list_nota = Nota::all(); 
         // dd($request->all());
         if(count($request->all())>0){
@@ -25,10 +27,10 @@ class PenjualanController extends Controller
             foreach($nota->pesanan as $pesanan){
                 $total_pesanan += $pesanan->jumlah * $pesanan->harga;
             }
-            return view('manajemen.penjualan.penjualan', compact('list_nota', 'nota', 'total_pesanan'));
+            return view('manajemen.penjualan.penjualan', compact('list_nota', 'nota', 'total_pesanan', 'montir'));
         }
         
-        return view('manajemen.penjualan.penjualan', compact('list_nota'));
+        return view('manajemen.penjualan.penjualan', compact('list_nota', 'montir'));
     }
 
     public function cek_nota($id){
@@ -47,6 +49,7 @@ class PenjualanController extends Controller
             $nota->nama_pembeli = $request->nama;
             $nota->status = $request->status;
             $nota->user_id = Auth()->user()->id;
+            $nota->montir = "-";
             $nota->save();
 
             $notification = array(
@@ -195,6 +198,7 @@ class PenjualanController extends Controller
         $riwayat_nota->user_id = Auth()->user()->id;
         $riwayat_nota->tgl_nota = $nota->tgl_nota;
         $riwayat_nota->status =$nota->status;
+        $riwayat_nota->montir = $nota->montir;
         $riwayat_nota->save();
         foreach($nota->pesanan as $pesanan){
             $barang = Barang::find($pesanan->barang_id);
@@ -231,6 +235,15 @@ class PenjualanController extends Controller
             'alert-type' => 'success'
          );   
         return redirect('/penjualan')->with($notification);
+    }
+
+    public function ubah_montir(Request $request){
+        $nota = Nota::find($request->id_nota);
+        $montir = Montir::find($request->id_montir);
+        $nota->montir = $montir->nama;
+        $nota->save();
+
+        return response()->json(['status'=>'sukses']);
     }
 
     
