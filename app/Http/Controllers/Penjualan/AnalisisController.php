@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Penjualan;
 
+use App\Exports\AnalisisExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
+use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AnalisisController extends Controller
 {
@@ -15,9 +18,11 @@ class AnalisisController extends Controller
         $date_today = date("Y-m-d");
         if(!empty($request->all())){
             $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+            $tgl = $request->tgl;
         }
         else{
             $nota = Riwayat_nota::where('tgl_nota', $date_today)->get();
+            $tgl = $request->date_today;
         }
         $data_nota = array();
         $i = 0;
@@ -42,7 +47,7 @@ class AnalisisController extends Controller
             $total_keuntungan += $total_keuntungan_pernota;
             $i++;
         }
-        return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan'));
+        return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan', 'tgl'));
     }
 
     public function get_detail_nota($id){
@@ -80,5 +85,11 @@ class AnalisisController extends Controller
                                 'total_harga'=>$total_harga, 
                                 'total_modal'=>$total_modal, 
                                 'total_keuntungan'=>$total_keuntungan]);
+    }
+
+    public function export_analisis(Request $request){
+        $export = new AnalisisExport();
+        $export->setTanggal($request->tgl);
+        return Excel::download($export, $request->tgl.'.xlsx');
     }
 }
