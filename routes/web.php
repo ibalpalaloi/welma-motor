@@ -67,7 +67,7 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
     Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
 
     // NOTA
-    Route::get('/nota/{id}', [RiwayatController::class, 'nota']);
+    Route::get('/nota/{jenis}/{id}', [RiwayatController::class, 'nota']);
     Route::get('/download_nota/{id}', [RiwayatController::class, 'download_nota']);
 
     // riwayat
