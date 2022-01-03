@@ -129,7 +129,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                     </div>
                     <div class="col-sm-12">
                         @isset($nota)
-                        <a onclick="checkout('{{$nota->id}}')" href="#" class="float-right btn btn-primary btn-sm "><i class="feather icon-printer"></i> Checkout</a>
+                        <button onclick="checkout('{{$nota->id}}')"class="float-right btn btn-primary btn-sm "><i class="feather icon-printer"></i> Checkout</button>
                         @endisset
                     </div>
                 </div>
