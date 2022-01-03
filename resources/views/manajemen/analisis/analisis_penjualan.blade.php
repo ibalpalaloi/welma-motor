@@ -108,10 +108,13 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <input type="date" class="datepicker form-control" id="tgl">
                                 </div>
                                 <div class="col">
-
                                     <button onclick="lihat_tanggal()" class="btn btn-success p-2"><i class="feather icon-calendar"></i> Lihat Tanggal</button>
 
                                 </div>
+                                <div style="padding-right: 20px">
+                                    <button onclick="export_analisis()" class="btn btn-primary p-2"><i class="feather icon-download"></i>Export</button>
+                                </div>
+                                
                             </div>
                             <hr>
                             <div class="row">
@@ -188,6 +191,12 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 @section('footer-scripts')
 <script>
+    var tgl = {!! json_encode($tgl) !!};
+
+    function export_analisis(){
+        window.location.href = "<?=url('/')?>/analisis-export?tgl="+tgl;
+    }
+
     function lihat_tanggal(){
         var tgl = $('#tgl').val();
         if(tgl != ""){
