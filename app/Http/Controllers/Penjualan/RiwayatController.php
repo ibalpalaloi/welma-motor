@@ -40,17 +40,30 @@ class RiwayatController extends Controller
         return view('manajemen.riwayat.riwayat_nota', compact('data_riwayat_nota'));
     }
 
-    public function nota($id){
+    public function nota($jenis, $id){
         $riwayat_nota = Riwayat_nota::find($id);
+
+        $pdf = app('dompdf.wrapper')->loadView('manajemen.nota_2', ['riwayat_nota'=>$riwayat_nota]);
+
+        if ($jenis == 'lihat') {
+
+            return $pdf->stream('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf', array("Attachment" => 0));
+        }
+    
+        if ($jenis == 'download') {
+
+            return $pdf->download('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf');
+        }
+
         // $pdf = PDF::loadview('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
         // return $pdf->stream();
 
-        return view('manajemen.nota', compact('riwayat_nota'));
+        // return view('manajemen.nota_2', compact('riwayat_nota'));
     }
 
     public function download_nota($id){
         $riwayat_nota = Riwayat_nota::find($id);
-        $pdf = PDF::loadview('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
+        $pdf = PDF::loadview('manajemen.nota_2', ['riwayat_nota'=>$riwayat_nota]);
         return $pdf->download($riwayat_nota->nama_pembeli.".pdf");
     }
 
