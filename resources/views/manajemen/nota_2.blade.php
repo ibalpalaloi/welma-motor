@@ -238,12 +238,13 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 <div class="" style="margin-top : 15px;">Dicetak Pada Tangal : {{ tgl_indo(date('Y-m-d')) }}</div>
             </td>
             <td align="left" style="width: 15%;">
-                <div class="" style="margin-bottom: 35px">Penerima,</div>
-                <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->nama_pembeli)}}</div>
-
+                @if ($riwayat_nota->montir)
+                <div class="" style="margin-bottom: 35px">Montir,</div>
+                <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->montir)}}</div>
+                @endif
             </td>
             <td align="left" style="width: 15%;">
-                <div class="" style="margin-bottom: 35px">Pekerja,</div>
+                <div class="" style="margin-bottom: 35px">Penerima,</div>
                 <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->nama_pembeli)}}</div>
             </td>
             <td align="left" style="width: 15%;">

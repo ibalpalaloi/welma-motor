@@ -309,7 +309,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group">
-                                <label for="" class="mb-0">Jenis</label>
+                                <label for="" class="mb-0"><small class="text-danger">* </small>Jenis</label>
                                 <select name="jenis_barang" id="" class="form-control">
                                     <option value="barang">Barang</option>
                                     <option value="jasa">Jasa</option>

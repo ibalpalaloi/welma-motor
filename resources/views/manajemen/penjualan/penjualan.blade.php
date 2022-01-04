@@ -132,7 +132,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             <label class="col-sm-3 col-form-label">Montir</label>
                             <div class="col-sm-9">
                                 <select name="montir" id="select_montir" class="form-control">
-                                    <option value="-">----</option>
+                                    <option value="-">Tidak Ada</option>
                                     @foreach ($montir as $data)
                                         <option value="{{$data->id}}" @if ($data->nama == $nota->montir)
                                             selected
@@ -179,6 +179,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <tr>
                                     <th width="">Barang</th>
                                     <th>Tipe</th>
+                                    <th>Merek</th>
                                     <th>Harga</th>
                                     <th>Jumlah</th>
                                     <th>Total</th>

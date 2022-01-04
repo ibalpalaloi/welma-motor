@@ -62,13 +62,15 @@
                     <li class="nav-item">
                     	<a href="{{url('/penjualan')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Penjualan</span></a>
                     </li>
-                    <li class="nav-item">
-                    	<a href="{{url('/daftar-montir')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Montir</span></a>
-                    </li>
+                 
                     @if (Auth()->user()->roles == "Admin")
                         <li class="nav-item">
                             <a href="{{url('manajemen/pengguna')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Pengguna</span></a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{url('manajemen/montir/daftar-montir')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user-check"></i></span><span class="pcoded-mtext">Montir</span></a>
+                        </li>
+
                         <li class="nav-item pcoded-hasmenu">
                             <a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Barang & Supplier</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
                             <ul class="pcoded-submenu">
@@ -87,7 +89,9 @@
                             <a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Riwayat</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
                             <ul class="pcoded-submenu">
                                 <li><a href="{{url('/')}}/riwayat-pesanan">Pesanan</a>
+                                @if (Auth()->user()->roles == "Admin")
                                 <li><a href="{{url('/')}}/riwayat-barang-masuk" >Barang Masuk</a></li>
+                                @endif
                             </ul>
                         </li>
                     @if (Auth()->user()->roles == "Admin")

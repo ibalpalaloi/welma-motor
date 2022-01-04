@@ -229,6 +229,7 @@ class PenjualanController extends Controller
         $pesanan = Pesanan::where('nota_id', $id)->get();
         Nota::where('id', $id)->delete();
         Pesanan::where('nota_id', $id)->delete();
+
         $notification = array(
             'title_message' => 'Berhasil',
             'message' => 'Nota Berhasil Terhapus', 
@@ -238,9 +239,18 @@ class PenjualanController extends Controller
     }
 
     public function ubah_montir(Request $request){
+ 
         $nota = Nota::find($request->id_nota);
-        $montir = Montir::find($request->id_montir);
-        $nota->montir = $montir->nama;
+        if ($request->id_montir != '-') {
+
+            $montir = Montir::find($request->id_montir);
+            $nota->montir = $montir->nama;
+
+        }
+        else{
+            $nota->montir = null;
+
+        }
         $nota->save();
 
         return response()->json(['status'=>'sukses']);

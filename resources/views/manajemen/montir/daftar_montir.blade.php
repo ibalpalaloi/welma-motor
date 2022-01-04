@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Supplier
+Montir
 @endsection
 
 @section('header-scripts')
@@ -9,11 +9,11 @@ Supplier
 @endsection
 
 @section('header-breadcumb')
-Supplier
+Montir
 @endsection
 
 @section('list-breadcumb')
-<li class="breadcrumb-item active">Supplier</li>
+<li class="breadcrumb-item active">Montir</li>
     
 @endsection
 
@@ -23,10 +23,10 @@ Supplier
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header bg-light">
-                <h5>DAFTAR Montir</h5>
+                <h5>DAFTAR MONTIR</h5>
                 <div class="card-header-right">
                     <div class="card-option">
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_tambah_supplier"><i class="feather icon-plus"></i> Tambah</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_tambah_montir"><i class="feather icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </div>
@@ -62,8 +62,8 @@ Supplier
 
 @section('modal-content')
 
-{{-- modal tambah supplier --}}
-<div class="modal fade" id="modal_tambah_supplier" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+{{-- modal tambah montir --}}
+<div class="modal fade" id="modal_tambah_montir" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -72,14 +72,14 @@ Supplier
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{url('/')}}/post-tambah-montir" method="post">
+            <form action="{{url('/')}}/manajemen/montir/post-tambah-montir" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-10">
                             <div class="form-group">
                                 <label class="mb-0"><small class="text-danger">* </small>Nama Montir</label>
-                                <input type="text" class="form-control" name="nama_montir" id="nama_supplier"  required placeholder="Nama Supplier...">
+                                <input type="text" class="form-control" name="nama_montir" id="nama_montir"  required placeholder="Nama Montir...">
                             </div>
                       
                         </div>
@@ -110,8 +110,8 @@ Supplier
 
 @section('footer-scripts')
 <script>
-    function ubah_supplier(id, nama, kontak, keterangan){
-        $('#modal_ubah_supplier').modal('show');
+    function ubah_montir(id, nama, kontak, keterangan){
+        $('#modal_ubah_montir').modal('show');
     }
 
     function hapus_montir(id){
@@ -124,8 +124,7 @@ Supplier
            })
           .then((willDelete) => {
                if (willDelete) {
-                    window.location.href = "{{url('/')}}/hapus-montir/"+id;
-
+                    window.location.href = "{{url('/')}}/manajemen/montir/hapus-montir/"+id;
                     
                } 
                else {

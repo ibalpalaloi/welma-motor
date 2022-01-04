@@ -10,6 +10,7 @@ use App\Http\Controllers\Manajemen\Barang\BarangController;
 use App\Http\Controllers\Manajemen\Barang\BarcodeController;
 use App\Http\Controllers\Manajemen\Pengguna\PenggunaController;
 use App\Http\Controllers\Manajemen\Supplier\SupplierController;
+use App\Http\Controllers\Manajemen\Montir\MontirController;
 
 use App\Http\Controllers\Penjualan\PenjualanController;
 use App\Http\Controllers\Penjualan\RiwayatController;
@@ -18,7 +19,6 @@ use App\Http\Controllers\Penjualan\AnalisisController;
 
 
 use App\Http\Controllers\GetController;
-use App\Http\Controllers\MontirController;
 use App\Models\Barang;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
@@ -34,9 +34,12 @@ use App\Models\Riwayat_pesanan;
 |
 */
 
+Route::group(['middleware'=> 'guest'], function() {
+    
+    Route::get('/sign_in', [AuthController::class, 'sign_in']);
+    Route::post('/sign_in', [AuthController::class, 'post_sign_in'])->name('login');
 
-Route::get('/sign_in', [AuthController::class, 'sign_in']);
-Route::post('/sign_in', [AuthController::class, 'post_sign_in'])->name('login');
+});
 Route::get('/sign_out', [AuthController::class, 'sign_out']);
 
 
@@ -76,9 +79,7 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
     Route::get('/riwayat-pesanan', [RiwayatController::class, 'riwayat_nota']);
     Route::get('/load-riwayat-nota', [RiwayatController::class, 'load_riwayat_nota']);
     Route::get('/batalkan_checkout/{id}', [RiwayatController::class, 'batal_checkout']);
-    Route::get('/riwayat-barang-masuk', [RiwayatController::class, 'riwayat_barang_masuk']);
-    Route::get('/riwayat-barang-masuk-cari-nama-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_nama_produk']);
-    Route::get('/riwayat-barang-masuk-cari-tgl-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_tgl_produk']);
+
     Route::get('/riwayat-nota-tgl', [RiwayatController::class, 'riwayat_nota_tgl']);
 });
 
@@ -137,7 +138,12 @@ Route::group(['middleware'=> ['auth', 'checkRole:Admin']], function() {
     Route::get('/barcode/{kode}', [BarcodeController::class, 'barcode']);
 
     // montir
-    Route::get('/daftar-montir', [MontirController::class, 'daftar_montir']);
-    Route::get('/hapus-montir/{id}', [MontirController::class, 'hapus_montir']);
-    Route::post('/post-tambah-montir', [MontirController::class, 'post_tambah_montir']);
+    Route::get('/manajemen/montir/daftar-montir', [MontirController::class, 'daftar_montir']);
+    Route::get('/manajemen/montir/hapus-montir/{id}', [MontirController::class, 'hapus_montir']);
+    Route::post('/manajemen/montir/post-tambah-montir', [MontirController::class, 'post_tambah_montir']);
+
+    Route::get('/riwayat-barang-masuk', [RiwayatController::class, 'riwayat_barang_masuk']);
+    Route::get('/riwayat-barang-masuk-cari-nama-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_nama_produk']);
+    Route::get('/riwayat-barang-masuk-cari-tgl-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_tgl_produk']);
+    
 });

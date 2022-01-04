@@ -39,6 +39,7 @@ Dashboard
         </div>
     </div>
 
+    @if (Auth()->user()->roles == "Admin")
     <div class="col-md-6 col-lg-4">
         <div class="card widget-statstic-card">
             <div class="card-body">
@@ -58,6 +59,7 @@ Dashboard
             </div>
         </div>
     </div>
+    @endif
 
     @if (Auth()->user()->roles == "Admin")
     <div class="col-md-6 col-lg-4">

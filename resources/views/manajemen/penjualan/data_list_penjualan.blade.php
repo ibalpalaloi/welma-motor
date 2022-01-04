@@ -6,24 +6,29 @@
             <small><b>Kode : {{$pesanan->barang->kode_barang}}</b></small>
         </td>
         <td>{{$pesanan->barang->tipe_barang}}
-            <br>
-            <small><b>Merk : {{$pesanan->barang->merk}}</b>
         </td>
+        <td> {{$pesanan->barang->merk}}</td>
         <td id="tdata_harga_satuan{{$pesanan->id}}">
-            <input class="form-control" type="number" id="pesanan_{{$pesanan->id}}" readonly
-            value="{{$pesanan->harga}}" style="cursor: pointer;" @if ($pesanan->barang->jenis == 'jasa')
+            <input  type="number" id="pesanan_{{$pesanan->id}}" readonly
+            value="{{$pesanan->harga}}" style="cursor: pointer;" 
+            @if ($pesanan->barang->jenis == 'jasa')
+                class="form-control"
                 ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')"
             @elseif(Auth()->user()->roles == "Admin") 
+                class="form-control"
                 ondblclick="show_input_ubah_harga_satuan('{{$pesanan->id}}')" 
-            @endif  >
+            @else
+                class="form-control-plaintext"
+            @endif  
+            >
         </td>
         <td id="tdata_nota{{$pesanan->id}}">
-            <input class="form-control" type="number" id="jumlah_pesanan{{$pesanan->id}}" readonly
-            value="{{$pesanan->jumlah}}" style="cursor: pointer;" @if ($pesanan->barang->jenis == 'jasa')
-                ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')"
-            @elseif(Auth()->user()->roles == "Admin")
-                ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')"
-            @endif >
+            <input type="number" id="jumlah_pesanan{{$pesanan->id}}" 
+            value="{{$pesanan->jumlah}}" style="cursor: pointer;" readonly
+            class="form-control"
+            ondblclick="show_input_ubah_jumlah_pesanan('{{$pesanan->id}}')"
+            
+            >
         </td>
         <td id="tdata_total_sub_pesanan{{$pesanan->id}}">Rp. {{$pesanan->jumlah * $pesanan->harga}}</td>
         <td><button onclick="hapus_pesanan('{{$pesanan->id}}')" class="btn btn-danger btn-sm"><i class="feather mr-2 icon-trash"></i>Hapus</button></td>

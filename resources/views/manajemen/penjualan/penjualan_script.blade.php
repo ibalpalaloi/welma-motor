@@ -17,6 +17,8 @@
             data: {'id_montir':id_montir, 'id_nota':nota['id']},
             success:function(data){
                 console.log('ubah montir')
+                toastr.success('Montir Berhasil Diubah', 'Berhasil', {timeOut: 5000})
+
             }
         })
     });
