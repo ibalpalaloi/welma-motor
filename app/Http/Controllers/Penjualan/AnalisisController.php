@@ -22,7 +22,7 @@ class AnalisisController extends Controller
         }
         else{
             $nota = Riwayat_nota::where('tgl_nota', $date_today)->get();
-            $tgl = $request->date_today;
+            $tgl = $date_today;
         }
         $data_nota = array();
         $i = 0;
