@@ -79,12 +79,14 @@ class RiwayatController extends Controller
         $nota->tgl_nota = $riwayat_nota->tgl_nota;
         $nota->status = $riwayat_nota->status;
         $nota->user_id = $riwayat_nota->user_id;
+        $nota->montir = $riwayat_nota->montir;
         $nota->save();
 
         foreach($riwayat_nota->riwayat_pesanan as $data){
             $pesanan = new Pesanan;
-            $pesanan->nota_id = $nota->id;
+            $pesanan->nota_id = $nota->id;            
             $pesanan->barang_id = $data->barang_id;
+            $pesanan->nama_barang = $data->nama_barang;
             $pesanan->harga = $data->harga;
             $pesanan->jumlah = $data->jumlah;
             $pesanan->save();

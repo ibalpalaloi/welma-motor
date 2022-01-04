@@ -129,6 +129,23 @@
         })
     }
 
+    function show_input_ubah_nama_jasa(id){
+
+        var nama_jasa = $('#nama_jasa'+id).val();
+
+        // alert('tes');
+        $.ajax({
+            type: "get",
+            url: "{{url('/')}}/get-pesanan/"+id,
+            success:function(data){
+                console.log(data);
+                html = '<input  class="form-control" type="text" id="input_nama_jasa'+id+'" onkeydown="post_nama_jasa('+id+')" value="'+nama_jasa+'">';
+                $('#tdata_nama_jasa'+id).html(html);
+            }
+        })
+    }
+
+
     function post_jumlah_pesanan(id){
         var jumlah = $('#input_jumlah_pesanan'+id).val();
         if (event.keyCode === 13) {
@@ -148,6 +165,14 @@
         }
     }
 
+    function post_nama_jasa(id){
+        var nama = $('#input_nama_jasa'+id).val();
+        if(event.keyCode === 13){
+            ajax_ubah_nama_jasa(id, nama);
+            toastr.success('Nama Jasa Berhasil Diubah', 'Berhasil', {timeOut: 5000})
+        }
+    }
+
     function ajax_ubah_harga_satuan(id, harga_satuan){
         $.ajax({
             type: "post",
@@ -158,6 +183,19 @@
                 html = '<input class="form-control" type="number" id="pesanan_'+id+'" readonly value="'+harga_satuan+'" style="cursor: pointer;" ondblclick="show_input_ubah_harga_satuan('+id+')">';
                 $('#tdata_harga_satuan'+id).html(html);
                 total_sub_pesanan(data.pesanan['jumlah'], id);
+            }
+        })
+    }
+
+
+    function ajax_ubah_nama_jasa(id, nama){
+        $.ajax({
+            type: "post",
+            url: "{{url('/')}}/penjualan/ubah-nama-jasa",
+            data: {'id': id, 'nama_jasa':nama, "_token": "{{ csrf_token() }}"},
+            success:function(data){
+                html ='<input type="text" id="nama_jasa'+id+'" class="form-control-plaintext p-0" style="cursor: pointer;"  value="'+nama+'" readonly  ondblclick="show_input_ubah_nama_jasa('+id+')">'; 
+                $('#tdata_nama_jasa'+id).html(html);
             }
         })
     }

@@ -117,6 +117,7 @@ class PenjualanController extends Controller
             $pesanan = new Pesanan;
             $pesanan->nota_id = $id_nota;
             $pesanan->barang_id = $id_barang;
+            $pesanan->nama_barang = $barang->nama_barang;
             $pesanan->harga = $barang->harga;
             $pesanan->jumlah = 1;
             $pesanan->save();
@@ -206,7 +207,12 @@ class PenjualanController extends Controller
             $riwayat_pesanan->riwayat_nota_id = $riwayat_nota->id;
             $riwayat_pesanan->barang_id = $barang->id;
             $riwayat_pesanan->kode_barang = $barang->kode_barang;
-            $riwayat_pesanan->nama_barang = $barang->nama_barang;
+            if ($pesanan->nama_barang == '') {
+                $riwayat_pesanan->nama_barang = $barang->nama_barang;
+            }
+            else{
+                $riwayat_pesanan->nama_barang = $pesanan->nama_barang;
+            }
             $riwayat_pesanan->jumlah = $pesanan->jumlah;
             $riwayat_pesanan->harga =$pesanan->harga;
             $riwayat_pesanan->save();
@@ -220,6 +226,15 @@ class PenjualanController extends Controller
     public function ubah_harga_satuan(Request $request){
         $pesanan = Pesanan::find($request->id);
         $pesanan->harga = $request->harga_satuan;
+        $pesanan->save();
+
+        return response()->json(['pesanan'=>$pesanan]);
+    }
+
+
+    public function ubah_nama_jasa(Request $request){
+        $pesanan = Pesanan::find($request->id);
+        $pesanan->nama_barang = $request->nama_jasa;
         $pesanan->save();
 
         return response()->json(['pesanan'=>$pesanan]);

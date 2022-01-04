@@ -178,7 +178,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             @foreach ($riwayat_nota->riwayat_pesanan as $pesanan)
             <tr>
                 <th scope="row">{{$loop->iteration}}</th>
-                <td >{{$pesanan->kode_barang}}</td>
+                @if ($pesanan->barang->jenis == 'barang')
+                    <td>{{$pesanan->kode_barang}}</td>
+                @else
+                    <td>Jasa</td>
+                @endif
                 <td align="left">{{$pesanan->nama_barang}}</td>
                 <td>{{$pesanan->barang->satuan}}</td>
                 <td >{{$pesanan->barang->tipe_barang}}</td>
