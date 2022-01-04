@@ -18,6 +18,7 @@ use App\Http\Controllers\Penjualan\AnalisisController;
 
 
 use App\Http\Controllers\GetController;
+use App\Http\Controllers\MontirController;
 use App\Models\Barang;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
@@ -65,6 +66,7 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
     Route::get('/checkout-nota/{id}', [PenjualanController::class, 'checkout_nota']);
     Route::post('/penjualan/ubah-harga-satuan', [PenjualanController::class, 'ubah_harga_satuan']);
     Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
+    Route::post('/penjualan-ubah-montir', [PenjualanController::class, 'ubah_montir']);
 
     // NOTA
     Route::get('/nota/{jenis}/{id}', [RiwayatController::class, 'nota']);
@@ -133,4 +135,9 @@ Route::group(['middleware'=> ['auth', 'checkRole:Admin']], function() {
 
     // barcode
     Route::get('/barcode/{kode}', [BarcodeController::class, 'barcode']);
+
+    // montir
+    Route::get('/daftar-montir', [MontirController::class, 'daftar_montir']);
+    Route::get('/hapus-montir/{id}', [MontirController::class, 'hapus_montir']);
+    Route::post('/post-tambah-montir', [MontirController::class, 'post_tambah_montir']);
 });

@@ -1,7 +1,25 @@
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     @isset($nota) var nota = {!! json_encode($nota) !!};
     $("#input_kode_barang").focus();
     @endisset
+
+    $('#select_montir').change(function(){
+        var id_montir = $('#select_montir').val();
+        $.ajax({
+            type: "POST",
+            url: "{{url('/')}}/penjualan-ubah-montir",
+            data: {'id_montir':id_montir, 'id_nota':nota['id']},
+            success:function(data){
+                console.log('ubah montir')
+            }
+        })
+    });
 
     function modal_tambah_nota(){
         $('#modal-tambah-nota.modal').modal('show');

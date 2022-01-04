@@ -128,6 +128,21 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                         </div>
                     </div>
                     <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Montir</label>
+                            <div class="col-sm-9">
+                                <select name="montir" id="select_montir" class="form-control">
+                                    <option value="-">----</option>
+                                    @foreach ($montir as $data)
+                                        <option value="{{$data->id}}" @if ($data->nama == $nota->montir)
+                                            selected
+                                        @endif>{{$data->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         @isset($nota)
                         <button onclick="checkout('{{$nota->id}}')"class="float-right btn btn-primary btn-sm "><i class="feather icon-printer"></i> Checkout</button>
                         @endisset
