@@ -29,7 +29,14 @@ class RiwayatController extends Controller
             
             $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
             $data_riwayat_nota[$i]['status'] = ucwords($data->status);
-            $data_riwayat_nota[$i]['montir'] = $data->montir;
+            
+            if ($data->montir) {
+                $data_riwayat_nota[$i]['montir'] = $data->montir;
+            }
+            else{
+                $data_riwayat_nota[$i]['montir'] = '-';
+            }
+      
 
             $total_harga = 0;
             foreach($data->riwayat_pesanan as $riwayat_pesanan){
@@ -44,16 +51,20 @@ class RiwayatController extends Controller
     public function nota($jenis, $id){
         $riwayat_nota = Riwayat_nota::find($id);
 
-        $pdf = app('dompdf.wrapper')->loadView('manajemen.nota_2', ['riwayat_nota'=>$riwayat_nota]);
+        $pdf = PDF::loadView('manajemen.nota_2', ['riwayat_nota'=>$riwayat_nota]);
+
+        $width_paper = 8.5*72;
+        $height_paper = 5.5*72;
+        $custom_size_paper = array(0, 0, $width_paper, $height_paper );
 
         if ($jenis == 'lihat') {
 
-            return $pdf->stream('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf', array("Attachment" => 0));
+            return $pdf->setPaper($custom_size_paper, 'potrait')->stream('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf', array("Attachment" => 0));
         }
     
         if ($jenis == 'download') {
 
-            return $pdf->download('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf');
+            return $pdf->setPaper($custom_size_paper, 'potrait')->download('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf');
         }
 
         // $pdf = PDF::loadview('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
@@ -252,6 +263,13 @@ class RiwayatController extends Controller
                 $data_riwayat_nota[$i]['nama_admin'] = $data->user->nama;
             }else{
                 $data_riwayat_nota[$i]['nama_admin'] = '-';
+            }
+                
+            if ($data->montir) {
+                $data_riwayat_nota[$i]['montir'] = $data->montir;
+            }
+            else{
+                $data_riwayat_nota[$i]['montir'] = '-';
             }
             $data_riwayat_nota[$i]['status'] = ucwords($data->status);
             $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;

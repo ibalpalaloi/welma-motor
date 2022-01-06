@@ -9,7 +9,6 @@
   
         @page{
             margin: 0px;
-            size: 9.5in 5.5in;
         }
 
         * {
@@ -18,7 +17,8 @@
 
         body{
 
-            margin: 15px;
+            margin: 15px 25px;
+            font-size: 7pt;
         }
 
         h3{
@@ -26,17 +26,7 @@
             margin: 0px;
         }
 
-        table {
-            font-size: 7px;
-        }
-
-
-
-        tfoot tr td {
-
-            font-size: 7px;
-        }
-
+ 
         .gray {
             background-color: lightgray
         }
@@ -46,11 +36,7 @@
             color: black;
         }
 
-        .title_information{
-
-            font-size: 10px;
-
-        }
+  
 
         .footer {
             position: fixed; 
@@ -133,7 +119,6 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             </td>
             <td valign="top" align="right" width="50%">
                 <h3>Nota Penjualan</h3>
-                <h3>CASH-NOTA{{$riwayat_nota->id}}</h3>
             </td>
         </tr>
 
@@ -232,33 +217,35 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             
         </tfoot>
     </table>
-<div class="footer">
+    <div class="" style="margin-top:15px;">
 
-    <table width="100%">
-        <tr valign="top">
-            <td align="left" style="width: 55%;">
-                <div class="">*) Barang Yang Dibeli Sudah Diperiksa Dalam Kondisi Baik</div>
-                <div class=""> *) Batas Waktu Retrun Barang 3 (Tiga) Hari Sejak Tanggal Pembelian</div>
-                <div class="" style="margin-top : 15px;">Dicetak Pada Tangal : {{ tgl_indo(date('Y-m-d')) }}</div>
-            </td>
-            <td align="left" style="width: 15%;">
-                @if ($riwayat_nota->montir)
-                <div class="" style="margin-bottom: 35px">Montir,</div>
-                <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->montir)}}</div>
-                @endif
-            </td>
-            <td align="left" style="width: 15%;">
-                <div class="" style="margin-bottom: 35px">Penerima,</div>
-                <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->nama_pembeli)}}</div>
-            </td>
-            <td align="left" style="width: 15%;">
-                <div class="" style="margin-bottom: 35px">Mengetahui,</div>
-                <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->user->nama)}}</div>
-            </td>
-        </tr>
+        <table width="100%">
+            <tr valign="top">
+                <td align="left" style="width: 55%;">
+                    <div class="">*) Barang Yang Dibeli Sudah Diperiksa Dalam Kondisi Baik</div>
+                    <div class=""> *) Batas Waktu Retrun Barang 3 (Tiga) Hari Sejak Tanggal Pembelian</div>
+                    <div class="" style="margin-top : 15px;">Dicetak Pada Tangal : {{ tgl_indo(date('Y-m-d')) }}</div>
+                </td>
+                <td align="left" style="width: 15%;">
+                    @if ($riwayat_nota->montir)
+                        @if ($riwayat_nota->montir != '-')
+                        <div class="" style="margin-bottom: 35px">Montir,</div>
+                        <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->montir)}}</div>
+                        @endif
+                    @endif
+                </td>
+                <td align="left" style="width: 15%;">
+                    <div class="" style="margin-bottom: 35px">Penerima,</div>
+                    <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->nama_pembeli)}}</div>
+                </td>
+                <td align="left" style="width: 15%;">
+                    <div class="" style="margin-bottom: 35px">Mengetahui,</div>
+                    <div class="" style="text-decoration: underline;">{{strtoupper($riwayat_nota->user->nama)}}</div>
+                </td>
+            </tr>
 
-    </table>
-</div>
+        </table>
+    </div>
      
  
  

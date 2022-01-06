@@ -102,19 +102,33 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
                     <div class="row">
                         <div class='col-md-12'>
-                            <label><strong>Pilih Tanggal</strong></label>
                             <div class="row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
+                                    <label><strong>Pilih Tanggal :</strong></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label><strong>Status Nota :</strong></label>
+                                </div>  
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-4">
                                     <input type="date" class="datepicker form-control" id="tgl">
                                 </div>
+                                <div class="col-sm-4">
+                                    <select name="" id="select_status_nota" class="form-control">
+                                        <option value="semua">Semua</option>
+                                        <option value="umum">Umum</option>
+                                        <option value="dinas">Dinas</option>
+                                    </select>
+                                </div>
                                 <div class="col">
-                                    <button onclick="lihat_tanggal()" class="btn btn-success p-2"><i class="feather icon-calendar"></i> Lihat Tanggal</button>
+                                    <button onclick="lihat_tanggal()" class="btn btn-success p-2"><i class="feather icon-calendar"></i> Cari</button>
+                                    <button onclick="export_analisis()" class="btn btn-primary p-2 float-right"><i class="feather icon-download"></i> Export Excel</button>
 
                                 </div>
-                                <div style="padding-right: 20px">
-                                    <button onclick="export_analisis()" class="btn btn-primary p-2"><i class="feather icon-download"></i>Export</button>
-                                </div>
-                                
+                            
+
                             </div>
                             <hr>
                             <div class="row">
@@ -173,8 +187,8 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                             </td>
 
                                             <td>
-                                                <a target="blank" href="{{url('/')}}/nota/{{$nota['id']}}" class="btn btn-primary btn-sm"><i class="feather icon-bookmark"></i> Lihat Nota</a>
-                                                <a href="##" onclick="lihat_detail_nota('{{$nota['id']}}')" class="btn btn-success btn-sm"><i class="feather icon-bookmark"></i> Lihat Detail</a>
+                                                <a target="blank" href="{{url('/')}}/nota/lihat/{{$nota['id']}}" class="btn btn-primary btn-sm"><i class="feather icon-bookmark"></i> Lihat Nota</a>
+                                                <button onclick="lihat_detail_nota('{{$nota['id']}}')" class="btn btn-success btn-sm"><i class="feather icon-bookmark"></i> Lihat Detail</button>
                                             </td>
                                             
                                         </tr>
