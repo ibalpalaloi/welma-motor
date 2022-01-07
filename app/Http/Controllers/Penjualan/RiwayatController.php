@@ -242,6 +242,7 @@ class RiwayatController extends Controller
     }
 
     public function riwayat_nota_tgl(Request $request){
+        
         if($request->status == "umum"){
             $nota = Riwayat_nota::where([
                 ['tgl_nota', $request->tgl], ['status', 'umum']

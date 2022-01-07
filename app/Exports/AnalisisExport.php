@@ -18,6 +18,8 @@ class AnalisisExport implements FromView
     {
         $this->tanggal = $tanggal;
     }
+
+    
     public function view(): View
     {
         //

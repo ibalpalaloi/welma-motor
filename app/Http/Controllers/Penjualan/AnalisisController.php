@@ -17,13 +17,30 @@ class AnalisisController extends Controller
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
         if(!empty($request->all())){
-            $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+          
+            if($request->status == "umum"){
+                $nota = Riwayat_nota::where([
+                    ['tgl_nota', $request->tgl], ['status', 'umum']
+                ])->get();
+            }elseif($request->status == "dinas"){
+                $nota = Riwayat_nota::where([
+                    ['tgl_nota', $request->tgl], ['status', 'dinas']
+                ])->get();
+            }else{
+                $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+            }
+
             $tgl = $request->tgl;
+
+            $status = $request->status;
+
         }
         else{
             $nota = Riwayat_nota::where('tgl_nota', $date_today)->get();
             $tgl = $date_today;
         }
+
+        
         $data_nota = array();
         $i = 0;
         $total_harga = 0;
@@ -32,6 +49,7 @@ class AnalisisController extends Controller
             $data_nota[$i]['id'] = $data->id;
             $data_nota[$i]['nama_pembeli'] = $data->nama_pembeli;
             $data_nota[$i]['tgl_nota'] = $data->tgl_nota;
+            $data_nota[$i]['status'] = $data->status;
             $total_harga_pernota = 0;
             $total_keuntungan_pernota = 0;
             $total_modal = 0;
@@ -47,7 +65,7 @@ class AnalisisController extends Controller
             $total_keuntungan += $total_keuntungan_pernota;
             $i++;
         }
-        return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan', 'tgl'));
+        return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan', 'tgl','status'));
     }
 
     public function get_detail_nota($id){
@@ -67,7 +85,15 @@ class AnalisisController extends Controller
             if($pesanan->barang){
                 $data_pesanan[$i]['harga_beli'] = $pesanan->barang->harga_beli;
                 $data_pesanan[$i]['merk'] = $pesanan->barang->merk;
+                if (is_null($pesanan->barang->merk)) {
+                    $data_pesanan[$i]['merk'] = '';
+
+                }
                 $data_pesanan[$i]['tipe'] = $pesanan->barang->tipe;
+                if (is_null($pesanan->barang->tipe)) {
+                    $data_pesanan[$i]['tipe'] = '';
+
+                }
             }else{
                 $data_pesanan[$i]['harga_beli'] = 0;
                 $data_pesanan[$i]['merk'] = '';
