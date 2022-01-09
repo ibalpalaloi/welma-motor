@@ -16,6 +16,7 @@ class AnalisisController extends Controller
     public function analisis_penjualan(Request $request){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
+
         if(!empty($request->all())){
           
             if($request->status == "umum"){
@@ -38,6 +39,8 @@ class AnalisisController extends Controller
         else{
             $nota = Riwayat_nota::where('tgl_nota', $date_today)->get();
             $tgl = $date_today;
+            $status = 'semua';
+
         }
 
         
@@ -115,7 +118,21 @@ class AnalisisController extends Controller
 
     public function export_analisis(Request $request){
         $export = new AnalisisExport();
+
         $export->setTanggal($request->tgl);
+        $export->setStatusNota($request->status);
         return Excel::download($export, $request->tgl.'.xlsx');
+
+        // if ($request->status == 'semua') {
+        //     $riwayat_nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+
+        // } else {
+        //     $riwayat_nota = Riwayat_nota::where('tgl_nota', $request->tgl)->where('status', $request->status)->get();
+
+        // }
+        
+        
+        
+        // return view('exports.analisis', compact('riwayat_nota'));
     }
 }

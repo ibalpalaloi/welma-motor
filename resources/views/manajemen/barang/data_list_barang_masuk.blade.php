@@ -37,5 +37,6 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     <td>
         {{ tgl_indo(date('Y-m-d', strtotime($data->tgl_masuk))) }}
     </td>
+    <td><button class="btn btn-danger btn-sm" onclick="hapus_riwayat_barang_masuk('{{$data->id}}')"><i class="feather icon-trash"></i> Hapus</button></td>
 </tr>
 @endforeach

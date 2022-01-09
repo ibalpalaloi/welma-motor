@@ -107,6 +107,7 @@ Route::group(['middleware'=> ['auth', 'checkRole:Admin']], function() {
     Route::post('/manajemen/barang/penerimaan-barang/post-barang-masuk', [BarangController::class, 'post_barang_masuk']);
     Route::get('/manajemen/barang/penerimaan-barang/get-list-barang-masuk', [BarangController::class, 'get_list_barang_masuk']);
 
+
     // supplier
     Route::get('/manajemen/supplier/data-supplier', [SupplierController::class, 'data_supplier']);
     Route::post('/manajemen/supplier/post-tambah-supplier', [SupplierController::class, 'post_supplier_baru']);
@@ -146,5 +147,8 @@ Route::group(['middleware'=> ['auth', 'checkRole:Admin']], function() {
     Route::get('/riwayat-barang-masuk', [RiwayatController::class, 'riwayat_barang_masuk']);
     Route::get('/riwayat-barang-masuk-cari-nama-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_nama_produk']);
     Route::get('/riwayat-barang-masuk-cari-tgl-produk', [RiwayatController::class, 'riwayat_barang_masuk_cari_tgl_produk']);
-    
+
+    Route::get('/riwayat-barang-masuk/hapus-riwayat/{id}', [RiwayatController::class, 'hapus_riwayat_penerimaan_barang']);
+
+
 });

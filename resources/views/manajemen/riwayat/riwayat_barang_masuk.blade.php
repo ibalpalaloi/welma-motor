@@ -108,7 +108,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
                         <div id="div-filter-barang" class="float-right">
                     
-       
+    
                         </div>
                      
                     </div>
@@ -121,6 +121,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <th>Jumlah Barang</th>
                                     <th>Supplier</th>
                                     <th>Tanggal Masuk</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody_data_barang_masuk">
@@ -139,8 +140,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                             {{$data['supplier']}}
                                         </td>
                                         <td>
-                                            {{$data['tgl_masuk']}}
+                                            {{ tgl_indo(date('Y-m-d', strtotime($data['tgl_masuk']))) }}
                                         </td>
+                                        <td><button class="btn btn-danger btn-sm" onclick="hapus_riwayat_barang_masuk('{{$data['id']}}')"><i class="feather icon-trash"></i> Hapus</button></td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -238,6 +241,26 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         var html = "<label for=''><strong>Tanggal : </strong></label>";
         html += "<input class='form-control' type='date' onkeyup='cari_produk_tgl()' id='keyword_tgl'>";
         $('#div-filter-barang').html(html);
+    }
+
+    function hapus_riwayat_barang_masuk(id){
+          swal({
+             title: "Yakin Menghapus ?",
+             text: "Data Yang Terhapus Tidak Dapat Dikembalikan !",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+           })
+          .then((willDelete) => {
+               if (willDelete) {
+                    window.location.href = "{{url('/')}}/riwayat-barang-masuk/hapus-riwayat/"+id;
+                    
+               } 
+               else {
+                    swal("Hapus Data Dibatalkan", "Silahkan Klik Tombol Ok", "info");
+                }
+        });
+        
     }
 
 

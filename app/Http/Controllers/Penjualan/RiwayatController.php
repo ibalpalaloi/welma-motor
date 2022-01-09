@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
+use App\Models\Stok;
 use App\Models\Nota;
 use App\Models\Pesanan;
 use App\Models\Barang_masuk;
@@ -114,6 +115,7 @@ class RiwayatController extends Controller
         $daftar_barang = array();
         $i=0;
         foreach($barang_masuk as $data){
+            $daftar_barang[$i]['id'] = $data->id;
             if($data->barang){
                 $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
                 $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
@@ -153,6 +155,7 @@ class RiwayatController extends Controller
         $daftar_barang = array();
         $i=0;
         foreach($barang_masuk as $data){
+            $daftar_barang[$i]['id'] = $data->id;
             if($data->barang){
                 $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
                 $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
@@ -187,6 +190,7 @@ class RiwayatController extends Controller
         $daftar_barang = array();
         $i=0;
         foreach($barang_masuk as $data){
+            $daftar_barang[$i]['id'] = $data->id;
             if($data->barang){
                 $daftar_barang[$i]['nama_barang'] = $data->barang->nama_barang;
                 $daftar_barang[$i]['tipe'] = $data->barang->tipe_barang;
@@ -242,7 +246,6 @@ class RiwayatController extends Controller
     }
 
     public function riwayat_nota_tgl(Request $request){
-        
         if($request->status == "umum"){
             $nota = Riwayat_nota::where([
                 ['tgl_nota', $request->tgl], ['status', 'umum']
@@ -284,5 +287,25 @@ class RiwayatController extends Controller
         $view = view('manajemen.riwayat.data_riwayat_nota', compact('data_riwayat_nota'))->render();
 
         return response()->json(['view'=>$view]);
+    }
+
+    public function hapus_riwayat_penerimaan_barang($id){
+
+        $barang_masuk = Barang_masuk::find($id);
+
+        $stok = Stok::where('barang_id', $barang_masuk->barang_id)->first();
+        if(isset($stok)){
+            $stok->stok = $stok->stok + $barang_masuk->jumlah_barang;
+            $stok->save();
+        }
+        $barang_masuk->delete();
+
+        $notification = array(
+            'title_message' => 'Berhasil',
+            'message' => 'Riwayat Barang Masuk Berhasil Terhapus', 
+            'alert-type' => 'success'
+         );   
+
+        return redirect()->back()->with($notification);
     }
 }

@@ -237,8 +237,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 <script>
     var tgl = {!! json_encode($tgl) !!};
     var status_nota = {!! json_encode($status) !!};
-
-
+    
     function export_analisis(){
         window.location.href = "<?=url('/')?>/analisis-export?tgl="+tgl+"&status="+status_nota;
     }
