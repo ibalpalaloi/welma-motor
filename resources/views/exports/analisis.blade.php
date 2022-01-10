@@ -16,6 +16,7 @@
                 <td>Status</td>
                 <td>Tanggal Pemesanan</td>
                 <td>Nama Barang</td>
+                <td>Kode Barang</td>
                 <td>Tipe</td>
                 <td>Merek</td>
                 <td>Jumlah</td>
@@ -41,6 +42,7 @@
                 @foreach ($data->riwayat_pesanan as $pesanan)
                 <tr>
                     <td>{{ucwords($pesanan->nama_barang)}}</td>
+                    <td>{{$pesanan->barang->kode_barang}}</td>
                     <td>{{$pesanan->barang->tipe_barang}}</td>
                     <td>{{$pesanan->barang->merk}}</td>
                     <td>{{$pesanan->jumlah}}</td>
