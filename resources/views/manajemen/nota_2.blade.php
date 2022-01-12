@@ -170,7 +170,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 @endif
                 <td align="left">{{$pesanan->nama_barang}}</td>
                 <td>{{$pesanan->barang->satuan}}</td>
-                <td >{{$pesanan->barang->tipe_barang}}</td>
+                <td style="white-space: normal;">{{$pesanan->barang->tipe_barang}}</td>
                 <td>{{$pesanan->barang->merk}}</td>
                 <td>{{$pesanan->jumlah}}</td>
                 <td align="right">Rp. {{number_format($pesanan->harga,0,',','.')}}</td>

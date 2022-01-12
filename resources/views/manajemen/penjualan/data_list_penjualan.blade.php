@@ -20,7 +20,7 @@
         </td>
         @endif
    
-        <td>{{$pesanan->barang->tipe_barang}}
+        <td style="white-space: normal;">{{$pesanan->barang->tipe_barang}}
         </td>
         <td> {{$pesanan->barang->merk}}</td>
         <td id="tdata_harga_satuan{{$pesanan->id}}">

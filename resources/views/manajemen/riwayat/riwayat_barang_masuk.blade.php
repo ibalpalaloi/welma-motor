@@ -131,7 +131,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                             <br>
                                             <small><b>Kode : {{$data['kode_barang']}}</b></small>
                                         </td>
-                                        <td>{{$data['tipe']}}
+                                        <td style="white-space: normal;">{{$data['tipe']}}
                                             <br>
                                             <small><b>Merk : {{$data['merk']}}</b></small>
                                         </td>
