@@ -34,6 +34,12 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
 
+    <style>
+        td {
+            white-space: normal !important; // To consider whitespace.
+            }
+    </style>
+
     @yield('header-scripts')
 
 
