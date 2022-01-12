@@ -61,16 +61,15 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             </div>
             
             <div class="card-body">
-                <table id="" style="font-size: 14px" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
+                <table id="" style="font-size: 14px; width:100%;" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap">
                     <thead>
                         <tr>
                             <th width="1%">No.</th>
                             <th>Barang</th>
                             <th>Tipe</th>
                             <th>Harga</th>
-                            <th width="8%">Stok</th>
-                            <th width="3%">Barcode</th>
-                            <th width="6%">Aksi</th>
+                            <th width="10%">Stok</th>
+                            <th width="7%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +83,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
                                 </td>
                      
-                                <td>
+                                <td style="white-space: normal;">
                                     {{$data->tipe_barang}}
                                     <br>
                                     <small><b>Merk : {{$data->merk}}</b></small>
@@ -108,13 +107,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 
                                 </td>
                                 <td>
-                                    <a href="data:image/png;base64,{{DNS1D::getBarcodePNG($data->kode_barang, 'C128', 1 , 36 , array(0,0,0) , true)}}" download="{{ucwords($data->nama_barang)}}_{{$data->kode_barang}}" target="_blank" class="btn btn-sm btn-secondary"><i class="feather icon-printer"></i> Download</a>
-                                </td>
-                                <td>
                                     <button class="btn btn-sm btn-primary" onclick="modal_detail_barang('{{$data->id}}')"><i class="feather icon-grid"></i> Detail Barang </button>
                                     <div class="btn-group mr-2">
                                         <button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lainnya</button>
                                         <div class="dropdown-menu">
+                                            <a href="data:image/png;base64,{{DNS1D::getBarcodePNG($data->kode_barang, 'C128', 1 , 36 , array(0,0,0) , true)}}" download="{{ucwords($data->nama_barang)}}_{{$data->kode_barang}}" target="_blank" class="dropdown-item"><i class="feather icon-printer"></i> Barcode</a>
                                             <a class="dropdown-item" href="javascript:void(0)" onclick="modal_ubah_barang('{{$data->id}}')"><i class="feather icon-edit"></i> Ubah Barang</a>
                                             <a class="dropdown-item" hhref="javascript:void(0)" onclick="hapus_barang('{{$data->id}}')" ><i class="feather icon-trash"></i> Hapus Barang</a>
                                         </div>
