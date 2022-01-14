@@ -149,6 +149,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 <input readonly type="text" class="pl-2 form-control" id="tambah_barang_masuk_nama_barang" required>
             </div>
             <div class="form-group">
+                <label for="exampleInputEmail1">Merk</label>
+                <input readonly type="text" class="pl-2 form-control" id="tambah_barang_masuk_merk" required>
+            </div>
+            <div class="form-group">
                 <div class="row">
                     <div class="col-sm-12">
                         <label for="exampleFormControlSelect1">Supplier</label>
@@ -210,8 +214,9 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         })
     }
 
-    function modal_tambah_barang_masuk(nama_barang, id_barang){
+    function modal_tambah_barang_masuk(nama_barang, merk_barang,id_barang){
         $('#tambah_barang_masuk_nama_barang').val(nama_barang);
+        $('#tambah_barang_masuk_merk').val(merk_barang);
         $('#tambah_barang_masuk_id_barang').val(id_barang);
         $('#modal_tambah_barang_masuk').modal('show');
     }
