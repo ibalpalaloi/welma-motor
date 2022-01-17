@@ -39,7 +39,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 @section('header-scripts')
 
-
+<style>
+    td {
+        white-space: normal !important; 
+    }
+</style>
 @endsection
 
 

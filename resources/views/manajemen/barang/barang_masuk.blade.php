@@ -10,6 +10,13 @@ Penerimaan Barang | Barang
 
 <link rel="stylesheet" href="{{asset('assets/css/plugins/select2.min.css')}}">
 
+<style>
+
+    #tabel_daftar_barang_masuk td {
+        white-space: normal !important; 
+    }
+</style>
+
 @endsection
 
 @section('header-breadcumb')
@@ -67,7 +74,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                     <input type="text" class="form-control" id="cari_produk_input" placeholder="Kode / Nama Barang">
                 </div>
                 <hr>
-                <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
+                <table id="tabel_daftar_barang_masuk" class="table table-striped table-bordered table-hover dt-responsive nowrap">
                     <thead>
                         <tr>
                             <th>Kode</th>

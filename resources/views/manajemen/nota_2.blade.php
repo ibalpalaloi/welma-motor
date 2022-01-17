@@ -17,7 +17,7 @@
 
         body{
 
-            margin: 15px 25px;
+            margin: 20px 25px 15px;
             font-size: 7pt;
         }
 

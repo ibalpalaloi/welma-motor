@@ -54,7 +54,7 @@ class RiwayatController extends Controller
 
         $pdf = PDF::loadView('manajemen.nota_2', ['riwayat_nota'=>$riwayat_nota]);
 
-        $width_paper = 8.5*72;
+        $width_paper = 8.4*72;
         $height_paper = 5.5*72;
         $custom_size_paper = array(0, 0, $width_paper, $height_paper );
 

@@ -82,6 +82,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     .plus-button--large {
         font-size: 22px;
     }
+    td {
+    white-space: normal !important; 
+    }
+
 </style>   
 @endsection
 

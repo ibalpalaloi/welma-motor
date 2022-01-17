@@ -7,6 +7,8 @@ Daftar | Barang
 @endsection
 
 @section('header-scripts')
+
+
     
 @endsection
 
