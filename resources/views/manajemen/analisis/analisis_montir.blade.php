@@ -185,7 +185,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         var tgl = $('#tgl').val();
         var status_nota = $('#select_status_nota').val();
         if(tgl != ""){
-            window.location.href = "{{url('/')}}/analisis-penjualan?tgl="+tgl+"&status="+status_nota;
+            window.location.href = "{{url('/')}}/analisis-montir?tgl="+tgl;
 
 
         }

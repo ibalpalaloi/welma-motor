@@ -136,13 +136,19 @@ class AnalisisController extends Controller
         // return view('exports.analisis', compact('riwayat_nota'));
     }
 
-    public function analisis_montir(){
+    public function analisis_montir(Request $request){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
+        if(count($request->all()) > 0){
+            $tgl = $request->tgl;
+        }else{
+            $tgl = $date_today;
+        }
         $riwayat_nota = Riwayat_nota::where([
             ['montir', '!=', ''],
             ['montir', '!=', '-'],
-            ['montir',  '!=', null]
+            ['montir',  '!=', null],
+            ['tgl_nota', $tgl]
         ])->get();
         
         $data_riwayat_nota = array();
