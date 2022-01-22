@@ -135,4 +135,31 @@ class AnalisisController extends Controller
         
         // return view('exports.analisis', compact('riwayat_nota'));
     }
+
+    public function analisis_montir(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        $riwayat_nota = Riwayat_nota::where([
+            ['montir', '!=', ''],
+            ['montir', '!=', '-'],
+            ['montir',  '!=', null]
+        ])->get();
+        
+        $data_riwayat_nota = array();
+        $i = 0;
+        foreach($riwayat_nota as $data){
+            $data_riwayat_nota[$i]['id'] = $data->id;
+            $data_riwayat_nota[$i]['pembeli'] = $data->nama_pembeli;
+            $data_riwayat_nota[$i]['montir'] = $data->montir;
+            $data_riwayat_nota[$i]['tgl_nota'] = $data->tgl_nota;
+            $riwayat_pesanan = Riwayat_pesanan::where('riwayat_nota_id', $data->id)->get();
+            $jumlah_transaksi = 0;
+            foreach($riwayat_pesanan as $pesanan){
+                $jumlah_transaksi += $pesanan->jumlah * $pesanan->harga;
+            }
+            $data_riwayat_nota[$i]['jumlah_transaksi'] = $jumlah_transaksi;
+            $i++;
+        }
+        return view('manajemen.analisis.analisis_montir', compact('data_riwayat_nota'));
+    }
 }
