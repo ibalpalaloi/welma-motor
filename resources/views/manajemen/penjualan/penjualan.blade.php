@@ -6,6 +6,10 @@ Penjualan
 @endsection
 
 @section('header-scripts')
+
+<style>
+    
+</style>
     
 @endsection
 
@@ -244,7 +248,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 {{-- modal cari barang --}}
 <div class="modal fade bd-example-modal-lg" id="modal-cari-barang" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header bg-primary">
             <h4 class="modal-title text-white">Cari Barang</h4>
