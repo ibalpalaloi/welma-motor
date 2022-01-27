@@ -67,7 +67,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             </div>
                             <div class="col">
                                 <button onclick="lihat_tanggal()" class="btn btn-success p-2"><i class="feather icon-calendar"></i> Cari</button>
-                                {{-- <button onclick="export_analisis()" class="btn btn-primary p-2 float-right"><i class="feather icon-download"></i> Export Excel</button> --}}
+                                <button onclick="export_analisis()" class="btn btn-primary p-2 float-right"><i class="feather icon-download"></i> Export Excel</button>
 
                             </div>
                         
@@ -95,7 +95,8 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <td>{{$data['montir']}}</td>
                                     <td>{{$data['pembeli']}}</td>
                                     <td>{{$data['tgl_nota']}}</td>
-                                    <td>{{$data['jumlah_transaksi']}}</td>
+                                    <td>
+                                        Rp. {{number_format($data['jumlah_transaksi'],0,',','.')}}
                                     <td>
                                         <button onclick="lihat_detail_nota('{{$data['id']}}')" type="button" class="btn btn-primary">Detail</button>
                                     </td>
@@ -111,74 +112,17 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 @endsection
 
 @section('modal-content')
-{{-- modal --}}
-<div class="modal fade bd-example-modal-lg" id="modal_detail_nota" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">DETAIL NOTA</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h6 id="detail_nama_pembeli" >Nama Pembeli : </h6>
-                    <h6 id="status_pembeli">Status Pembeli : </h6>
-                </div>
-                <div class="col-sm-12">
-                    <table class="table table-striped table-bordered table-hover" style="font-size: 9pt">
-                        <thead>
-                            <th>Nama Barang</th>
-                            <th>Tipe</th>
-                            <th>Merek</th>
-                            <th>Jumlah</th>
-                            <th>Harga</th>
-                            <th>Total Harga</th>
-                            <th>Modal</th>
-                        </thead>
-                        <tbody id="tbody_detail_riwayat_pesanan">
-                            <tr>
-                                <td>
-                                    Nama Barang <br>
-                                    <small><b>Kode barang</b></small>
-        
-                                </td>
-                                <td>
-                                    Nama Barang <br>
-                                    <small><b>Kode barang</b></small>
-        
-                                </td>
-                                <td>3</td>
-                                <td>89999</td>
-                                <td>
-                                    Nama Barang <br>
-                                    <small><b>Kode barang</b></small>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-      
-         
-        </div>
-        <div class="modal-footer p-2">
-            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-danger btn-sm"><i class="feather icon-arrow-right"></i> Tutup</button>
-        </div>
-      </div>
-    </div>
-</div>
 {{-- end modal --}}
 
 @endsection
 
 @section('footer-scripts')
 <script>
+
+    var tgl = {!! json_encode($tgl) !!};
     
     function export_analisis(){
-        window.location.href = "<?=url('/')?>/analisis-export?tgl="+tgl+"&status="+status_nota;
+        window.location.href = "{{url('/')}}/analisis-montir-export?tgl="+tgl;
     }
 
     function lihat_tanggal(){

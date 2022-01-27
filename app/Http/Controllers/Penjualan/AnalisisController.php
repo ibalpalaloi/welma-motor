@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Penjualan;
 
 use App\Exports\AnalisisExport;
+use App\Exports\AnalisisExportMontir;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Riwayat_nota;
@@ -136,6 +137,13 @@ class AnalisisController extends Controller
         // return view('exports.analisis', compact('riwayat_nota'));
     }
 
+    public function export_analisis_montir(Request $request){
+        $export = new AnalisisExportMontir();
+        $export->setTanggal($request->tgl);
+        return Excel::download($export, 'montir-'.$request->tgl.'.xlsx');
+        
+    }
+
     public function analisis_montir(Request $request){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
@@ -166,6 +174,6 @@ class AnalisisController extends Controller
             $data_riwayat_nota[$i]['jumlah_transaksi'] = $jumlah_transaksi;
             $i++;
         }
-        return view('manajemen.analisis.analisis_montir', compact('data_riwayat_nota'));
+        return view('manajemen.analisis.analisis_montir', compact('data_riwayat_nota', 'tgl'));
     }
 }

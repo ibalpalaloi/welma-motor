@@ -136,6 +136,7 @@ Route::group(['middleware'=> ['auth', 'checkRole:Admin']], function() {
     Route::get('/analisis-montir', [AnalisisController::class, 'analisis_montir']);
     Route::get('/analisis-get-detail-nota/{id}', [AnalisisController::class, 'get_detail_nota']);
     Route::get('/analisis-export', [AnalisisController::class, 'export_analisis']);
+    Route::get('/analisis-montir-export', [AnalisisController::class, 'export_analisis_montir']);
 
     // barcode
     Route::get('/barcode/{kode}', [BarcodeController::class, 'barcode']);
