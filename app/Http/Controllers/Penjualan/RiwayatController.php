@@ -58,20 +58,22 @@ class RiwayatController extends Controller
         $height_paper = 5.5*72;
         $custom_size_paper = array(0, 0, $width_paper, $height_paper );
 
+        $number_random = rand(1,1000);
+
         if ($jenis == 'lihat') {
 
-            return $pdf->setPaper($custom_size_paper, 'potrait')->stream('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf', array("Attachment" => 0));
+            return $pdf->setPaper($custom_size_paper, 'potrait')->stream('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'_'.$number_random.'.pdf', array("Attachment" => 0));
         }
     
         if ($jenis == 'download') {
 
-            return $pdf->setPaper($custom_size_paper, 'potrait')->download('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'.pdf');
+            return $pdf->setPaper($custom_size_paper, 'potrait')->download('Nota_'.$riwayat_nota->nama_pembeli.'_'.$riwayat_nota->tgl_nota.'_'.$number_random.'.pdf');
         }
 
-        // $pdf = PDF::loadview('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
-        // return $pdf->stream();
+        // // // $pdf = PDF::loadview('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
+        // // // return $pdf->stream();
 
-        // return view('manajemen.nota_2', compact('riwayat_nota'));
+        // return view('manajemen.nota', compact('riwayat_nota'));
     }
 
     public function download_nota($id){

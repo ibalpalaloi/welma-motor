@@ -63,7 +63,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-header bg-light">
                 <h5>DAFTAR BARANG</h5>
@@ -79,6 +79,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                         <tr>
                             <th>Kode</th>
                             <th>Nama</th>
+                            <th>Tipe</th>
                             <th>Stok</th>
                             <th>Aksi</th>
                         </tr>
@@ -91,16 +92,17 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-header bg-light">
                 <h5>RIWAYAT BARANG MASUK</h5>
             </div>
             <div class="card-body">
-                <table class="table-datatables table table-striped table-bordered table-hover dt-responsive nowrap">
+                <table class="table table-striped table-bordered table-hover dt-responsive nowrap">
                     <thead>
                         <tr>
                             <th>Barang</th>
+                            <th>Tipe</th>
                             <th>Supplier</th>
                             <th>Jumlah Masuk</th>
                             <th>Tgl Masuk</th>
@@ -113,6 +115,9 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                 <td>{{$data->barang->nama_barang}}
                                     <br>
                                     <small><b>Kode : {{$data->barang->kode_barang}}</b></small>
+                                </td>
+                                <td style="white-space: normal;">{{$data->barang->tipe_barang}}
+                                    <br><small><b>Merk : {{$data->barang->merk}}</b></small>
                                 </td>
                                 <td>
                                     @if ($data->supplier)
@@ -141,7 +146,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 {{-- modal --}}
 <div class="modal" tabindex="-1" role="dialog" id="modal_tambah_barang_masuk">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-primary">
           <h4 class="modal-title text-white">TAMBAH BARANG MASUK</h4>
@@ -155,34 +160,54 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 <label for="exampleInputEmail1">Nama Barang</label>
                 <input readonly type="text" class="pl-2 form-control" id="tambah_barang_masuk_nama_barang" required>
             </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Merk</label>
-                <input readonly type="text" class="pl-2 form-control" id="tambah_barang_masuk_merk" required>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label for="exampleFormControlSelect1">Supplier</label>
-
-                    </div>
-                    <div class="col-sm-12">
-                        <select class="select2 form-control py-2" id="tambah_barang_masuk_nama_supplier" style="width: 100%" required>
-                            @foreach ($supplier as $data)
-                                <option value="{{$data->id}}">{{$data->nama_supplier}}</option>
-                            @endforeach
-                          </select>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Merk</label>
+                        <input readonly type="text" class="pl-2 form-control" id="tambah_barang_masuk_merk" required>
                     </div>
                 </div>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tipe Barang</label>
+                        <input readonly type="text" class="pl-2 form-control" id="tambah_barang_masuk_tipe" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="exampleFormControlSelect1">Supplier</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <select class="select2 form-control py-2" id="tambah_barang_masuk_nama_supplier" style="width: 100%" required>
+                                @foreach ($supplier as $data)
+                                    <option value="{{$data->id}}">{{$data->nama_supplier}}</option>
+                                @endforeach
+                              </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tanggal Masuk</label>
+                        <input type="date" class="form-control" id="tambah_barang_masuk_tgl_masuk" required>
+                    </div>
+                </div>
+               
         
             </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Tanggal Masuk</label>
-                <input type="date" class="form-control" id="tambah_barang_masuk_tgl_masuk" required>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Jumlah</label>
+                        <input type="number" class="form-control" id="tambah_barang_masuk_jumlah" placeholder="Jumlah Barang..." required>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Jumlah</label>
-                <input type="number" class="form-control" id="tambah_barang_masuk_jumlah" placeholder="Jumlah Barang..." required>
-            </div>
+            
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary btn-sm" onclick="post_barang_masuk()">Simpan</button>
@@ -221,9 +246,10 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         })
     }
 
-    function modal_tambah_barang_masuk(nama_barang, merk_barang,id_barang){
+    function modal_tambah_barang_masuk(nama_barang, merk_barang, tipe_barang, id_barang){
         $('#tambah_barang_masuk_nama_barang').val(nama_barang);
         $('#tambah_barang_masuk_merk').val(merk_barang);
+        $('#tambah_barang_masuk_tipe').val(tipe_barang);
         $('#tambah_barang_masuk_id_barang').val(id_barang);
         $('#modal_tambah_barang_masuk').modal('show');
     }
@@ -263,10 +289,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     }
 
     $(document).ready(function() {
-        $('.table-datatables-daftar-barang-masuk').DataTable({
-                responsive: true,
-                searching: false,
-        });
+    
 
         $(".select2").select2({
             dropdownParent: $('#modal_tambah_barang_masuk')
