@@ -52,7 +52,7 @@ class RiwayatController extends Controller
     public function nota($jenis, $id){
         $riwayat_nota = Riwayat_nota::find($id);
 
-        $pdf = PDF::loadView('manajemen.nota_2', ['riwayat_nota'=>$riwayat_nota]);
+        $pdf = PDF::loadView('manajemen.nota', ['riwayat_nota'=>$riwayat_nota]);
 
         $width_paper = 8.4*72;
         $height_paper = 5.5*72;

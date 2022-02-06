@@ -19,8 +19,8 @@
 
             margin: 10px 15px 10px;
             padding-top: 12px;
-            padding-right: 15px;
-            font-size: 7pt;
+            padding-right: 18px;
+            font-size: 7.7pt;
         }
 
         h3{
@@ -47,6 +47,11 @@
         hr{
 
             color: black;
+        }
+
+        .tabel-nota td{
+            /* border-bottom: 1px solid black; */
+            height: 18px;
         }
 
 
@@ -140,7 +145,7 @@ function tgl_indo($tanggal){
         </table>
     
         <table width="100%" class="title_information">
-            <tr >
+            <tr>
                 <td valign="top" align="left" width="50%">
                     <div class=""><strong style="padding-right: 26px;">Tanggal </strong> : {{ tgl_indo(date('Y-m-d', strtotime($riwayat_nota->tgl_nota))) }}</div>
                     {{-- <div class=""><strong style="padding-right: 20px;">Halaman </strong> : <span class="pagenum"></span></div> --}}
@@ -156,19 +161,18 @@ function tgl_indo($tanggal){
     </div>
 
 
-
-        <table width="100%" style=" border: 1px solid black;border-collapse: collapse;">
+        <table class="tabel-nota" width="100%" style=" border: 1px solid black;border-collapse: collapse;">
             <thead style="border: 1px solid black;border-collapse: collapse; ">
                 <tr height="15">
-                    <th>No.</th>
-                    <th>Kode Barang</th>
+                    <th width="1%">No.</th>
+                    <th width="17%">Kode Barang</th>
                     <th>Nama Barang</th>
-                    <th>Satuan</th>
-                    <th>Tipe</th>
-                    <th>Merek</th>
-                    <th>Jumlah</th>
-                    <th>Harga</th>
-                    <th>Total</th>
+                    <th>Tipe Barang</th>
+                    <th width="10%">Merek</th>
+                    <th width="6%">Satuan</th>
+                    <th width="6%">Jumlah</th>
+                    <th width="10%">Harga</th>
+                    <th width="12%">Total</th>
                 </tr>
             </thead>
             <tbody align="center">
@@ -179,16 +183,18 @@ function tgl_indo($tanggal){
     
                 @foreach ($riwayat_nota->riwayat_pesanan as $pesanan)
                     <tr>
-                        <th scope="row">{{$loop->iteration}}</th>
+                        <td scope="row">{{$loop->iteration}}</td>
                         @if ($pesanan->barang->jenis == 'barang')
                             <td>{{$pesanan->kode_barang}}</td>
                         @else
                             <td>Jasa</td>
                         @endif
-                        <td align="left">{{$pesanan->nama_barang}}</td>
-                        <td>{{$pesanan->barang->satuan}}</td>
-                        <td style="white-space: normal;">{{$pesanan->barang->tipe_barang}}</td>
+                        <td align="left" style="white-space: normal;"><b>{{$pesanan->nama_barang}}</b> 
+                        </td>
+                        <td>{{$pesanan->barang->tipe_barang}}</td>
                         <td>{{$pesanan->barang->merk}}</td>
+                        <td>{{$pesanan->barang->satuan}}</td>
+                
                         <td>{{$pesanan->jumlah}}</td>
                         <td align="right">Rp. {{number_format($pesanan->harga,0,',','.')}}</td>
                         <td align="right">Rp. {{number_format($pesanan->jumlah * $pesanan->harga,0,',','.')}}</td>
@@ -196,42 +202,45 @@ function tgl_indo($tanggal){
                     @php
                         $total_harga += $pesanan->jumlah * $pesanan->harga
                     @endphp
-                @if ($loop->iteration % 15 == 0)
+                @if ($loop->iteration % 10 == 0)
                     </tbody>
                 </table>
                 <div class="page-break"></div>
   
-                <table width="100%" style=" border: 1px solid black;border-collapse: collapse;">
+                <table class="tabel-nota" width="100%" style=" border: 1px solid black;border-collapse: collapse;">
                     <thead style="border: 1px solid black;border-collapse: collapse; ">
-                        <tr height="15">
-                            <th>No.</th>
-                            <th>Kode Barang</th>
+                        <tr height="15" >
+                            <th width="1%">No.</th>
+                            <th width="17%">Kode Barang</th>
                             <th>Nama Barang</th>
-                            <th>Satuan</th>
-                            <th>Tipe</th>
-                            <th>Merek</th>
-                            <th>Jumlah</th>
-                            <th>Harga</th>
-                            <th>Total</th>
+                            <th>Tipe Barang</th>
+                            <th width="10%">Merek</th>
+                            <th width="6%">Satuan</th>
+                            <th width="6%">Jumlah</th>
+                            <th width="10%">Harga</th>
+                            <th width="12%">Total</th>
                         </tr>
                     </thead>
                     <tbody align="center"> 
-                        @if ($loop->iteration % 15 != 0)
-                            <tr>
-                                <th scope="row">{{$loop->iteration}}</th>
-                                @if ($pesanan->barang->jenis == 'barang')
-                                    <td>{{$pesanan->kode_barang}}</td>
-                                @else
-                                    <td>Jasa</td>
-                                @endif
-                                <td align="left">{{$pesanan->nama_barang}}</td>
-                                <td>{{$pesanan->barang->satuan}}</td>
-                                <td style="white-space: normal;">{{$pesanan->barang->tipe_barang}}</td>
-                                <td>{{$pesanan->barang->merk}}</td>
-                                <td>{{$pesanan->jumlah}}</td>
-                                <td align="right">Rp. {{number_format($pesanan->harga,0,',','.')}}</td>
-                                <td align="right">Rp. {{number_format($pesanan->jumlah * $pesanan->harga,0,',','.')}}</td>
-                            </tr>
+                        @if ($loop->iteration % 10 != 0)
+                        <tr>
+                            <td scope="row">{{$loop->iteration}}</td>
+                            @if ($pesanan->barang->jenis == 'barang')
+                                <td>{{$pesanan->kode_barang}}</td>
+                            @else
+                                <td>Jasa</td>
+                            @endif
+                            <td align="left" style="white-space: normal;"><b>{{$pesanan->nama_barang}}</b> 
+                      
+                            </td>
+                            <td>{{$pesanan->barang->tipe_barang}}</td>
+                            <td>{{$pesanan->barang->merk}}</td>
+                            <td>{{$pesanan->barang->satuan}}</td>
+                    
+                            <td>{{$pesanan->jumlah}}</td>
+                            <td align="right">Rp. {{number_format($pesanan->harga,0,',','.')}}</td>
+                            <td align="right">Rp. {{number_format($pesanan->jumlah * $pesanan->harga,0,',','.')}}</td>
+                        </tr>
                             @php
                                 $total_harga += $pesanan->jumlah * $pesanan->harga
                             @endphp

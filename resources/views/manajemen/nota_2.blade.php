@@ -166,7 +166,8 @@ function tgl_indo($tanggal){
                 <tr height="15">
                     <th width="1%">No.</th>
                     <th width="17%">Kode Barang</th>
-                    <th >Nama Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Tipe Barang</th>
                     <th width="10%">Merek</th>
                     <th width="6%">Satuan</th>
                     <th width="6%">Jumlah</th>
@@ -189,8 +190,8 @@ function tgl_indo($tanggal){
                             <td>Jasa</td>
                         @endif
                         <td align="left" style="white-space: normal;"><b>{{$pesanan->nama_barang}}</b> 
-                        <br><small>Tipe : {{$pesanan->barang->tipe_barang}}</small>
                         </td>
+                        <td>{{$pesanan->barang->tipe_barang}}</td>
                         <td>{{$pesanan->barang->merk}}</td>
                         <td>{{$pesanan->barang->satuan}}</td>
                 
@@ -212,6 +213,7 @@ function tgl_indo($tanggal){
                             <th width="1%">No.</th>
                             <th width="17%">Kode Barang</th>
                             <th>Nama Barang</th>
+                            <th>Tipe Barang</th>
                             <th width="10%">Merek</th>
                             <th width="6%">Satuan</th>
                             <th width="6%">Jumlah</th>
@@ -229,8 +231,9 @@ function tgl_indo($tanggal){
                                 <td>Jasa</td>
                             @endif
                             <td align="left" style="white-space: normal;"><b>{{$pesanan->nama_barang}}</b> 
-                            <br><small>Tipe : {{$pesanan->barang->tipe_barang}}</small>
+                      
                             </td>
+                            <td>{{$pesanan->barang->tipe_barang}}</td>
                             <td>{{$pesanan->barang->merk}}</td>
                             <td>{{$pesanan->barang->satuan}}</td>
                     

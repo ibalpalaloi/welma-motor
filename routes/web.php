@@ -72,6 +72,11 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
     Route::post('/penjualan-ubah-montir', [PenjualanController::class, 'ubah_montir']);
     Route::post('/penjualan/ubah-nama-jasa', [PenjualanController::class, 'ubah_nama_jasa']);
 
+    // BARANG
+
+    Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
+
+
     // NOTA
     Route::get('/nota/{jenis}/{id}', [RiwayatController::class, 'nota']);
     Route::get('/download_nota/{id}', [RiwayatController::class, 'download_nota']);

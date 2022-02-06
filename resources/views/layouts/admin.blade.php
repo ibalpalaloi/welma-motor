@@ -63,7 +63,7 @@
                     	<a href="{{url('/penjualan')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Penjualan</span></a>
                     </li>
                  
-                    @if (Auth()->user()->roles == "Admin")
+                    
                         <li class="nav-item">
                             <a href="{{url('manajemen/pengguna')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Pengguna</span></a>
                         </li>
@@ -77,13 +77,16 @@
                                 <li class="pcoded-hasmenu"><a href="#!">Barang</a>
                                     <ul class="pcoded-submenu">
                                         <li><a href="{{url('manajemen/barang/daftar-barang')}}" >Daftar Barang</a></li>
+                                        @if (Auth()->user()->roles == "Admin")
                                         <li><a href="{{url('manajemen/barang/penerimaan-barang')}}" >Penerimaan Barang</a></li>
+                                        @endif
                                     </ul>
                                 </li>
+                                @if (Auth()->user()->roles == "Admin")
                                 <li><a href="{{url('/manajemen/supplier/data-supplier')}}" >Supplier</a></li>
+                                @endif
                             </ul>
                         </li>
-                    @endif
                         
                         <li class="nav-item pcoded-hasmenu">
                             <a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Riwayat</span><span class="ripple ripple-animate" style="height: 165.438px; width: 165.438px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(83, 87, 99); opacity: 0.4; top: -63.719px; left: 29.256px;"></span></a>
@@ -308,6 +311,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
+
         $(document).ready(function() {
             $('.table-datatables').DataTable({
                     responsive: true,
@@ -335,6 +339,7 @@
 				break;
 		}
 	    @endif
+
 
     </script>
 

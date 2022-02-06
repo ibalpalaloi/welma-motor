@@ -94,6 +94,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <br>
                                     <small><b>Satuan : {{$data->satuan}}</b></small>
                                 </td>
+                                
                                 <td id="tdata_jumlah_barang{{$data->id}}">
                                     @php
                                     if ($data->stok != null) {
@@ -102,20 +103,23 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                         $stok = 0; 
                                     }
                                     @endphp
-                                    <div ondblclick="show_ubah_stok('{{$data->id}}')">
+                                    <div @if (Auth()->user()->roles == "Admin") ondblclick="show_ubah_stok('{{$data->id}}')" @endif>
                                         <input class="form-control" type="number" id="stok{{$data->id}}" readonly
                                         value="{{$stok}}" style="cursor: pointer;">
                                     </div>
                 
                                 </td>
+                                
                                 <td>
                                     <button class="btn btn-sm btn-primary" onclick="modal_detail_barang('{{$data->id}}')"><i class="feather icon-grid"></i> Detail Barang </button>
                                     <div class="btn-group mr-2">
                                         <button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lainnya</button>
                                         <div class="dropdown-menu">
                                             <a href="data:image/png;base64,{{DNS1D::getBarcodePNG($data->kode_barang, 'C128', 1 , 36 , array(0,0,0) , true)}}" download="{{ucwords($data->nama_barang)}}_{{$data->kode_barang}}" target="_blank" class="dropdown-item"><i class="feather icon-printer"></i> Barcode</a>
+                                            @if (Auth()->user()->roles == "Admin")
                                             <a class="dropdown-item" href="javascript:void(0)" onclick="modal_ubah_barang('{{$data->id}}')"><i class="feather icon-edit"></i> Ubah Barang</a>
                                             <a class="dropdown-item" hhref="javascript:void(0)" onclick="hapus_barang('{{$data->id}}')" ><i class="feather icon-trash"></i> Hapus Barang</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -225,6 +229,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 
 
+@if (Auth()->user()->roles == "Admin")
 {{-- modal tambah barang --}}
 <div class="modal fade" id="modal_tambah_barang" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -437,7 +442,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         </div>
     </div>
 </div>
-
+@endif
 
 
 
@@ -452,6 +457,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         }
     });
 
+    @if (Auth()->user()->roles == "Admin")
     function generate_code(){
         $.ajax({
             type: "get",
@@ -547,6 +553,8 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             }
         })
     }
+
+    @endif
 
     function modal_detail_barang(id){
         $.ajax({
