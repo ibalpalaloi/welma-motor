@@ -76,6 +76,7 @@ class PenjualanController extends Controller
         $barang = Barang::where('kode_barang', $kode_barang)->first();
         if(!empty($barang)){
             if($barang->stok != null){
+                
                 if($barang->stok->stok > 0){
                     $stok = Stok::where('barang_id', $barang->id)->first();
                     $stok->stok = $stok->stok - 1;
@@ -138,7 +139,7 @@ class PenjualanController extends Controller
 
     public function cari_barang(Request $request){
         $keyword = $request->keyword;
-        $barang = Barang::where('kode_barang', 'LIKE', '%'.$keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$keyword.'%')->get();
+        $barang = Barang::where('kode_barang', 'LIKE', '%'.$keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$keyword.'%')->orWhere('merk', 'LIKE', '%'.$keyword.'%')->get();
         $view = view('manajemen.penjualan.tabel_data_cari_barang', compact('barang'))->render();
         return response()->json(['view'=>$view]);
     }

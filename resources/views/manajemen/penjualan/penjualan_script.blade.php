@@ -65,7 +65,7 @@
     function get_barang(kode_barang){
         $.ajax({
             type: "get",
-            url: "{{url('/')}}/get-barang?kode_barang="+kode_barang+"&id_nota="+nota['id'],
+            url: "{{url('/')}}/penjualan/get-barang?kode_barang="+kode_barang+"&id_nota="+nota['id'],
             success:function(data){
                 console.log(data);
                 if(data.status == "sukses"){
@@ -76,6 +76,7 @@
                     $('#total_pesanan').val(data.total_pesanan);
                     $('#input_kode_barang').val("");
                     $("#input_kode_barang").focus();
+                    $('#tbody_modal_cari_barang').empty();
                     toastr.success('Data Berhasil Ditambahkan', 'Berhasil', {timeOut: 5000})
 
                 }

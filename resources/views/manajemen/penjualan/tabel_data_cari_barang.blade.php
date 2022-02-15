@@ -5,6 +5,8 @@
         </td>
         <td style="white-space: normal !important;">{{$data->nama_barang}}</td>
         <td style="white-space: normal !important;">{{$data->tipe_barang}}</td>
+        <td style="white-space: normal !important;">{{$data->merk}}</td>
+
         <td>{{$data->satuan}}</td>
         <td>{{$data->harga}}</td>
         <td>
