@@ -5,9 +5,16 @@
         }
     });
 
-    @isset($nota) var nota = {!! json_encode($nota) !!};
-    $("#input_kode_barang").focus();
+    @isset($nota) 
+        var nota = {!! json_encode($nota) !!};
+        $("#input_kode_barang").focus();
     @endisset
+
+    document.addEventListener('keydown', e => {
+        if(e.key == 'F10' && e.ctrlKey){
+            checkout(nota['id']);
+        }
+    });
 
     $('#select_montir').change(function(){
         var id_montir = $('#select_montir').val();

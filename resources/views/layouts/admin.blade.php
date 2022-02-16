@@ -308,6 +308,28 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
+
+        document.addEventListener('keydown', e => {
+            if(e.key == 'F1' && e.ctrlKey){
+                window.location.href = "{{url('/')}}/penjualan";
+            }
+            else if(e.key == 'F2' && e.ctrlKey){
+                window.location.href = "{{url('/')}}/manajemen/pengguna";
+            }
+            else if(e.key == 'F3' && e.ctrlKey){
+                window.location.href = "{{url('/')}}/manajemen/montir/daftar-montir";
+            }
+            else if(e.key == 'F6' && e.ctrlKey){
+                window.location.href = "{{url('/')}}/manajemen/barang/daftar-barang";
+            }
+            else if(e.key == 'F7' && e.ctrlKey){
+                window.location.href = "{{url('/')}}/riwayat-pesanan";
+            }
+            else if(e.key == 'F8' && e.ctrlKey){
+                window.location.href = "{{url('/')}}/analisis-penjualan";
+            }
+        });
+
         $(document).ready(function() {
             $('.table-datatables').DataTable({
                     responsive: true,
