@@ -77,7 +77,7 @@ Dashboard
                         </div>
                         <div class="col-sm-4">
 
-                            <a href="{{url('manajemen/pengguna')}}" class="btn btn-primary btn-sm btn-block"><i class="feather icon-arrow-right"></i> Penerimaan</a>
+                            <a href="{{url('manajemen/barang/penerimaan-barang')}}" class="btn btn-primary btn-sm btn-block"><i class="feather icon-arrow-right"></i> Penerimaan</a>
 
                         </div>
                     </div>

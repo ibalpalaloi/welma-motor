@@ -60,7 +60,7 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
     // penjualan
     Route::get('/penjualan', [PenjualanController::class, 'penjualan_barang']);
     Route::post('/penjualan/post-tambah-nota', [PenjualanController::class, 'post_tambah_nota']);
-    Route::get('/get-barang', [PenjualanController::class, 'get_barang']);
+    Route::get('/penjualan/get-barang', [PenjualanController::class, 'get_barang']);
     Route::get('/get-nota-pesanan/{id}', [PenjualanController::class, 'get_nota_pesanan']);
     Route::get('/penjualan/cari-barang', [PenjualanController::class, 'cari_barang']);
     Route::post('/pesanan/tambah_pesanan', [PenggunaController::class, 'tambah_pesanan']);
@@ -71,6 +71,11 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
     Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
     Route::post('/penjualan-ubah-montir', [PenjualanController::class, 'ubah_montir']);
     Route::post('/penjualan/ubah-nama-jasa', [PenjualanController::class, 'ubah_nama_jasa']);
+
+    // BARANG
+
+    Route::get('/manajemen/barang/daftar-barang', [BarangController::class, 'daftar_barang']);
+
 
     // NOTA
     Route::get('/nota/{jenis}/{id}', [RiwayatController::class, 'nota']);

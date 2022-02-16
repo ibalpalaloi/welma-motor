@@ -258,7 +258,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <input type="text" class="form-control" name="nama" id="cari_barang_input" placeholder="Kode / Nama Barang...">
+                <input type="text" class="form-control" name="nama" id="cari_barang_input" placeholder="Kode / Nama / Merk Barang ...">
             </div>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
@@ -266,6 +266,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                         <th>Kode</th>
                         <th>Nama Barang</th>
                         <th>Tipe</th>
+                        <th>Merk</th>
                         <th>Satuan</th>
                         <th>harga</th>
                         <th>stok</th>

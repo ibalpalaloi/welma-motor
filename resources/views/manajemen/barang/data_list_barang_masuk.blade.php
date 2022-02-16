@@ -26,6 +26,9 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         <br>
         <small><b>Kode : {{$data->barang->kode_barang}}</b></small>
     </td>
+    <td style="white-space: normal;">{{$data->barang->tipe_barang}}
+        <br><small><b>Merk : {{$data->barang->merk}}</b></small>
+    </td>
     <td>
         @if ($data->supplier)
             {{$data->supplier->nama_supplier}}</td>
