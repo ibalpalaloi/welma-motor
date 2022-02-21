@@ -147,6 +147,7 @@ class AnalisisController extends Controller
     public function analisis_montir(Request $request){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
+
         if(count($request->all()) > 0){
             $tgl = $request->tgl;
         }else{
@@ -174,6 +175,8 @@ class AnalisisController extends Controller
             $data_riwayat_nota[$i]['jumlah_transaksi'] = $jumlah_transaksi;
             $i++;
         }
+
+        
         return view('manajemen.analisis.analisis_montir', compact('data_riwayat_nota', 'tgl'));
     }
 }

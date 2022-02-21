@@ -1,19 +1,19 @@
 @extends('layouts.admin')
 
 @section('title')
-Penjualan | Analisis
+Penjualan | Montir
 @endsection
 
 
 @section('header-breadcumb')
 
-Penjualan | Analisis
+Penjualan | Montir
 
 @endsection
 
 @section('list-breadcumb')
 <li class="breadcrumb-item active">Analisis</li>
-<li class="breadcrumb-item active">Penjualan</li>
+<li class="breadcrumb-item active">Montir</li>
 @endsection
 
 @php
@@ -49,7 +49,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header bg-light">
-                <h5>ANALISIS PENJUALAN</h5>
+                <h5>ANALISIS MONTIR</h5>
             </div>
             <div class="card-body">
 
@@ -92,6 +92,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             </thead>
                             <tbody>
                                 @foreach ($data_riwayat_nota as $data)
+                                <tr>
                                     <td>{{$data['montir']}}</td>
                                     <td>{{$data['pembeli']}}</td>
                                     <td>{{$data['tgl_nota']}}</td>
@@ -100,6 +101,9 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <td>
                                         <button onclick="lihat_detail_nota('{{$data['id']}}')" type="button" class="btn btn-primary">Detail</button>
                                     </td>
+
+                                </tr>
+                                    
                                 @endforeach
                             </tbody>
                         </table>
@@ -130,8 +134,6 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
         var status_nota = $('#select_status_nota').val();
         if(tgl != ""){
             window.location.href = "{{url('/')}}/analisis-montir?tgl="+tgl;
-
-
         }
     }
 
