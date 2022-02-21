@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Riwayat_nota;
 use App\Models\Riwayat_pesanan;
 use App\Models\User;
+use App\Models\Barang;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AnalisisController extends Controller
@@ -159,9 +160,12 @@ class AnalisisController extends Controller
             ['montir',  '!=', null],
             ['tgl_nota', $tgl]
         ])->get();
-        
+
+        // dd($riwayat_nota);
+    
         $data_riwayat_nota = array();
         $i = 0;
+        
         foreach($riwayat_nota as $data){
             $data_riwayat_nota[$i]['id'] = $data->id;
             $data_riwayat_nota[$i]['pembeli'] = $data->nama_pembeli;
