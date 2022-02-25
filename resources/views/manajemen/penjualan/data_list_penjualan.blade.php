@@ -13,8 +13,11 @@
             readonly  ondblclick="show_input_ubah_nama_jasa('{{$pesanan->id}}')"> 
         </td>
         @else
-        <td>
-            {{strtoupper($pesanan->barang->nama_barang)}}
+        <td @if (Auth()->user()->roles == "Admin") ondblclick="show_input_ubah_nama_jasa('{{$pesanan->id}}')" @endif >
+            <span id="tdata_nama_jasa{{$pesanan->id}}">
+                {{strtoupper($pesanan->barang->nama_barang)}}
+            </span>
+            
             <br>
             <small><b>Kode : {{$pesanan->barang->kode_barang}}</b></small>
         </td>

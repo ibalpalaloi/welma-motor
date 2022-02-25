@@ -111,7 +111,7 @@ class PenjualanController extends Controller
                         ['barang_id', $id_barang],
                         ['nota_id', $id_nota]
         ])->first();
-        if(!empty($pesanan)){
+        if(!empty($pesanan) && $pesanan->barang->jenis != "jasa"){
             $pesanan->jumlah = $pesanan->jumlah + 1;
             $pesanan->save();
         }else{

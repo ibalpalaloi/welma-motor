@@ -30,6 +30,10 @@
         })
     });
 
+    function show_input_ubah_barang(id){
+        console.log(id);
+    }
+
     function modal_tambah_nota(){
         $('#modal-tambah-nota.modal').modal('show');
     }
@@ -147,7 +151,7 @@
             url: "{{url('/')}}/get-pesanan/"+id,
             success:function(data){
                 console.log(data);
-                html = '<input  class="form-control" type="text" id="input_nama_jasa'+id+'" onkeydown="post_nama_jasa('+id+')" value="'+nama_jasa+'">';
+                html = '<input  class="form-control" type="text" id="input_nama_jasa'+id+'" onkeydown="post_nama_jasa('+id+')" value="'+data.pesanan['nama_barang']+'">';
                 $('#tdata_nama_jasa'+id).html(html);
             }
         })
