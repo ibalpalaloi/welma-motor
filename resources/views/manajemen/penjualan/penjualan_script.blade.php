@@ -141,18 +141,17 @@
         })
     }
 
-    function show_input_ubah_nama_jasa(id){
+    function show_input_ubah_nama(id){
 
-        var nama_jasa = $('#nama_jasa'+id).val();
-
-        // alert('tes');
+        var nama = $('#nama'+id).html();
+        // alert(nama);
         $.ajax({
             type: "get",
             url: "{{url('/')}}/get-pesanan/"+id,
             success:function(data){
                 console.log(data);
-                html = '<input  class="form-control" type="text" id="input_nama_jasa'+id+'" onkeydown="post_nama_jasa('+id+')" value="'+data.pesanan['nama_barang']+'">';
-                $('#tdata_nama_jasa'+id).html(html);
+                html = '<input  class="form-control" type="text" id="input_nama'+id+'" onkeydown="post_nama('+id+')" value="'+data.pesanan['nama_barang']+'">';
+                $('#tdata_nama'+id).html(html);
             }
         })
     }
@@ -177,11 +176,11 @@
         }
     }
 
-    function post_nama_jasa(id){
-        var nama = $('#input_nama_jasa'+id).val();
+    function post_nama(id){
+        var nama = $('#input_nama'+id).val();
         if(event.keyCode === 13){
-            ajax_ubah_nama_jasa(id, nama);
-            toastr.success('Nama Jasa Berhasil Diubah', 'Berhasil', {timeOut: 5000})
+            ajax_ubah_nama(id, nama);
+            toastr.success('Nama Berhasil Diubah', 'Berhasil', {timeOut: 5000})
         }
     }
 
@@ -200,14 +199,15 @@
     }
 
 
-    function ajax_ubah_nama_jasa(id, nama){
+    function ajax_ubah_nama(id, nama){
         $.ajax({
             type: "post",
-            url: "{{url('/')}}/penjualan/ubah-nama-jasa",
-            data: {'id': id, 'nama_jasa':nama, "_token": "{{ csrf_token() }}"},
+            url: "{{url('/')}}/penjualan/ubah-nama",
+            data: {'id': id, 'nama':nama, "_token": "{{ csrf_token() }}"},
             success:function(data){
-                html ='<input type="text" id="nama_jasa'+id+'" class="form-control-plaintext p-0" style="cursor: pointer;"  value="'+nama+'" readonly  ondblclick="show_input_ubah_nama_jasa('+id+')">'; 
-                $('#tdata_nama_jasa'+id).html(html);
+
+                html ='<div id="nama'+id+'" class="form-control-plaintext p-0" style="cursor: pointer;">'+nama.toUpperCase()+'</div>'; 
+                $('#tdata_nama'+id).html(html);
             }
         })
     }
