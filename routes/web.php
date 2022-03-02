@@ -70,7 +70,7 @@ Route::group(['middleware'=> ['auth', 'checkRole:Kasir,Admin']], function() {
     Route::post('/penjualan/ubah-harga-satuan', [PenjualanController::class, 'ubah_harga_satuan']);
     Route::get('/hapus_nota/{id}', [PenjualanController::class, 'hapus_nota']);
     Route::post('/penjualan-ubah-montir', [PenjualanController::class, 'ubah_montir']);
-    Route::post('/penjualan/ubah-nama-jasa', [PenjualanController::class, 'ubah_nama_jasa']);
+    Route::post('/penjualan/ubah-nama', [PenjualanController::class, 'ubah_nama']);
 
     // BARANG
 

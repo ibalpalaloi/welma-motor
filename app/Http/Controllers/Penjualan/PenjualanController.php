@@ -233,9 +233,9 @@ class PenjualanController extends Controller
     }
 
 
-    public function ubah_nama_jasa(Request $request){
+    public function ubah_nama(Request $request){
         $pesanan = Pesanan::find($request->id);
-        $pesanan->nama_barang = $request->nama_jasa;
+        $pesanan->nama_barang = $request->nama;
         $pesanan->save();
 
         return response()->json(['pesanan'=>$pesanan]);
