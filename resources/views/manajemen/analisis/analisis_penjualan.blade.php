@@ -269,15 +269,15 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                     table += "<td>"+data_pesanan[i]['tipe']+"</td>";
                     table += "<td>"+data_pesanan[i]['merk']+"</td>";
                     table += "<td>"+data_pesanan[i]['jumlah']+"</td>";
-                    table += "<td>Rp. "+data_pesanan[i]['harga']+"</td>";
-                    table += "<td>Rp. "+data_pesanan[i]['total']+"</td>";
-                    table += "<td>Rp. "+data_pesanan[i]['harga_beli']+"<br><small><b>Keuntungan : Rp. "+data_pesanan[i]['keuntungan']+"</b></small></td>";
+                    table += "<td> "+formatRupiah(data_pesanan[i]['harga'])+"</td>";
+                    table += "<td> "+formatRupiah(data_pesanan[i]['total'])+"</td>";
+                    table += "<td> "+formatRupiah(data_pesanan[i]['harga_beli'])+"<br><small><b>Keuntungan : "+formatRupiah(data_pesanan[i]['keuntungan'])+"</b></small></td>";
                     table += "</tr>";
                 }
                 table += "<tr>"
                 table += "<td colspan='5'><b>Total</b></td>"
-                table += "<td><b>Rp. "+data.total_harga+"</b></td>"
-                table += "<td><b>Rp. "+data.total_modal+"</b><br><small><b>Keuntungan : Rp. "+data.total_keuntungan+"</b></small></td>";
+                table += "<td><b> "+formatRupiah(data.total_harga)+"</b></td>"
+                table += "<td><b> "+formatRupiah(data.total_modal)+"</b><br><small><b>Keuntungan : "+formatRupiah(data.total_keuntungan)+"</b></small></td>";
                 table += "</tr>"
                 $('#tbody_detail_riwayat_pesanan').html(table);
                 $('#detail_nama_pembeli').html("Nama Pembeli : "+data.riwayat_nota['nama_pembeli']);
@@ -287,6 +287,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 $('#modal_detail_nota').modal('show');
             }
         })
+    }
+    const formatRupiah = (money) => {
+        return new Intl.NumberFormat('id-ID',
+            { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
+        ).format(money);
     }
 </script>
 @endsection
