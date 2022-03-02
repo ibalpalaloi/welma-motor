@@ -145,7 +145,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     <td>
                                         Rp. {{number_format($data['jumlah_transaksi'],0,',','.')}}
                                     <td>
-                                        <button onclick="lihat_detail_nota('{{$data['id']}}')" type="button" class="btn btn-primary">Detail</button>
+                                        <button onclick="lihat_detail_nota('{{$data['id']}}')" type="button" class="btn btn-primary btn-sm "><i class="feather icon-grid"></i> Detail</button>
                                     </td>
 
                                 </tr>
