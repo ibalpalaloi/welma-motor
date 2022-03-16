@@ -13,8 +13,18 @@ use App\Models\Stok;
 class BarangController extends Controller
 {
     //
-    public function daftar_barang(){
+    public function daftar_barang(Request $request){
         $barang = Barang::OrderBy('nama_barang','asc')->get();
+        if(count($request->all())>0){
+            if($request->keyword != ""){
+                $barang = Barang::where('nama_barang', 'LIKE', '%'.$request->keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$request->keyword.'%')->get();
+            }
+            else{
+                $barang = Barang::OrderBy('nama_barang','asc')->get();
+            }
+            $view = view('manajemen.barang.data_daftar_barang', compact('barang'))->render();
+            return response()->json(['view'=>$view]);
+        }
         return view('manajemen.barang.daftar_barang', compact('barang'));
     }
 
