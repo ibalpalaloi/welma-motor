@@ -182,11 +182,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             <thead>
                                 <tr>
                                     <th>Kode</th>
-                                    <th>Barang</th>
-                                    <th>Tipe</th>
-                                    <th>Merek</th>
-                                    <th width="">Harga</th>
-                                    <th width="7%">Jumlah</th>
+                                    <th width="15%">Barang</th>
+                                    <th width="20%">Tipe</th>
+                                    <th width="8%">Merek</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
                                     <th>Total</th>
                                     <th></th>
                                 </tr>

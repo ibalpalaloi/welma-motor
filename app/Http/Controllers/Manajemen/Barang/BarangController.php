@@ -14,13 +14,13 @@ class BarangController extends Controller
 {
     //
     public function daftar_barang(Request $request){
-        $barang = Barang::OrderBy('nama_barang','asc')->get();
+        $barang = Barang::OrderBy('nama_barang','asc')->get()->take(20);
         if(count($request->all())>0){
             if($request->keyword != ""){
-                $barang = Barang::where('nama_barang', 'LIKE', '%'.$request->keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$request->keyword.'%')->get();
+                $barang = Barang::where('kode_barang', 'LIKE', '%'.$request->keyword.'%')->orWhere('nama_barang', 'LIKE', '%'.$request->keyword.'%')->orWhere('tipe_barang', 'LIKE', '%'.$request->keyword.'%')->orWhere('merk', 'LIKE', '%'.$request->keyword.'%')->get();
             }
             else{
-                $barang = Barang::OrderBy('nama_barang','asc')->get();
+                $barang = Barang::OrderBy('nama_barang','asc')->get()->take(20);
             }
             $view = view('manajemen.barang.data_daftar_barang', compact('barang'))->render();
             return response()->json(['view'=>$view]);

@@ -64,9 +64,11 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             
             <div class="card-body">
                 <div class="row mb-4">
-                    <div class="col-lg-8">
-                        <input onchange="cari_barang()" id="input_cari_barang" type="text" style="height: 40px; width: 40%" class="bg-light" placeholder="Cari Barang">
-                        <button onclick="cari_barang()" style="height: 38px" class="btn btn-primary">Cari</button>
+                    <div class="col-sm-4">
+                        <input onchange="cari_barang()" id="input_cari_barang" type="text" class="bg-light form-control" placeholder="Cari Barang...">
+                    </div>
+                    <div class="col">
+                        <button onclick="cari_barang()" class="btn btn-primary"><i class="feather icon-search"></i> Cari</button>
                     </div>
                 </div>
                 <table id="" style="font-size: 14px; width:100%;" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
