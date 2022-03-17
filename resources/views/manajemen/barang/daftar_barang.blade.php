@@ -71,7 +71,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                         <button onclick="cari_barang()" class="btn btn-primary"><i class="feather icon-search"></i> Cari</button>
                     </div>
                 </div>
-                <table id="" style="font-size: 14px; width:100%;" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+                <table id="" style="font-size: 14px; width:100%;" class="table-datatables-barang display table table-striped table-bordered table-hover dt-responsive nowrap">
                     <thead>
                         <tr>
                             <th width="1%">No.</th>
@@ -602,5 +602,14 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             }
         })
     }
+
+    $(document).ready(function() {
+        $('.table-datatables-barang').DataTable({
+                responsive: true,
+                paging: false,
+                searching: false,
+                info:false,
+            });
+    });
 </script>
 @endsection
