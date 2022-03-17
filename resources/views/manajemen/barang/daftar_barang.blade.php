@@ -63,7 +63,15 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
             </div>
             
             <div class="card-body">
-                <table id="" style="font-size: 14px; width:100%;" class="table-datatables display table table-striped table-bordered table-hover dt-responsive nowrap">
+                <div class="row mb-4">
+                    <div class="col-sm-4">
+                        <input onchange="cari_barang()" id="input_cari_barang" type="text" class="bg-light form-control" placeholder="Cari Barang...">
+                    </div>
+                    <div class="col">
+                        <button onclick="cari_barang()" class="btn btn-primary"><i class="feather icon-search"></i> Cari</button>
+                    </div>
+                </div>
+                <table id="" style="font-size: 14px; width:100%;" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
                     <thead>
                         <tr>
                             <th width="1%">No.</th>
@@ -74,7 +82,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                             <th width="7%">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody_daftar_barang">
                         @foreach ($barang as $data)
                             <tr id="trow_barang{{$data->id}}">
                                 <td>{{$loop->iteration}}.</td>
@@ -571,6 +579,26 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 $('#detail_harga_modal').val(detail_barang['harga_beli']);
                 $('#detail_merk').val(detail_barang['merk']);
                 $('#modal_detail_barang').modal('show');
+            }
+        })
+    }
+
+    $( "#input_cari_barang" ).change(function() {
+        cari_barang();
+    });
+
+    function cari_barang(){
+        var keyword = $('#input_cari_barang').val();
+        ajax_cari_barang(keyword);
+    }
+
+    function ajax_cari_barang(keyword){
+        $.ajax({
+            type: 'GET',
+            url: '?keyword='+keyword,
+            success:function(data){
+                console.log(data);
+                $('#tbody_daftar_barang').html(data.view);
             }
         })
     }
