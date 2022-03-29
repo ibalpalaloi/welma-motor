@@ -20,27 +20,30 @@ class AnalisisController extends Controller
         $date_today = date("Y-m-d");
 
         if(!empty($request->all())){
-          
             if($request->status == "umum"){
                 $nota = Riwayat_nota::where([
-                    ['tgl_nota', $request->tgl], ['status', 'umum']
+                    ['tgl_nota', ">=" , $request->tgl_mulai], ['tgl_nota', '<=', $request->tgl_akhir], ['status', 'umum']
                 ])->get();
             }elseif($request->status == "dinas"){
                 $nota = Riwayat_nota::where([
-                    ['tgl_nota', $request->tgl], ['status', 'dinas']
+                    ['tgl_nota', ">=" , $request->tgl_mulai], ['tgl_nota', '<=', $request->tgl_akhir], ['status', 'dinas']
                 ])->get();
             }else{
-                $nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
+                $nota = Riwayat_nota::where([
+                    ['tgl_nota', ">=" , $request->tgl_mulai], ['tgl_nota', '<=', $request->tgl_akhir]
+                ])->get();
             }
 
-            $tgl = $request->tgl;
+            $tgl_mulai = $request->tgl_mulai;
+            $tgl_akhir = $request->tgl_akhir;
 
             $status = $request->status;
 
         }
         else{
             $nota = Riwayat_nota::where('tgl_nota', $date_today)->get();
-            $tgl = $date_today;
+            $tgl_mulai = $date_today;
+            $tgl_akhir = $date_today;
             $status = 'semua';
 
         }
@@ -60,8 +63,15 @@ class AnalisisController extends Controller
             $total_modal = 0;
             foreach($data->riwayat_pesanan as $pesanan){
                 $total_harga_pernota += $pesanan->harga;
-                $total_keuntungan_pernota += $pesanan->harga - $pesanan->barang->harga_beli;
-                $total_modal += $pesanan->barang->harga_beli;
+                if($pesanan->barang){
+                    $total_keuntungan_pernota += $pesanan->harga - $pesanan->barang->harga_beli;
+                    $total_modal += $pesanan->barang->harga_beli;
+                }
+                else{
+                    $total_keuntungan_pernota += $pesanan->harga - 0;
+                    $total_modal += 0;
+                }
+                
             } 
             $data_nota[$i]['total_harga'] = $total_harga_pernota;
             $data_nota[$i]['total_keuntungan'] = $total_keuntungan_pernota;
@@ -70,7 +80,7 @@ class AnalisisController extends Controller
             $total_keuntungan += $total_keuntungan_pernota;
             $i++;
         }
-        return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan', 'tgl','status'));
+        return view('manajemen.analisis.analisis_penjualan', compact('data_nota', 'total_harga', 'total_keuntungan', 'tgl_mulai', 'tgl_akhir','status'));
     }
 
     public function get_detail_nota($id){
@@ -121,9 +131,9 @@ class AnalisisController extends Controller
     public function export_analisis(Request $request){
         $export = new AnalisisExport();
 
-        $export->setTanggal($request->tgl);
+        $export->setTanggal($request->tgl_mulai, $request->tgl_akhir);
         $export->setStatusNota($request->status);
-        return Excel::download($export, $request->tgl.'.xlsx');
+        return Excel::download($export, "(".$request->tgl_mulai.")"." - "."(".$request->tgl_akhir.")".'.xlsx');
 
         // if ($request->status == 'semua') {
         //     $riwayat_nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();

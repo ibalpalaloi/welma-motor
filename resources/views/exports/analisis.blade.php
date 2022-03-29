@@ -42,9 +42,17 @@
                 @foreach ($data->riwayat_pesanan as $pesanan)
                 <tr>
                     <td>{{ucwords($pesanan->nama_barang)}}</td>
-                    <td>{{$pesanan->barang->kode_barang}}</td>
-                    <td>{{$pesanan->barang->tipe_barang}}</td>
-                    <td>{{$pesanan->barang->merk}}</td>
+                    
+                    @if ($pesanan->barang)
+                        <td>{{$pesanan->barang->kode_barang}}</td>
+                        <td>{{$pesanan->barang->tipe_barang}}</td>
+                        <td>{{$pesanan->barang->merk}}</td>
+                    @else
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    @endif
+                    
                     <td>{{$pesanan->jumlah}}</td>
                     <td>{{$pesanan->harga}}</td>
                     <td>{{$pesanan->jumlah * $pesanan->harga}}</td>

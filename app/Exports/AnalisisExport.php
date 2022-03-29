@@ -12,7 +12,8 @@ class AnalisisExport implements FromView
     /**
     * @return \Illuminate\Support\Collection
     */
-    private $tanggal;
+    private $tanggal_mulai;
+    private $tanggal_akhir;
     private $nota;
 
     public function setStatusNota($nota){
@@ -20,9 +21,10 @@ class AnalisisExport implements FromView
         $this->nota = $nota;
     }
 
-    public function setTanggal($tanggal)
+    public function setTanggal($tanggal_mulai, $tanggal_akhir)
     {
-        $this->tanggal = $tanggal;
+        $this->tanggal_mulai = $tanggal_mulai;
+        $this->tanggal_akhir = $tanggal_akhir;
     }
 
     
@@ -33,10 +35,14 @@ class AnalisisExport implements FromView
         $cek_status_nota = $this->nota;
 
         if ($cek_status_nota == 'semua') {
-            $riwayat_nota = Riwayat_nota::where('tgl_nota', $this->tanggal)->get();
+            $riwayat_nota = Riwayat_nota::where([
+                ['tgl_nota', ">=" , $this->tanggal_mulai], ['tgl_nota', '<=', $this->tanggal_akhir]
+            ])->get();;
 
         } else {
-            $riwayat_nota = Riwayat_nota::where('tgl_nota', $this->tanggal)->where('status', $this->nota)->get();
+            $riwayat_nota = Riwayat_nota::where([
+                ['tgl_nota', ">=" , $this->tanggal_mulai], ['tgl_nota', '<=', $this->tanggal_akhir], ['status', $this->nota]
+            ])->get();
 
         }
         

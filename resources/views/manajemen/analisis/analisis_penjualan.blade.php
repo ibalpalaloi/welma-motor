@@ -60,19 +60,25 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                 <div class="row">
                     <div class='col-md-12'>
                         <div class="row">
-                            <div class="col-sm-4">
-                                <label><strong>Pilih Tanggal :</strong></label>
+                            <div class="col-sm-3">
+                                <label><strong>Tanggal Awal:</strong></label>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                <label><strong>Tanggal Akhir:</strong></label>
+                            </div>
+                            <div class="col-sm-3">
                                 <label><strong>Status Nota :</strong></label>
                             </div>  
                         </div>
                         <div class="row">
 
-                            <div class="col-sm-4">
-                                <input type="date" class="form-control" id="tgl" value="{{$tgl}}">
+                            <div class="col-sm-3">
+                                <input type="date" class="form-control" id="tgl_mulai" value="{{$tgl_mulai}}">
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                <input type="date" class="form-control" id="tgl_akhir" value="{{$tgl_akhir}}">
+                            </div>
+                            <div class="col-sm-3">
                                 <select name="" id="select_status_nota" class="form-control">
                                     <option value="semua" 
                                     @if ($status == 'semua')
@@ -90,7 +96,7 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                                     >Dinas</option>
                                 </select>
                             </div>
-                            <div class="col">
+                            <div class="col-sm-3">
                                 <button onclick="lihat_tanggal()" class="btn btn-success p-2"><i class="feather icon-calendar"></i> Cari</button>
                                 <button onclick="export_analisis()" class="btn btn-primary p-2 float-right"><i class="feather icon-download"></i> Export Excel</button>
 
@@ -239,20 +245,23 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 
 @section('footer-scripts')
 <script>
-    var tgl = {!! json_encode($tgl) !!};
+    var tgl_mulai = {!! json_encode($tgl_mulai) !!};
+    var tgl_akhir = {!! json_encode($tgl_akhir) !!};
     var status_nota = {!! json_encode($status) !!};
     
     function export_analisis(){
-        window.location.href = "<?=url('/')?>/analisis-export?tgl="+tgl+"&status="+status_nota;
+        window.location.href = "<?=url('/')?>/analisis-export?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir+"&status="+status_nota;
     }
 
     function lihat_tanggal(){
-        var tgl = $('#tgl').val();
+        var tgl_mulai = $('#tgl_mulai').val();
+        var tgl_akhir = $('#tgl_akhir').val();
         var status_nota = $('#select_status_nota').val();
-        if(tgl != ""){
-            window.location.href = "{{url('/')}}/analisis-penjualan?tgl="+tgl+"&status="+status_nota;
-
-
+        if(tgl_mulai != "" && tgl_akhir != ""){
+            window.location.href = "{{url('/')}}/analisis-penjualan?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir+"&status="+status_nota;
+        }
+        else{
+            alert("Lengkapi Tanggal")
         }
     }
 
