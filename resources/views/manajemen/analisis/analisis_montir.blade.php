@@ -103,13 +103,19 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
                     <div class='col-md-12'>
                         <div class="row">
                             <div class="col-sm-4">
-                                <label><strong>Pilih Tanggal :</strong></label>
+                                <label><strong>Pilih Tanggal Awal:</strong></label>
                             </div> 
+                            <div class="col-sm-4">
+                                <label><strong>Pilih Tanggal Akhir:</strong></label>
+                            </div>
                         </div>
                         <div class="row">
 
                             <div class="col-sm-4">
-                                <input type="date" class="form-control" id="tgl">
+                                <input type="date" class="form-control" id="tgl_awal" value="{{$tgl_awal}}">
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="tgl_akhir" value="{{$tgl_akhir}}">
                             </div>
                             <div class="col">
                                 <button onclick="lihat_tanggal()" class="btn btn-success p-2"><i class="feather icon-calendar"></i> Cari</button>
@@ -169,17 +175,21 @@ return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 @section('footer-scripts')
 <script>
 
-    var tgl = {!! json_encode($tgl) !!};
-    
+    var tgl_awal = {!! json_encode($tgl_awal) !!};
+    var tgl_akhir = {!! json_encode($tgl_akhir) !!};
+
     function export_analisis(){
-        window.location.href = "{{url('/')}}/analisis-montir-export?tgl="+tgl;
+        window.location.href = "{{url('/')}}/analisis-montir-export?tgl_awal="+tgl_awal+"&tgl_akhir="+tgl_akhir;
     }
 
     function lihat_tanggal(){
-        var tgl = $('#tgl').val();
-        var status_nota = $('#select_status_nota').val();
-        if(tgl != ""){
-            window.location.href = "{{url('/')}}/analisis-montir?tgl="+tgl;
+        var tgl_awal = $('#tgl_awal').val();
+        var tgl_akhir = $('#tgl_akhir').val();
+
+        // alert(tgl_akhir);
+  
+        if(tgl_awal != "" && tgl_akhir != ""){
+            window.location.href = "{{url('/')}}/analisis-montir?tgl_awal="+tgl_awal+"&tgl_akhir="+tgl_akhir;
         }
     }
 

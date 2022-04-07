@@ -133,7 +133,7 @@ class AnalisisController extends Controller
 
         $export->setTanggal($request->tgl_mulai, $request->tgl_akhir);
         $export->setStatusNota($request->status);
-        return Excel::download($export, "(".$request->tgl_mulai.")"." - "."(".$request->tgl_akhir.")".'.xlsx');
+        return Excel::download($export, "Penjualan-(".$request->tgl_mulai.")"." - "."(".$request->tgl_akhir.")".'.xlsx');
 
         // if ($request->status == 'semua') {
         //     $riwayat_nota = Riwayat_nota::where('tgl_nota', $request->tgl)->get();
@@ -150,29 +150,46 @@ class AnalisisController extends Controller
 
     public function export_analisis_montir(Request $request){
         $export = new AnalisisExportMontir();
-        $export->setTanggal($request->tgl);
-        return Excel::download($export, 'montir-'.$request->tgl.'.xlsx');
+        $export->setTanggal($request->tgl_awal, $request->tgl_akhir);
+        return Excel::download($export, "Montir-(".$request->tgl_awal.")"." - "."(".$request->tgl_akhir.")".'.xlsx');
         
     }
 
     public function analisis_montir(Request $request){
         date_default_timezone_set( 'Asia/Singapore' ) ;
+
         $date_today = date("Y-m-d");
 
         if(count($request->all()) > 0){
-            $tgl = $request->tgl;
+            
+            // dd($request->all());
+            $riwayat_nota = Riwayat_nota::where([
+                ['montir', '!=', ''],
+                ['montir', '!=', '-'],
+                ['montir',  '!=', null],
+                ['tgl_nota', ">=" , $request->tgl_awal], ['tgl_nota', '<=', $request->tgl_akhir]
+            ])->get();
+
+            $tgl_awal = $request->tgl_awal;
+            $tgl_akhir = $request->tgl_akhir;
+
+            
         }else{
-            $tgl = $date_today;
+      
+            $riwayat_nota = Riwayat_nota::where([
+                ['montir', '!=', ''],
+                ['montir', '!=', '-'],
+                ['montir',  '!=', null],
+                ['tgl_nota', $date_today]
+            ])->get();
+
+            $tgl_awal = $date_today;
+            $tgl_akhir = $date_today;
+
         }
-        $riwayat_nota = Riwayat_nota::where([
-            ['montir', '!=', ''],
-            ['montir', '!=', '-'],
-            ['montir',  '!=', null],
-            ['tgl_nota', $tgl]
-        ])->get();
 
         // dd($riwayat_nota);
-    
+        
         $data_riwayat_nota = array();
         $i = 0;
         
@@ -191,6 +208,6 @@ class AnalisisController extends Controller
         }
 
         
-        return view('manajemen.analisis.analisis_montir', compact('data_riwayat_nota', 'tgl'));
+        return view('manajemen.analisis.analisis_montir', compact('data_riwayat_nota', 'tgl_awal','tgl_akhir'));
     }
 }

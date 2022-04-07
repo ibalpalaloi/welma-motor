@@ -14,10 +14,13 @@ class AnalisisExportMontir implements FromView
     /**
     * @return \Illuminate\Support\Collection
     */
-    private $tanggal;
-    public function setTanggal($tanggal)
+    private $tanggal_awal;
+    private $tanggal_akhir;
+
+    public function setTanggal($tanggal_awal, $tanggal_akhir)
     {
-        $this->tanggal = $tanggal;
+        $this->tanggal_awal = $tanggal_awal;
+        $this->tanggal_akhir = $tanggal_akhir;
     }
 
     public function view(): View
@@ -27,7 +30,9 @@ class AnalisisExportMontir implements FromView
             ['montir', '!=', ''],
             ['montir', '!=', '-'],
             ['montir',  '!=', null],
-            ['tgl_nota',$this->tanggal]
+            ['tgl_nota', ">=" , $this->tanggal_awal],
+            ['tgl_nota', '<=', $this->tanggal_akhir]
+            
         ])->get()->groupBy('montir');
         
         $data_riwayat_nota = array();
@@ -35,7 +40,7 @@ class AnalisisExportMontir implements FromView
        
         foreach ($riwayat_nota as $data => $transaksi) {
             $data_riwayat_nota[$i]['montir'] = $data;
-            $data_riwayat_nota[$i]['tanggal'] = $this->tanggal;
+            // $data_riwayat_nota[$i]['tanggal'] = $this->tanggal;
             $data_riwayat_nota[$i]['jumlah_transaksi'] = $transaksi->count();
             $total_jasa_transaksi = 0;
             $total_harga_transaksi = 0;

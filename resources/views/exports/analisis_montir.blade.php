@@ -12,7 +12,6 @@
             <tr>
                 <th rowspan="2">No.</th>
                 <th rowspan="2">Nama Montir</th>
-                <th rowspan="2">Tanggal</th>
                 <th rowspan="2">Total Jasa Transaksi</th>
                 <th rowspan="2">Total Harga Transaksi</th>
                 <th colspan="5" align="center">Transaksi</th>
@@ -37,10 +36,11 @@
                     <td rowspan="{{$row['jumlah_transaksi'] + 1}}">
                         {{$row['montir']}}
                     </td>
+                    {{-- 
                     <td rowspan="{{$row['jumlah_transaksi'] + 1}}">
                         {{$row['tanggal']}}
                     </td>
-          
+                    --}}
 
                     <td rowspan="{{$row['jumlah_transaksi'] + 1}}">
                         Rp. {{number_format($row['total_jasa_transaksi'],0,',','.')}}
